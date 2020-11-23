@@ -84,10 +84,20 @@ public class Patient_HomeActivity extends AppCompatActivity {
             }
         });
 
+        buttonView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                String patient = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                Intent intent = new Intent(getApplicationContext(), ViewBleeds.class);
+
+                intent.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
+
+                startActivity(intent);
+
+            }
+        });
 
 
     }
-
-
 }

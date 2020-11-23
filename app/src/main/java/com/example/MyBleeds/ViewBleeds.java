@@ -1,5 +1,4 @@
 package com.example.MyBleeds;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,42 +23,28 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddBleedActivity extends AppCompatActivity {
+public class ViewBleeds extends AppCompatActivity {
 
     public static final String PATIENT_NAME = "patientname";
     public static final String PATIENT_ID = "patientid";
 
-    TextView textViewArtistsName;
-    EditText editTextBleedLocation;
-    SeekBar seekBarRating;
-    ListView listViewTracks;
-    Button buttonAddTrack, buttonHome;
-
-
-    DatabaseReference databaseBleeds;
-
-    List<Bleed> bleeds;
-
     FirebaseAuth mAuth;
 
+    ListView listViewBleeds;
+    Button buttonHome;
+
+    DatabaseReference databaseBleeds;
+    List<Bleed> bleeds;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_track);
+        setContentView(R.layout.view_bleeds_activity);
         mAuth = FirebaseAuth.getInstance();
 
-        //gets button from xml
-        textViewArtistsName = (TextView) findViewById(R.id.textViewArtistName);
-        editTextBleedLocation = (EditText) findViewById(R.id.editTextName);
-        seekBarRating = (SeekBar) findViewById((R.id.seekBarRating));
-        listViewTracks = (ListView) findViewById(R.id.listViewTracks);
-        buttonAddTrack = (Button) findViewById(R.id.buttonAddTrack);
+        listViewBleeds = (ListView) findViewById(R.id.listViewBleeds);
         buttonHome = (Button) findViewById(R.id.buttonHome);
-
-
-        //to get artist name + id, it displays the artists name on the track page.
 
         Intent intent = getIntent();
 
@@ -68,17 +53,7 @@ public class AddBleedActivity extends AppCompatActivity {
         String id = intent.getStringExtra(PatientSettingsActivity.PATIENT_ID);
         String name = intent.getStringExtra(PatientSettingsActivity.PATIENT_NAME);
 
-        textViewArtistsName.setText(name);
-
-        //create new node in tracks node, the tracks id will match with the artist id
         databaseBleeds = FirebaseDatabase.getInstance().getReference("bleeds").child(id);
-
-        buttonAddTrack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveBleed();
-            }
-        });
 
 
         buttonHome.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +72,8 @@ public class AddBleedActivity extends AppCompatActivity {
 
     }
 
+
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -111,8 +88,8 @@ public class AddBleedActivity extends AppCompatActivity {
                     Bleed bleed = trackSnapshot.getValue(Bleed.class);
                     bleeds.add(bleed);
                 }
-                BleedList bleedListAdapter = new BleedList(AddBleedActivity.this, bleeds);
-                listViewTracks.setAdapter(bleedListAdapter);
+                BleedList bleedListAdapter = new BleedList(ViewBleeds.this, bleeds);
+                listViewBleeds.setAdapter(bleedListAdapter);
             }
 
             @Override
@@ -123,25 +100,4 @@ public class AddBleedActivity extends AppCompatActivity {
 
     }
 
-    //Code taken from https://www.youtube.com/watch?v=EM2x33g4syY&list=PLk7v1Z2rk4hj6SDHf_YybDeVhUT9MXaj1
-    //methods were related to music tracks, must change to project specific name.
-    private void saveBleed(){
-
-        String bleedLocation  = editTextBleedLocation.getText().toString().trim();
-        int rating = seekBarRating.getProgress();
-
-        if(!TextUtils.isEmpty(bleedLocation )){
-            String id = databaseBleeds.push().getKey();
-
-            Bleed bleed = new Bleed(id,bleedLocation , rating);
-            databaseBleeds.child(id).setValue(bleed);
-
-            Toast.makeText(this,"Bleed saved successfully", Toast.LENGTH_LONG).show();
-            editTextBleedLocation.setText("");
-        }else{
-            Toast.makeText(this,"Bleed Location should not be empty", Toast.LENGTH_LONG).show();
-        }
-        }
-
-
-    }
+}

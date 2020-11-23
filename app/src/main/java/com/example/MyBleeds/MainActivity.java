@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addArtist();
+                addPatient();
 
             }
         });
@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void addArtist(){
+    private void addPatient(){
             String name = editTextName.getText().toString().trim();
             String region = spinnerGenres.getSelectedItem().toString();
 

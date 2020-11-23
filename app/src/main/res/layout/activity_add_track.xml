@@ -12,10 +12,16 @@
     tools:context=".AddBleedActivity">
 
 
+    <Button
+        android:id="@+id/buttonHome"
+        android:layout_width="62dp"
+        android:layout_height="21dp"
+        android:text="Home" />
+
     <TextView
         android:id="@+id/textViewArtistName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="18dp"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -34,10 +40,11 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
     <SeekBar
-        android:layout_weight="1"
         android:id="@+id/seekBarRating"
         android:layout_width="match_parent"
+        android:layout_below="@id/textView2"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:max="5" />
 
 
@@ -45,8 +52,7 @@
         android:id="@+id/buttonAddTrack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add "
-         />
+        android:text="Add " />
 
     <TextView
         android:id="@+id/textView"

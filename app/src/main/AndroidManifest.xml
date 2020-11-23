@@ -20,6 +20,7 @@
         <activity android:name="com.example.MyBleeds.SignUpActivity"> </activity>
         <activity android:name=".Patient_HomeActivity"></activity>
         <activity android:name=".PatientSettingsActivity"></activity>
+        <activity android:name=".ViewBleeds"></activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 
