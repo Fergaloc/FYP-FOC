@@ -17,6 +17,15 @@
         android:layout_width="62dp"
         android:layout_height="21dp"
         android:text="Home" />
+    <TextView
+        android:id="@+id/textMyBleeds"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add a Bleed"
+        android:textColor="#2196F3"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <TextView
         android:id="@+id/textViewArtistName"
@@ -25,12 +34,34 @@
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
-    <EditText
-        android:id="@+id/editTextName"
+    <Spinner
+        android:id="@+id/SpinnerBleedLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Bleed Location"
+        android:entries="@array/bleedLocations"
  />
+
+    <Spinner
+        android:id="@+id/SpinnerBleedSide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/bleedSide"
+        />
+
+    <Spinner
+        android:id="@+id/SpinnerBleedSeverity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/bleedSeverity"
+        />
+
+    <Spinner
+        android:id="@+id/SpinnerBleedCause"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/bleedCause"
+        />
+
 
     <TextView
         android:id="@+id/textView2"
@@ -44,7 +75,7 @@
         android:layout_width="match_parent"
         android:layout_below="@id/textView2"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+
         android:max="5" />
 
 
@@ -54,21 +85,8 @@
         android:layout_height="wrap_content"
         android:text="Add " />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/buttonAddTrack"
-        android:text="Bleeds"
-        android:textAlignment="center"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        />
 
-    <ListView
-        android:id="@+id/listViewTracks"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textView"></ListView>
+
 
 
 </LinearLayout>

@@ -13,4 +13,55 @@
         <item>Waterford</item>
     </array>
 
+    //bleed location array
+    <array name="bleedLocations">
+        <item>Abdominal Bleed</item>
+        <item>Ankle</item>
+        <item>Arm</item>
+        <item>Back</item>
+        <item>Buttock</item>
+        <item>Calf</item>
+        <item>Dental Procedure</item>
+        <item>Ear</item>
+        <item>Elbow</item>
+        <item>Eye</item>
+        <item>Face</item>
+        <item>Foot</item>
+        <item>Gums</item>
+        <item>Hand</item>
+        <item>Head</item>
+        <item>Hip</item>
+        <item>Knee</item>
+        <item>Neck</item>
+        <item>Nose</item>
+        <item>Shoulder</item>
+        <item>Thigh</item>
+        <item>Toe</item>
+        <item>Tongue</item>
+        <item>Wrist</item>
+        <item>Other</item>
+    </array>
+
+    //bleed side array
+    <array name="bleedSide">
+        <item>Left</item>
+        <item>Right</item>
+        <item>N/A</item>
+    </array>
+
+    //bleed Severity Array
+    <array name="bleedSeverity">
+        <item>Mild</item>
+        <item>Moderate</item>
+        <item>Severe</item>
+    </array>
+
+    //Cause of bleed Array
+    <array name="bleedCause">
+        <item>Trauma</item>
+        <item>Spontaneous</item>
+        <item>N/A</item>
+    </array>
+
+
 </resources>

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,9 +33,8 @@ public class AddBleedActivity extends AppCompatActivity {
     TextView textViewArtistsName;
     EditText editTextBleedLocation;
     SeekBar seekBarRating;
-    ListView listViewTracks;
     Button buttonAddTrack, buttonHome;
-
+    Spinner SpinnerBleedSide, SpinnerBleedSeverity, SpinnerBleedCause, SpinnerBleedLocation;
 
     DatabaseReference databaseBleeds;
 
@@ -54,9 +54,12 @@ public class AddBleedActivity extends AppCompatActivity {
         textViewArtistsName = (TextView) findViewById(R.id.textViewArtistName);
         editTextBleedLocation = (EditText) findViewById(R.id.editTextName);
         seekBarRating = (SeekBar) findViewById((R.id.seekBarRating));
-        listViewTracks = (ListView) findViewById(R.id.listViewTracks);
         buttonAddTrack = (Button) findViewById(R.id.buttonAddTrack);
         buttonHome = (Button) findViewById(R.id.buttonHome);
+        SpinnerBleedSide = (Spinner) findViewById(R.id.SpinnerBleedSide);
+        SpinnerBleedSeverity = (Spinner) findViewById(R.id.SpinnerBleedSeverity);
+        SpinnerBleedCause = (Spinner) findViewById(R.id.SpinnerBleedCause);
+        SpinnerBleedLocation = (Spinner) findViewById(R.id.SpinnerBleedLocation);
 
 
         //to get artist name + id, it displays the artists name on the track page.
@@ -112,7 +115,6 @@ public class AddBleedActivity extends AppCompatActivity {
                     bleeds.add(bleed);
                 }
                 BleedList bleedListAdapter = new BleedList(AddBleedActivity.this, bleeds);
-                listViewTracks.setAdapter(bleedListAdapter);
             }
 
             @Override
@@ -127,13 +129,16 @@ public class AddBleedActivity extends AppCompatActivity {
     //methods were related to music tracks, must change to project specific name.
     private void saveBleed(){
 
-        String bleedLocation  = editTextBleedLocation.getText().toString().trim();
+        String bleedLocation  = SpinnerBleedLocation.getSelectedItem().toString();
         int rating = seekBarRating.getProgress();
+        String bleedSide = SpinnerBleedSide.getSelectedItem().toString();
+        String bleedSeverity = SpinnerBleedSeverity.getSelectedItem().toString();
+        String bleedCause = SpinnerBleedCause.getSelectedItem().toString();
 
         if(!TextUtils.isEmpty(bleedLocation )){
             String id = databaseBleeds.push().getKey();
 
-            Bleed bleed = new Bleed(id,bleedLocation , rating);
+            Bleed bleed = new Bleed(id,bleedLocation , rating, bleedSide, bleedSeverity, bleedCause );
             databaseBleeds.child(id).setValue(bleed);
 
             Toast.makeText(this,"Bleed saved successfully", Toast.LENGTH_LONG).show();
