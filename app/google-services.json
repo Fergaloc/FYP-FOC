@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "735259612305",
+    "firebase_url": "https://patients-332ef.firebaseio.com",
+    "project_id": "patients-332ef",
+    "storage_bucket": "patients-332ef.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:735259612305:android:7a602d763aad16a263db30",
+        "android_client_info": {
+          "package_name": "com.example.MyBleeds"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "735259612305-cq6uq2sj5es1u69ub4epv6aj6t7grmse.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYoirD8hW_FZcTFOksZciE5rTwnIAeRX4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "735259612305-cq6uq2sj5es1u69ub4epv6aj6t7grmse.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
