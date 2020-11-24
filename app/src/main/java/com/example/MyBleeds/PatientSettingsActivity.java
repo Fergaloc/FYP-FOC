@@ -35,7 +35,7 @@ public class PatientSettingsActivity extends AppCompatActivity {
 
 
     EditText editTextName;
-    Button buttonUpdate, buttonHome;
+    Button buttonUpdate, buttonHome, buttonLogOut;
     Spinner spinnerRegion;
 
     DatabaseReference databasePatients;
@@ -60,6 +60,8 @@ public class PatientSettingsActivity extends AppCompatActivity {
         spinnerRegion = (Spinner) findViewById(R.id.spinnerRegion);
         buttonUpdate = (Button) findViewById(R.id.buttonUpdatePatient);
         buttonHome = (Button) findViewById(R.id.buttonHome);
+        buttonLogOut = (Button) findViewById(R.id.buttonLogOut);
+
 
 
         listViewArtists = (ListView) findViewById(R.id.listViewArtists);
@@ -84,7 +86,6 @@ public class PatientSettingsActivity extends AppCompatActivity {
 
             });
 
-
         //Bringing user to home page, doesnt save data
         buttonHome.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -99,6 +100,20 @@ public class PatientSettingsActivity extends AppCompatActivity {
         }
 
     });
+
+
+        //Logs out user and send them to the Log-in page.
+            buttonLogOut.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FirebaseAuth.getInstance().signOut();
+                    finish();
+                    startActivity(new Intent(PatientSettingsActivity.this, LogInActivity.class));
+                }
+            });
+
+
+
 
         }
 
@@ -117,6 +132,8 @@ public class PatientSettingsActivity extends AppCompatActivity {
         return true;
 
     }
+
+
 
 
 

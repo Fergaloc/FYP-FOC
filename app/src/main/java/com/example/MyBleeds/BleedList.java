@@ -35,7 +35,7 @@ public class BleedList extends ArrayAdapter<Bleed> {
        Bleed bleed = bleeds.get(position);
 
         textViewName.setText(bleed.getBleedName());
-        textViewRating.setText(String.valueOf(bleed.getBleedRating()));
+        textViewRating.setText(String.valueOf(bleed.getBleedSeverity()));
 
         return listViewItem;
 

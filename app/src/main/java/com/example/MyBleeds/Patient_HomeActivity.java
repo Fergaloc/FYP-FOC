@@ -37,6 +37,7 @@ public class Patient_HomeActivity extends AppCompatActivity {
     Button buttonView;
     Button buttonUserSettings;
 
+
     List<Patient> patients;
 
     DatabaseReference databasePatients;

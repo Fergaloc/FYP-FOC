@@ -135,14 +135,14 @@ public class AddBleedActivity extends AppCompatActivity {
         String bleedSeverity = SpinnerBleedSeverity.getSelectedItem().toString();
         String bleedCause = SpinnerBleedCause.getSelectedItem().toString();
 
-        if(!TextUtils.isEmpty(bleedLocation )){
+        if(!TextUtils.isEmpty(bleedLocation)){
             String id = databaseBleeds.push().getKey();
 
             Bleed bleed = new Bleed(id,bleedLocation , rating, bleedSide, bleedSeverity, bleedCause );
             databaseBleeds.child(id).setValue(bleed);
 
             Toast.makeText(this,"Bleed saved successfully", Toast.LENGTH_LONG).show();
-            editTextBleedLocation.setText("");
+
         }else{
             Toast.makeText(this,"Bleed Location should not be empty", Toast.LENGTH_LONG).show();
         }
