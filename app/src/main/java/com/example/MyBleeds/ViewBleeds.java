@@ -1,11 +1,15 @@
 package com.example.MyBleeds;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -30,6 +34,8 @@ public class ViewBleeds extends AppCompatActivity {
 
     FirebaseAuth mAuth;
 
+
+    EditText filterText;
     ListView listViewBleeds;
     Button buttonHome;
 
@@ -51,7 +57,7 @@ public class ViewBleeds extends AppCompatActivity {
         bleeds = new ArrayList<>();
 
         String id = intent.getStringExtra(PatientSettingsActivity.PATIENT_ID);
-        String name = intent.getStringExtra(PatientSettingsActivity.PATIENT_NAME);
+        final String name = intent.getStringExtra(PatientSettingsActivity.PATIENT_NAME);
 
         databaseBleeds = FirebaseDatabase.getInstance().getReference("bleeds").child(id);
 
@@ -70,6 +76,25 @@ public class ViewBleeds extends AppCompatActivity {
 
         });
 
+/*
+        filterText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                (ViewBleeds.this).BleedList.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+*/
+
     }
 
 
@@ -79,7 +104,7 @@ public class ViewBleeds extends AppCompatActivity {
         super.onStart();
 
         // code to detect changes in values
-
+        // code to detect changes in values
         databaseBleeds.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -97,6 +122,7 @@ public class ViewBleeds extends AppCompatActivity {
 
             }
         });
+
 
     }
 

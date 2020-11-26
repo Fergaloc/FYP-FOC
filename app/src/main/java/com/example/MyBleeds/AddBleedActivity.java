@@ -3,11 +3,13 @@ package com.example.MyBleeds;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SeekBar;
@@ -23,17 +25,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
-public class AddBleedActivity extends AppCompatActivity {
+public class AddBleedActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     public static final String PATIENT_NAME = "patientname";
     public static final String PATIENT_ID = "patientid";
 
-    TextView textViewArtistsName;
+    TextView textViewArtistsName, textViewDate;
     EditText editTextBleedLocation;
     SeekBar seekBarRating;
-    Button buttonAddTrack, buttonHome;
+    Button buttonAddTrack, buttonHome, buttonDatePicker;
     Spinner SpinnerBleedSide, SpinnerBleedSeverity, SpinnerBleedCause, SpinnerBleedLocation;
 
     DatabaseReference databaseBleeds;
@@ -60,7 +63,8 @@ public class AddBleedActivity extends AppCompatActivity {
         SpinnerBleedSeverity = (Spinner) findViewById(R.id.SpinnerBleedSeverity);
         SpinnerBleedCause = (Spinner) findViewById(R.id.SpinnerBleedCause);
         SpinnerBleedLocation = (Spinner) findViewById(R.id.SpinnerBleedLocation);
-
+        textViewDate = (TextView) findViewById(R.id.textViewDate);
+        buttonDatePicker = (Button) findViewById(R.id.buttonDatePicker);
 
         //to get artist name + id, it displays the artists name on the track page.
 
@@ -97,8 +101,24 @@ public class AddBleedActivity extends AppCompatActivity {
             }
 
         });
-
+//https://www.youtube.com/watch?v=AdTzD96AhE0
+        // code from an online tutorial that shows a date picker once the button is picked.
+        buttonDatePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+        });
     }
+
+        private void showDatePickerDialog(){
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this ,this,
+                    Calendar.getInstance().get(Calendar.YEAR),
+                    Calendar.getInstance().get(Calendar.MONTH),
+                    Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+                    datePickerDialog.show();
+        }
+
 
     @Override
     protected void onStart() {
@@ -126,7 +146,7 @@ public class AddBleedActivity extends AppCompatActivity {
     }
 
     //Code taken from https://www.youtube.com/watch?v=EM2x33g4syY&list=PLk7v1Z2rk4hj6SDHf_YybDeVhUT9MXaj1
-    //methods were related to music tracks, must change to project specific name.
+    //saves bleed to Firebase.
     private void saveBleed(){
 
         String bleedLocation  = SpinnerBleedLocation.getSelectedItem().toString();
@@ -134,6 +154,8 @@ public class AddBleedActivity extends AppCompatActivity {
         String bleedSide = SpinnerBleedSide.getSelectedItem().toString();
         String bleedSeverity = SpinnerBleedSeverity.getSelectedItem().toString();
         String bleedCause = SpinnerBleedCause.getSelectedItem().toString();
+
+
 
         if(!TextUtils.isEmpty(bleedLocation)){
             String id = databaseBleeds.push().getKey();
@@ -149,4 +171,9 @@ public class AddBleedActivity extends AppCompatActivity {
         }
 
 
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        String date =  dayOfMonth + "/" + (month+1) +  "/ "+ year;
+        textViewDate.setText(date);
     }
+}

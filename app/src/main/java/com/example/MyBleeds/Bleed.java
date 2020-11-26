@@ -1,5 +1,7 @@
 package com.example.MyBleeds;
 
+import java.util.Date;
+
 public class Bleed {
 
             private String bleedID;
@@ -8,6 +10,8 @@ public class Bleed {
             private String bleedSide;
             private String bleedSeverity;
             private String bleedCause;
+
+
 
             //contsructor to retrieve the values
 

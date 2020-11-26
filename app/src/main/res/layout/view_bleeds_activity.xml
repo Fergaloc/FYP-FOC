@@ -17,10 +17,7 @@
         android:layout_height="21dp"
         android:text="Home" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
+
 
 
     <TextView
@@ -35,21 +32,14 @@
         android:textColor="#2196F3"
         android:textStyle="bold" />
 
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="10"
-        android:background="#0029B4F3">
 
 
-        <ListView
+    <ListView
             android:id="@+id/listViewBleeds"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></ListView>
 
-    </RelativeLayout>
+
 
 
 </LinearLayout>
