@@ -22,11 +22,35 @@
         android:entries="@array/genres" />
 
 
+
+    <Button
+        android:id="@+id/buttonDOBPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinnerRegion"
+        android:text="Select Date of Birth" />
+
+    <TextView
+        android:id="@+id/textViewDOB"
+        android:layout_below="@id/buttonDOBPicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="" />
+
+    <Spinner
+        android:id="@+id/SpinnerpatientSeverity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewDOB"
+        android:entries="@array/patientSeverity"
+        />
+
+
     <Button
         android:id="@+id/buttonUpdatePatient"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/spinnerRegion"
+        android:layout_below="@id/SpinnerpatientSeverity"
         android:text="Save Changes"
         android:textColor="#2196F3"/>
 

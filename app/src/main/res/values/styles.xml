@@ -64,4 +64,11 @@
     </array>
 
 
+    //Patient Severity
+    <array name="patientSeverity">
+        <item>Mild</item>
+        <item>Moderate</item>
+        <item>Severe</item>
+    </array>
+
 </resources>

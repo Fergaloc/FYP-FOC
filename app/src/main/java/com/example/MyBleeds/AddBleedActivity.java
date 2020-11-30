@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -50,7 +49,7 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_track);
+        setContentView(R.layout.activity_add_bleed);
         mAuth = FirebaseAuth.getInstance();
 
         //gets button from xml
@@ -154,13 +153,12 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
         String bleedSide = SpinnerBleedSide.getSelectedItem().toString();
         String bleedSeverity = SpinnerBleedSeverity.getSelectedItem().toString();
         String bleedCause = SpinnerBleedCause.getSelectedItem().toString();
-
-
+        String bleedDate = textViewDate.getText().toString();
 
         if(!TextUtils.isEmpty(bleedLocation)){
             String id = databaseBleeds.push().getKey();
 
-            Bleed bleed = new Bleed(id,bleedLocation , rating, bleedSide, bleedSeverity, bleedCause );
+            Bleed bleed = new Bleed(id,bleedLocation , rating, bleedSide, bleedSeverity, bleedCause,bleedDate );
             databaseBleeds.child(id).setValue(bleed);
 
             Toast.makeText(this,"Bleed saved successfully", Toast.LENGTH_LONG).show();

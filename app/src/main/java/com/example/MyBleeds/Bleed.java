@@ -10,6 +10,7 @@ public class Bleed {
             private String bleedSide;
             private String bleedSeverity;
             private String bleedCause;
+            private String bleedDate;
 
 
 
@@ -20,13 +21,14 @@ public class Bleed {
 
     }
 
-    public Bleed(String bleedID, String bleedName, int bleedRating, String bleedSide, String bleedSeverity, String bleedCause) {
+    public Bleed(String bleedID, String bleedName, int bleedRating, String bleedSide, String bleedSeverity, String bleedCause,String bleedDate) {
         this.bleedID = bleedID;
         this.bleedName  = bleedName;
         this.bleedRating = bleedRating;
         this.bleedSide = bleedSide;
         this.bleedSeverity = bleedSeverity;
         this.bleedCause = bleedCause;
+        this.bleedDate = bleedDate;
     }
 
     public String getBleedIDID() {
@@ -46,6 +48,8 @@ public class Bleed {
     public String getBleedSeverity() { return  bleedSeverity; }
 
     public String getBleedCause() { return  bleedCause; }
+
+    public String getBleedDate() { return  bleedDate; }
 
     }
 

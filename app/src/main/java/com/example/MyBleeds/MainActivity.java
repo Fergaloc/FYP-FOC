@@ -1,3 +1,4 @@
+/*
 package com.example.MyBleeds;
 
 import androidx.annotation.NonNull;
@@ -176,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                updatePatient(name, region );
+                updatePatient(name, region,severity,DOB );
 
                 alertDialog.dismiss();
 
@@ -205,13 +206,13 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Patient is deleted", Toast.LENGTH_LONG).show();
     }
 
-    private boolean updatePatient(String name, String region){
+    private boolean updatePatient(String name, String region,String severity, String DOB){
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("patients").child(uid);
 
-        Patient patient = new Patient( name , region);
+        Patient patient = new Patient( name , region, severity, DOB);
 
         //overide with new patient
 
@@ -245,3 +246,4 @@ public class MainActivity extends AppCompatActivity {
         }
 }
         }
+*/
