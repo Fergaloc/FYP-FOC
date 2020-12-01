@@ -33,6 +33,13 @@
         android:textStyle="bold" />
 
 
+    <ImageView
+        android:id="@+id/ProfilePic"
+        android:layout_width="178dp"
+        android:layout_height="129dp"
+        android:gravity="center"
+
+        />
 
     <ListView
             android:id="@+id/listViewBleeds"

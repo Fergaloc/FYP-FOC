@@ -65,6 +65,7 @@ public class Patient_HomeActivity extends AppCompatActivity {
 
                 intent.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
 
+
                 startActivity(intent);
 
             }

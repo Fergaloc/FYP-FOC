@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -23,6 +24,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +37,7 @@ public class ViewBleeds extends AppCompatActivity {
 
     FirebaseAuth mAuth;
 
+    ImageView ProfilePic;
 
     EditText filterText;
     ListView listViewBleeds;
@@ -41,6 +45,13 @@ public class ViewBleeds extends AppCompatActivity {
 
     DatabaseReference databaseBleeds;
     List<Bleed> bleeds;
+
+/*
+    String profilePicID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+    String imageurl = storageReference.child("images/" + profilePicID ).toString();
+    */
+
 
 
     @Override
@@ -51,6 +62,7 @@ public class ViewBleeds extends AppCompatActivity {
 
         listViewBleeds = (ListView) findViewById(R.id.listViewBleeds);
         buttonHome = (Button) findViewById(R.id.buttonHome);
+        ProfilePic = (ImageView) findViewById(R.id.ProfilePic);
 
         Intent intent = getIntent();
 
@@ -75,6 +87,12 @@ public class ViewBleeds extends AppCompatActivity {
             }
 
         });
+
+
+
+
+
+
 
 /*
         filterText.addTextChangedListener(new TextWatcher() {

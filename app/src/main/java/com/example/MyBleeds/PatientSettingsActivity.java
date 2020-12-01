@@ -1,11 +1,13 @@
 package com.example.MyBleeds;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -14,11 +16,16 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,6 +33,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageMetadata;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.w3c.dom.Text;
 
@@ -53,6 +64,17 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
 
     List<Patient> patients;
 
+    ImageView profilepic;
+
+    Uri uri;
+
+    FirebaseStorage storage;
+
+    StorageReference storageReferencere;
+
+
+
+
 
         @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +93,11 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
         SpinnerpatientSeverity = (Spinner) findViewById(R.id.SpinnerpatientSeverity);
         buttonDOBPicker = (Button) findViewById(R.id.buttonDOBPicker);
         textViewDOB = (TextView) findViewById(R.id.textViewDOB);
+        profilepic = (ImageView) findViewById(R.id.profilepic);
+
+
+        storage = FirebaseStorage.getInstance();
+        storageReferencere = storage.getReference();
 
         listViewArtists = (ListView) findViewById(R.id.listViewArtists);
 
@@ -79,17 +106,21 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
             buttonUpdate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    //Sets name of image in storage as same as user ID
+                    final String profilePicID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
                     String name = editTextName.getText().toString().trim();
                     String region = spinnerRegion.getSelectedItem().toString();
                     String DOB = textViewDOB.getText().toString();
                     String severity = SpinnerpatientSeverity.getSelectedItem().toString();
+                    String imageurl =  storageReferencere.child("images/" + profilePicID).toString();
 
                     if(TextUtils.isEmpty(name)){
                         editTextName.setError("Name Required");
                         return;
                     }
 
-                    updatePatient(name, region, DOB, severity);
+                    updatePatient(name, region, DOB, severity, imageurl);
 
                 }
 
@@ -122,6 +153,14 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
             });
 
 
+            profilepic.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    choosePicture();
+                }
+            });
+
+
             //https://www.youtube.com/watch?v=AdTzD96AhE0
             // code from an online tutorial that shows a date picker once the button is picked.
             buttonDOBPicker.setOnClickListener(new View.OnClickListener() {
@@ -131,6 +170,61 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
                 }
             });
         }
+
+//https://www.youtube.com/watch?v=CQ5qcJetYAI
+    //method to fetch image from gallery
+    private void choosePicture() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent,1);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        if(requestCode==1 && resultCode==RESULT_OK && data.getData()!=null){
+            uri = data.getData();
+            profilepic.setImageURI(uri);
+            uploadPicture();
+        }
+    }
+
+    //Provided by Android to upload file to Firebase
+    private void uploadPicture() {
+
+            final String profilePicID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        final StorageReference riversRef = storageReferencere.child("images/" + profilePicID );
+
+        riversRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+        {
+            @Override
+            public void onSuccess(Uri downloadUrl)
+            {
+                String imagereference = uri.toString();
+            }
+        });
+
+    UploadTask uploadTask = riversRef.putFile(uri);
+        riversRef.putFile(uri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Toast.makeText(getApplicationContext(), "Image uploaded", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Toast.makeText(getApplicationContext(), "Upload Failed", Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
+
+
     //https://www.youtube.com/watch?v=AdTzD96AhE0
     // code from an online tutorial that shows a date picker once the button is picked.
     private void showDatePickerDialog(){
@@ -141,24 +235,20 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
         datePickerDialog.show();
     }
 
-
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         String date =  dayOfMonth + "/" + (month+1) +  "/ "+ year;
         textViewDOB.setText(date);
     }
 
-
-
-
-
-    private boolean updatePatient(String name, String region, String DOB, String severity){
+    //
+    private boolean updatePatient(String name, String region, String DOB, String severity, String imageurl){
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("patients").child(uid);
 
-        Patient patient = new Patient( name , region, DOB, severity);
+        Patient patient = new Patient( name , region, DOB, severity,imageurl);
 
         //overide with new patient
 
