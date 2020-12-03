@@ -21,8 +21,8 @@
 
             <ImageView
                 android:id="@+id/PicImage"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_width="81dp"
+                android:layout_height="64dp"
                 android:scaleType="centerCrop" />
 
             <TextView
@@ -30,6 +30,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/PicImage"
+                android:layout_margin="10dp"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/TextViewSeverity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/TextViewNameList"
+                android:layout_margin="10dp"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/TextViewRegion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/TextViewSeverity"
+                android:layout_margin="10dp"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/TextViewDOB2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/TextViewRegion"
                 android:layout_margin="10dp"
                 android:textSize="16sp" />
         </RelativeLayout>

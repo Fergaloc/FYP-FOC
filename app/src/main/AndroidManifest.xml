@@ -9,15 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.MyBleeds.AddDoctorActivity">
+        <activity android:name="com.example.MyBleeds.SignUpActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name="com.example.MyBleeds.AddBleedActivity"></activity>
+        <activity android:name="com.example.MyBleeds.LoginDoctorActivity"> </activity>
+        <activity android:name=".DoctorHomeActivity"></activity>
         <activity android:name="com.example.MyBleeds.LogInActivity"> </activity>
-        <activity android:name="com.example.MyBleeds.SignUpActivity"> </activity>
+        <activity android:name=".ViewPatients"></activity>
+        <activity android:name=".AddDoctorActivity"></activity>
         <activity android:name=".Patient_HomeActivity"></activity>
         <activity android:name=".PatientSettingsActivity"></activity>
         <activity android:name=".ViewBleeds"></activity>

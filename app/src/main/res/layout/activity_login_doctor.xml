@@ -6,24 +6,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
-
+    //https://github.com/probelalkhan/firebase-authentication-tutorial/blob/master/app/src/main/res/layout/activity_main.xml
+    // Log in library
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1">
 
-
         <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/textView4Doctor"
+            android:layout_width="126dp"
+            android:layout_height="73dp"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:shadowColor="#2196F3"
             android:text="myBleeds"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#2196F3"
+            android:textColor="#008EFF"
             android:textStyle="bold" />
     </RelativeLayout>
 
@@ -32,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="#0029B4F3">
+        android:background="#002196F3">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,57 +40,43 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp">
 
+
             <EditText
-                android:id="@+id/editTextEmail"
+                android:id="@+id/editTextEmailDoctor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
                 android:hint="email"
                 android:inputType="textEmailAddress"
                 android:paddingBottom="15dp"
-                android:textColor="#2196F3"
-                android:textColorHighlight="#2196F3"
-                android:textColorHint="#2196F3"
-                android:textColorLink="#FFFFFF" />
+                android:textColorHint="#2196F3" />
 
             <EditText
-                android:id="@+id/editTextPassword"
+                android:id="@+id/editTextPasswordDoctor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
                 android:hint="password"
                 android:inputType="textPassword"
                 android:paddingBottom="15dp"
-                android:textColor="#2196F3"
                 android:textColorHint="#2196F3" />
 
-
             <Button
-                android:id="@+id/buttonSignUp"
+                android:id="@+id/buttonLoginDoctor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="7dp"
-                android:text="Sign Up"
+                android:text="Login"
                 android:textAllCaps="false"
                 android:textColor="#2196F3" />
 
             <TextView
-                android:id="@+id/textViewLogin"
+                android:id="@+id/textViewSignupDoctor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
-                android:text="Already have an account? Login"
-                android:textAlignment="center"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:textColor="#2196F3" />
-
-            <TextView
-                android:id="@+id/textViewDoctor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:text="Are you a registered Doctor? Sign in here"
+                android:text="Don't have account? Sign Up"
                 android:textAlignment="center"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:textColor="#2196F3" />
@@ -107,8 +91,6 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:visibility="gone" />
-
-
     </RelativeLayout>
 
 

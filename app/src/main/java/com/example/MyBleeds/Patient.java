@@ -54,4 +54,16 @@ public class Patient {
     public void setPatientName(String patientName) {
         this.patientName = patientName;
     }
+
+    public void setPatientDOB(String patientDOB) {
+        this.patientDOB = patientDOB;
+    }
+
+    public void setPatientSeverity(String patientSeverity) {
+        this.patientSeverity = patientSeverity;
+    }
+
+    public void setPatientRegion(String patientRegion) {
+        this.patientRegion = patientRegion;
+    }
 }

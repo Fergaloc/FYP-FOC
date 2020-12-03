@@ -36,24 +36,24 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.List;
 
-public class View_Patients extends AppCompatActivity {
+public class ViewPatients extends AppCompatActivity {
 
+
+    EditText editText;
     FirebaseAuth mAuth;
 
     RecyclerView recyclerView;
-    TextView textView;
-    EditText SearchPatientsText;
 
     DatabaseReference databasePatients;
     StorageReference storage;
 
+    DatabaseReference rootRef;
+
+    DatabaseReference patientRef;
+
     private ArrayList<Patient> patientArrayList;
     private RecyclerPatientAdapter recyclerPatientAdapter;
     private Context mContext;
-
-
-
-
 
 
 
@@ -62,15 +62,39 @@ public class View_Patients extends AppCompatActivity {
         setContentView(R.layout.activity_view_patients);
         mAuth = FirebaseAuth.getInstance();
 
+
+        //Code to search by Name of patient
+        //https://codinginflow.com/tutorials/android/recyclerview-edittext-search
+        EditText editText = (EditText) findViewById(R.id.SearchText);
+        editText.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString());
+            }
+        });
+
+
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        textView= (TextView) findViewById(R.id.textViewPatients);
-        SearchPatientsText = (EditText) findViewById(R.id.SearchPatientsText);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
-        databasePatients = FirebaseDatabase.getInstance().getReference();
+        Intent intent = getIntent();
+
+        String id = intent.getStringExtra(DoctorHomeActivity.DOCTOR_ID);
+        databasePatients = FirebaseDatabase.getInstance().getReference("patients").child(id);
 
         patientArrayList = new ArrayList<>();
 
@@ -78,14 +102,31 @@ public class View_Patients extends AppCompatActivity {
 
         ClearAll();
 
+    }
 
+    private void filter(String text){
 
+        ArrayList<Patient> filteredList = new ArrayList<>();
+
+        for(Patient item: patientArrayList) {
+            if (item.getPatientName().toLowerCase().contains(text.toLowerCase())) {
+                    filteredList.add(item);
+            }
+        }
+
+        recyclerPatientAdapter.filterlist(filteredList);
 
     }
 
+
+//https://www.youtube.com/watch?v=BrDX6VTgTkg
+    //code to use a recycler view to get data from firevase
     private void GetDataFromFirebase() {
 
-        Query query =  databasePatients.child("patients").child(mAuth.getCurrentUser().getUid());
+        rootRef = FirebaseDatabase.getInstance().getReference("patients");
+        patientRef = rootRef.child("U32N7b9ZetXeQtBx9o9YIZBI7yB2");
+
+        Query query =  patientRef;
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -96,6 +137,9 @@ public class View_Patients extends AppCompatActivity {
 
                     patient.setImageURL(snapshot.child("imageURL").getValue().toString());
                     patient.setPatientName(snapshot.child("patientName").getValue().toString());
+                    patient.setPatientRegion(snapshot.child("patientRegion").getValue().toString());
+                    patient.setPatientDOB(snapshot.child("patientDOB").getValue().toString());
+                    patient.setPatientSeverity(snapshot.child("patientSeverity").getValue().toString());
 
                     patientArrayList.add(patient);
 
