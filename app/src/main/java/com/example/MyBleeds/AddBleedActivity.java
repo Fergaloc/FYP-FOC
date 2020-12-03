@@ -65,8 +65,6 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
         textViewDate = (TextView) findViewById(R.id.textViewDate);
         buttonDatePicker = (Button) findViewById(R.id.buttonDatePicker);
 
-        //to get artist name + id, it displays the artists name on the track page.
-
         Intent intent = getIntent();
 
         bleeds = new ArrayList<>();
@@ -76,7 +74,7 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
 
         textViewArtistsName.setText(name);
 
-        //create new node in tracks node, the tracks id will match with the artist id
+        //create new node in bleeds node, the bleeds id will match with the patients id
         databaseBleeds = FirebaseDatabase.getInstance().getReference("bleeds").child(id);
 
         buttonAddTrack.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +98,7 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
             }
 
         });
+
 //https://www.youtube.com/watch?v=AdTzD96AhE0
         // code from an online tutorial that shows a date picker once the button is picked.
         buttonDatePicker.setOnClickListener(new View.OnClickListener() {

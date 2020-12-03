@@ -124,34 +124,7 @@ public class AddDoctorActivity extends AppCompatActivity {
 
 
     }
-/*
-    //switch case to decide what action is taken next.
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.buttonSignUp:
-                String name = editTextDoctorName.getText().toString().trim();
-                String hospital = editTextHospital.getText().toString().trim();
-
-                if(TextUtils.isEmpty(name)){
-                    editTextDoctorName.setError("Name Required");
-                    return;
-                }
-
-                registerUser();
-                addDoctor(name, hospital);
-
-                break;
-
-            case R.id.textViewLogin:
-                finish();
-                startActivity(new Intent(this, LogInActivity.class));
-                break;
-        }
-    }
-*/
-
-
+    //Code to add a doctor with the UID created after they sign up
     private boolean addDoctor(String name, String hospital){
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();

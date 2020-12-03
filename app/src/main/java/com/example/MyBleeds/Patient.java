@@ -51,6 +51,7 @@ public class Patient {
         this.imageURL = imageURL;
     }
 
-
-
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
 }

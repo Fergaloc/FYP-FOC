@@ -58,6 +58,9 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
 
     DatabaseReference databasePatients;
 
+    DatabaseReference databasepatient;
+
+
     ListView listViewArtists;
 
     FirebaseAuth mAuth;
@@ -82,7 +85,7 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
         setContentView(R.layout.patient_settings);
         mAuth = FirebaseAuth.getInstance();
 
-        databasePatients = FirebaseDatabase.getInstance().getReference("patients");
+        databasepatient = FirebaseDatabase.getInstance().getReference("patients").child("U32N7b9ZetXeQtBx9o9YIZBI7yB2");
 
         //getting views
         editTextName = (EditText) findViewById(R.id.editTextFirstName);
@@ -244,9 +247,11 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
     //
     private boolean updatePatient(String name, String region, String DOB, String severity, String imageurl){
 
+        String docID = "U32N7b9ZetXeQtBx9o9YIZBI7yB2";
+
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("patients").child(uid);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("patients").child(docID).child(uid);
 
         Patient patient = new Patient( name , region, DOB, severity,imageurl);
 
