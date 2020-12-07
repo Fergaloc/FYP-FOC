@@ -19,7 +19,7 @@
             android:layout_height="73dp"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="myBleeds"
+            android:text="myBleeds  Patient"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="#008EFF"
             android:textStyle="bold" />

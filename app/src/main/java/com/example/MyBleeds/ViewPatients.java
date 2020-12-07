@@ -110,7 +110,7 @@ public class ViewPatients extends AppCompatActivity {
 
         for(Patient item: patientArrayList) {
             if (item.getPatientName().toLowerCase().contains(text.toLowerCase())) {
-                    filteredList.add(item);
+                filteredList.add(item);
             }
         }
 
@@ -119,7 +119,7 @@ public class ViewPatients extends AppCompatActivity {
     }
 
 
-//https://www.youtube.com/watch?v=BrDX6VTgTkg
+    //https://www.youtube.com/watch?v=BrDX6VTgTkg
     //code to use a recycler view to get data from firevase
     private void GetDataFromFirebase() {
 
@@ -159,7 +159,7 @@ public class ViewPatients extends AppCompatActivity {
 
     }
 
-//Make sure array list is empty
+    //Make sure array list is empty
     private void ClearAll(){
 
         if(patientArrayList != null){

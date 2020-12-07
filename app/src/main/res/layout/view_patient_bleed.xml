@@ -11,17 +11,9 @@
     android:paddingTop="16dp"
     tools:context=".AddBleedActivity">
 
-    <Button
-        android:id="@+id/buttonHome"
-        android:layout_width="62dp"
-        android:layout_height="21dp"
-        android:text="Home" />
-
-
-
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textViewBleeds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -32,11 +24,17 @@
         android:textColor="#2196F3"
         android:textStyle="bold" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/PatientName"
+        />
+
 
     <ListView
-            android:id="@+id/listViewBleeds"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></ListView>
+        android:id="@+id/listViewPatientBleeds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></ListView>
 
 
 

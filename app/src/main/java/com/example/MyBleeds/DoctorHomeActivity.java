@@ -47,31 +47,16 @@ public class DoctorHomeActivity extends AppCompatActivity {
 
         databasePatients = FirebaseDatabase.getInstance().getReference("doctor");
 
-        buttonDoctorSettings = (Button) findViewById(R.id.buttonDoctorSettings);
         buttonViewPatients = (Button) findViewById(R.id.buttonViewPatients);
 
 
-        //Brings us to account settings page
-        buttonDoctorSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String doctor = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                Intent intentSettings = new Intent(getApplicationContext(), PatientSettingsActivity.class);
-
-                intentSettings.putExtra(DOCTOR_ID, mAuth.getCurrentUser().getUid());
-
-                startActivity(intentSettings);
-
-            }
-        });
 
         buttonViewPatients.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String doctor = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                Intent intent = new Intent(getApplicationContext(), ViewPatients.class);
+                Intent intent = new Intent(getApplicationContext(), ViewMyPatients.class);
 
                 intent.putExtra(DOCTOR_ID, mAuth.getCurrentUser().getUid());
 

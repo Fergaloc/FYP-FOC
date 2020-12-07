@@ -18,6 +18,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,6 +48,8 @@ public class ViewBleeds extends AppCompatActivity {
     DatabaseReference databaseBleeds;
     List<Bleed> bleeds;
 
+    DatabaseReference databasePatients;
+
 /*
     String profilePicID = FirebaseAuth.getInstance().getCurrentUser().getUid();
     StorageReference storageReference = FirebaseStorage.getInstance().getReference();
@@ -62,7 +66,6 @@ public class ViewBleeds extends AppCompatActivity {
 
         listViewBleeds = (ListView) findViewById(R.id.listViewBleeds);
         buttonHome = (Button) findViewById(R.id.buttonHome);
-        ProfilePic = (ImageView) findViewById(R.id.ProfilePic);
 
         Intent intent = getIntent();
 
@@ -72,7 +75,6 @@ public class ViewBleeds extends AppCompatActivity {
         final String name = intent.getStringExtra(PatientSettingsActivity.PATIENT_NAME);
 
         databaseBleeds = FirebaseDatabase.getInstance().getReference("bleeds").child(id);
-
 
         buttonHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,8 +89,6 @@ public class ViewBleeds extends AppCompatActivity {
             }
 
         });
-
-
 
 
 
@@ -121,7 +121,6 @@ public class ViewBleeds extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        // code to detect changes in values
         // code to detect changes in values
         databaseBleeds.addValueEventListener(new ValueEventListener() {
             @Override
