@@ -26,14 +26,6 @@
             android:textColor="#2196F3"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/buttonUserSettings"
-            android:layout_width="97dp"
-            android:layout_height="wrap_content"
-            android:text="View my Account"
-            android:textColor="#2196F3"
-
-            />
     </RelativeLayout>
 
 
@@ -87,6 +79,16 @@
 
 
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/buttonUserSettings"
+        android:layout_width="97dp"
+        android:layout_height="wrap_content"
+        android:text="View my Account"
+        android:textColor="#2196F3"
+        android:background="@android:color/transparent"
+
+        />
 
 
 </LinearLayout>

@@ -14,7 +14,7 @@ public class Patient {
 
 
     public Patient() {
-        //this constructor is required
+
     }
 
     public Patient(String patientName, String patientRegion,String patientDOB, String patientSeverity, String imageURL) {

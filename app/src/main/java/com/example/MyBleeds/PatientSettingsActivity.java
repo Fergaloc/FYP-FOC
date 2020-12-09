@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -75,6 +77,8 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
 
     StorageReference storageReferencere;
 
+    StorageReference imagereference;
+
 
 
 
@@ -104,6 +108,9 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
 
         listViewArtists = (ListView) findViewById(R.id.listViewArtists);
 
+            String profilePicID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
         patients = new ArrayList<>();
             //updating a patient settings + ADD INTENT to bring to main page
             buttonUpdate.setOnClickListener(new View.OnClickListener() {
@@ -124,6 +131,7 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
                     }
 
                     updatePatient(name, region, DOB, severity, imageurl);
+
 
                 }
 
@@ -201,21 +209,22 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
 
         final StorageReference riversRef = storageReferencere.child("images/" + profilePicID );
 
-        riversRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
-        {
-            @Override
-            public void onSuccess(Uri downloadUrl)
-            {
-                String imagereference = uri.toString();
-            }
-        });
-
     UploadTask uploadTask = riversRef.putFile(uri);
         riversRef.putFile(uri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         Toast.makeText(getApplicationContext(), "Image uploaded", Toast.LENGTH_LONG).show();
+
+                        riversRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+                        {
+                            @Override
+                            public void onSuccess(Uri downloadUrl)
+                            {
+                                String url = uri.toString();
+                            }
+                        });
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

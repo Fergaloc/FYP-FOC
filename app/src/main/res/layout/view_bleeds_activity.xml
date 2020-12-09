@@ -13,9 +13,10 @@
 
     <Button
         android:id="@+id/buttonHome"
-        android:layout_width="62dp"
-        android:layout_height="21dp"
-        android:text="Home" />
+        android:layout_width="wrap_content"
+        android:layout_height="31dp"
+        android:textSize="7sp"
+        android:text="Return Home" />
 
 
 
@@ -25,12 +26,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_gravity="center"
         android:gravity="center"
         android:shadowColor="#2196F3"
-        android:text="myBleeds"
+        android:text="All Bleeds"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#2196F3"
         android:textStyle="bold" />
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:id="@+id/SearchText"
+        ></EditText>
 
 
     <ListView

@@ -14,14 +14,18 @@
 
     <Button
         android:id="@+id/buttonHome"
-        android:layout_width="62dp"
-        android:layout_height="21dp"
-        android:text="Home" />
+        android:layout_width="wrap_content"
+        android:layout_height="31dp"
+        android:textSize="7sp"
+        android:text="Return Home" />
 
     <TextView
         android:id="@+id/textMyBleeds"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:gravity="center"
         android:text="Add a Bleed"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#2196F3"
@@ -67,12 +71,19 @@
         android:id="@+id/buttonDatePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:gravity="center"
         android:text="Select Bleed Date" />
 
     <TextView
         android:id="@+id/textViewDate"
         android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:gravity="center"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:text="" />
 
     <TextView

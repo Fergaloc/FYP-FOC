@@ -26,6 +26,12 @@
             android:textColor="#2196F3"
             android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/buttonLogOutDoctor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log Out" />
+
     </RelativeLayout>
 
 

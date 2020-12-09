@@ -154,7 +154,7 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
         String bleedCause = SpinnerBleedCause.getSelectedItem().toString();
         String bleedDate = textViewDate.getText().toString();
 
-        if(!TextUtils.isEmpty(bleedLocation)){
+        if(!TextUtils.isEmpty(bleedLocation) && !TextUtils.isEmpty(bleedDate)){
             String id = databaseBleeds.push().getKey();
 
             Bleed bleed = new Bleed(id,bleedLocation , rating, bleedSide, bleedSeverity, bleedCause,bleedDate );
@@ -163,7 +163,7 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
             Toast.makeText(this,"Bleed saved successfully", Toast.LENGTH_LONG).show();
 
         }else{
-            Toast.makeText(this,"Bleed Location should not be empty", Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Bleed Date should not be empty", Toast.LENGTH_LONG).show();
         }
         }
 

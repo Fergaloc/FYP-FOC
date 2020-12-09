@@ -30,6 +30,7 @@ public class DoctorHomeActivity extends AppCompatActivity {
 
     Button buttonViewPatients;
     Button buttonDoctorSettings;
+    Button buttonLogOut;
 
     List<Patient> patients;
 
@@ -48,7 +49,7 @@ public class DoctorHomeActivity extends AppCompatActivity {
         databasePatients = FirebaseDatabase.getInstance().getReference("doctor");
 
         buttonViewPatients = (Button) findViewById(R.id.buttonViewPatients);
-
+        buttonLogOut = (Button) findViewById(R.id.buttonLogOutDoctor);
 
 
         buttonViewPatients.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +66,17 @@ public class DoctorHomeActivity extends AppCompatActivity {
             }
         });
 
+        //Logs out user and send them to the Log-in page.
+        buttonLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                startActivity(new Intent(DoctorHomeActivity.this, LogInActivity.class));
+            }
+        });
+
 
     }
+
 }

@@ -9,12 +9,14 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +27,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -39,24 +42,18 @@ public class ViewBleeds extends AppCompatActivity {
 
     FirebaseAuth mAuth;
 
-    ImageView ProfilePic;
-
-    EditText filterText;
     ListView listViewBleeds;
     Button buttonHome;
 
     DatabaseReference databaseBleeds;
     List<Bleed> bleeds;
 
-    DatabaseReference databasePatients;
 
-/*
-    String profilePicID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-    String imageurl = storageReference.child("images/" + profilePicID ).toString();
-    */
+    Query query;
 
+    EditText SearchText;
 
+    ArrayAdapter<BleedList> bleedListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,15 +63,18 @@ public class ViewBleeds extends AppCompatActivity {
 
         listViewBleeds = (ListView) findViewById(R.id.listViewBleeds);
         buttonHome = (Button) findViewById(R.id.buttonHome);
+        SearchText = (EditText) findViewById(R.id.SearchText);
+
+
 
         Intent intent = getIntent();
 
         bleeds = new ArrayList<>();
 
         String id = intent.getStringExtra(PatientSettingsActivity.PATIENT_ID);
-        final String name = intent.getStringExtra(PatientSettingsActivity.PATIENT_NAME);
-
         databaseBleeds = FirebaseDatabase.getInstance().getReference("bleeds").child(id);
+        query = databaseBleeds.child(id);
+
 
         buttonHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,37 +90,6 @@ public class ViewBleeds extends AppCompatActivity {
 
         });
 
-
-
-
-
-/*
-        filterText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                (ViewBleeds.this).BleedList.getFilter().filter(s);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-*/
-
-    }
-
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
         // code to detect changes in values
         databaseBleeds.addValueEventListener(new ValueEventListener() {
             @Override
@@ -130,15 +99,45 @@ public class ViewBleeds extends AppCompatActivity {
                     Bleed bleed = trackSnapshot.getValue(Bleed.class);
                     bleeds.add(bleed);
                 }
+
                 BleedList bleedListAdapter = new BleedList(ViewBleeds.this, bleeds);
                 listViewBleeds.setAdapter(bleedListAdapter);
-            }
 
+
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
+
+
+
+        SearchText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                ViewBleeds.this.bleedListAdapter.getFilter().filter(s);
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
 
 
     }
