@@ -34,15 +34,6 @@
         android:textColor="#2196F3"
         android:textStyle="bold" />
 
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:id="@+id/SearchText"
-        ></EditText>
-
-
     <ListView
             android:id="@+id/listViewBleeds"
             android:layout_width="match_parent"

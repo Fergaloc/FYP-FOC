@@ -47,7 +47,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class PatientSettingsActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class newPatientSettingsActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     public static final String PATIENT_NAME = "patientname";
     public static final String PATIENT_ID = "patientid";
@@ -84,13 +84,13 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
 
 
 
-        @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_settings);
         mAuth = FirebaseAuth.getInstance();
 
-        databasepatient = FirebaseDatabase.getInstance().getReference("patients").child("U32N7b9ZetXeQtBx9o9YIZBI7yB2");
+        databasepatient = FirebaseDatabase.getInstance().getReference("patients").child("WdLiqbz0xFVc3D9iSFcK0hHtka32");
 
         //getting views
         editTextName = (EditText) findViewById(R.id.editTextFirstName);
@@ -108,117 +108,87 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
 
         dataRefName = databasepatient.child(uid).child("patientName");
 
-        //Getting data and setting the text views data for it.
-            dataRefName.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    String name = dataSnapshot.getValue().toString();
-                    editTextName.setText(name);
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-
-                }
-            });
-
-
-            dataRefDate = databasepatient.child(uid).child("patientDOB");
-            dataRefDate.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    String date = dataSnapshot.getValue().toString();
-                    textViewDOB.setText(date);
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
 
         storage = FirebaseStorage.getInstance();
         storageReferencere = storage.getReference();
 
         listViewArtists = (ListView) findViewById(R.id.listViewArtists);
 
-            String profilePicID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String profilePicID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
         patients = new ArrayList<>();
-            //updating a patient settings + ADD INTENT to bring to main page
-            buttonUpdate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //Sets name of image in storage as same as user ID
-                    final String profilePicID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        //updating a patient settings + ADD INTENT to bring to main page
+        buttonUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Sets name of image in storage as same as user ID
+                final String profilePicID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-                    String name = editTextName.getText().toString().trim();
-                    String region = spinnerRegion.getSelectedItem().toString();
-                    String DOB = textViewDOB.getText().toString();
-                    String severity = SpinnerpatientSeverity.getSelectedItem().toString();
-                    String imageurl =  storageReferencere.child("images/" + profilePicID).toString();
+                String name = editTextName.getText().toString().trim();
+                String region = spinnerRegion.getSelectedItem().toString();
+                String DOB = textViewDOB.getText().toString();
+                String severity = SpinnerpatientSeverity.getSelectedItem().toString();
+                String imageurl =  storageReferencere.child("images/" + profilePicID).toString();
 
-                    if(TextUtils.isEmpty(name)){
-                        editTextName.setError("Name Required");
-                        return;
-                    }
-
-                    updatePatient(name, region, DOB, severity, imageurl);
-
-
+                if(TextUtils.isEmpty(name)){
+                    editTextName.setError("Name Required");
+                    return;
                 }
 
-            });
+                updatePatient(name, region, DOB, severity, imageurl);
+
+
+            }
+
+        });
 
         //Bringing user to home page, doesnt save data
         buttonHome.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            String patient = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            Intent intentSettings = new Intent(getApplicationContext(), Patient_HomeActivity.class);
+            @Override
+            public void onClick(View view) {
+                String patient = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                Intent intentSettings = new Intent(getApplicationContext(), Patient_HomeActivity.class);
 
-            intentSettings.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
+                intentSettings.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
 
-            startActivity(intentSettings);
+                startActivity(intentSettings);
 
-        }
+            }
 
-    });
+        });
 
 
         //Logs out user and send them to the Log-in page.
-            buttonLogOut.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    FirebaseAuth.getInstance().signOut();
-                    finish();
-                    startActivity(new Intent(PatientSettingsActivity.this, LogInActivity.class));
-                }
-            });
+        buttonLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                startActivity(new Intent(newPatientSettingsActivity.this, LogInActivity.class));
+            }
+        });
 
 
-            profilepic.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    choosePicture();
-                }
-            });
+        profilepic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                choosePicture();
+            }
+        });
 
 
-            //https://www.youtube.com/watch?v=AdTzD96AhE0
-            // code from an online tutorial that shows a date picker once the button is picked.
-            buttonDOBPicker.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showDatePickerDialog();
-                }
-            });
-        }
+        //https://www.youtube.com/watch?v=AdTzD96AhE0
+        // code from an online tutorial that shows a date picker once the button is picked.
+        buttonDOBPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+        });
+    }
 
-//https://www.youtube.com/watch?v=CQ5qcJetYAI
+    //https://www.youtube.com/watch?v=CQ5qcJetYAI
     //method to fetch image from gallery
     private void choosePicture() {
         Intent intent = new Intent();
@@ -241,11 +211,11 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
     //Provided by Android to upload file to Firebase
     private void uploadPicture() {
 
-            final String profilePicID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final String profilePicID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         final StorageReference riversRef = storageReferencere.child("images/" + profilePicID );
 
-    UploadTask uploadTask = riversRef.putFile(uri);
+        UploadTask uploadTask = riversRef.putFile(uri);
         riversRef.putFile(uri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override

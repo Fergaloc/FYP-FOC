@@ -63,7 +63,6 @@ public class ViewMyPatients extends AppCompatActivity {
 
 
 
-
         editTextSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -104,11 +103,8 @@ public class ViewMyPatients extends AppCompatActivity {
 
                         final Patient patient = dss.getValue(Patient.class);
                         arrayList.add(patient);
-
                     }
-
                 }
-
             }
 
             @Override
@@ -117,7 +113,6 @@ public class ViewMyPatients extends AppCompatActivity {
             }
         });
     }
-
 
     @Override
     public void onStart() {

@@ -63,7 +63,6 @@ public class ViewBleeds extends AppCompatActivity {
 
         listViewBleeds = (ListView) findViewById(R.id.listViewBleeds);
         buttonHome = (Button) findViewById(R.id.buttonHome);
-        SearchText = (EditText) findViewById(R.id.SearchText);
 
 
 
@@ -111,26 +110,6 @@ public class ViewBleeds extends AppCompatActivity {
             }
         });
 
-
-
-        SearchText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                ViewBleeds.this.bleedListAdapter.getFilter().filter(s);
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
 
     }
 

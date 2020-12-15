@@ -51,6 +51,37 @@ public class DoctorHomeActivity extends AppCompatActivity {
         buttonViewPatients = (Button) findViewById(R.id.buttonViewPatients);
         buttonLogOut = (Button) findViewById(R.id.buttonLogOutDoctor);
 
+        final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
+        //Code to ensure its a doctor that logs in.
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("doctor");
+        rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.hasChild(uid)) {
+                    Toast.makeText(DoctorHomeActivity.this, "Logged in", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    FirebaseAuth.getInstance().signOut();
+                    finish();
+                    startActivity(new Intent(DoctorHomeActivity.this, LogInActivity.class));
+                    Toast.makeText(DoctorHomeActivity.this, "You have been Logged Out, please Login via the Patient Portal", Toast.LENGTH_SHORT).show();
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+
+            }
+
+        });
+
+
+
 
         buttonViewPatients.setOnClickListener(new View.OnClickListener() {
             @Override

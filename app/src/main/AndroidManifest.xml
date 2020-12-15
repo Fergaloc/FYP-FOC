@@ -20,6 +20,7 @@
         <activity android:name=".DoctorHomeActivity"></activity>
         <activity android:name="com.example.MyBleeds.LogInActivity"> </activity>
         <activity android:name=".ViewMyPatients"></activity>
+        <activity android:name=".newPatientSettingsActivity"></activity>
         <activity android:name=".AddDoctorActivity"></activity>
         <activity android:name=".Patient_HomeActivity"></activity>
         <activity android:name=".ViewSingleBleed"></activity>
