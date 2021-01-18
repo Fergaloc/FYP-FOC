@@ -44,6 +44,9 @@ public class ViewMyPatients extends AppCompatActivity {
 
     ArrayList<Patient> arrayList;
 
+    myPatientAdapter adapter;
+
+
 
 
     protected void onCreate(Bundle savedInstanceState){
@@ -114,6 +117,18 @@ public class ViewMyPatients extends AppCompatActivity {
         });
     }
 
+
+    private void FirebaseSearch(String s){
+        Query query = SearchRef.orderByChild("patientName").startAt(s).endAt(s + "\uf8ff");
+
+        //FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Patient>().setQuery(query, Patient.class).build();
+
+       // adapter = new myPatientAdapter(options);
+       // myPatientList.setAdapter(adapter);
+       // adapter.startListening();
+
+    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -162,7 +177,6 @@ public class ViewMyPatients extends AppCompatActivity {
 
                     }
                 });
-
 
             }
 

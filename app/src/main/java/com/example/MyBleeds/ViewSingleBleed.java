@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class ViewSingleBleed extends AppCompatActivity {
 
     public static final String BLEED_NAME = "bleedname";
-
+    public static final String BLEED_ID = "bleedID";
     public static final String BLEED_SIDE = "bleedside";
     public static final String BLEED_SEVERITY = "bleedseverity";
     public static final String BLEED_CAUSE = "bleedcause";
@@ -28,8 +28,7 @@ public class ViewSingleBleed extends AppCompatActivity {
 
     TextView textViewShowLocation, textViewShowCause, textViewShowSide, textViewShowDate, textViewShowSeverity;
 
-    Button buttonReturn;
-
+    Button buttonReturn,buttonEdit;
 
 
 
@@ -44,10 +43,13 @@ public class ViewSingleBleed extends AppCompatActivity {
         textViewShowSeverity = (TextView) findViewById(R.id.textViewShowSeverity);
         textViewShowSide = (TextView) findViewById(R.id.textViewShowSide);
 
+        //Hide edit bleed button for doctors
+        buttonEdit.setVisibility(View.GONE);
 
 
         //gets bleed data from previous page and displays it
         Intent intent = getIntent();
+        String Bleedid = intent.getStringExtra(ViewPatientBleeds.BLEED_ID);
         String Bleedname = intent.getStringExtra(ViewPatientBleeds.BLEED_NAME);
         String Bleedseverity = intent.getStringExtra(ViewPatientBleeds.BLEED_SEVERITY);
         String Bleedside = intent.getStringExtra(ViewPatientBleeds.BLEED_SIDE);
@@ -63,6 +65,7 @@ public class ViewSingleBleed extends AppCompatActivity {
         textViewShowSide.setText(Bleedside);
 
         buttonReturn = (Button) findViewById(R.id.returnButton);
+        buttonEdit = (Button) findViewById(R.id.editBleedButton) ;
 
         buttonReturn.setOnClickListener(new View.OnClickListener() {
             @Override

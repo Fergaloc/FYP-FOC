@@ -169,6 +169,36 @@
             android:layout_marginTop="450dp">
 
         </Button>
+
+        <Button
+            android:id="@+id/editBleedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="Edit Bleed"
+            android:layout_marginTop="450dp">
+
+
+        </Button>
+
+
+        <TextView
+            android:id="@+id/textViewShowID"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="375dp"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_marginStart="12dp"
+            android:textAlignment="center"
+            android:text=""
+            />
+
+
     </LinearLayout>
+
+
 
 </RelativeLayout>

@@ -61,7 +61,7 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
     DatabaseReference databasePatients;
 
     DatabaseReference databasepatient;
-    DatabaseReference dataRefName,dataRefDate;
+    DatabaseReference dataRefName,dataRefDate,dataRefCounty;
 
 
     ListView listViewArtists;
@@ -118,7 +118,6 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-
 
                 }
             });
@@ -292,7 +291,7 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
     //
     private boolean updatePatient(String name, String region, String DOB, String severity, String imageurl){
 
-        String docID = "WdLiqbz0xFVc3D9iSFcK0hHtka32";
+        String docID = "U32N7b9ZetXeQtBx9o9YIZBI7yB2";
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 

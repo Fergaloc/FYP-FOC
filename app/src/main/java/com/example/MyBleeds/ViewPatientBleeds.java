@@ -35,6 +35,7 @@ import java.util.List;
 public class ViewPatientBleeds extends AppCompatActivity {
 
     //creates string for use in intents
+    public static final String BLEED_ID = "bleedid";
     public static final String BLEED_NAME = "bleedname";
     public static final String BLEED_SIDE = "bleedside";
     public static final String BLEED_SEVERITY = "bleedseverity";
@@ -110,6 +111,7 @@ public class ViewPatientBleeds extends AppCompatActivity {
                 Bleed bleed = (Bleed) parent.getAdapter().getItem(position);
 
                 Intent viewIntent = new Intent(ViewPatientBleeds.this, ViewSingleBleed.class);
+                viewIntent.putExtra(BLEED_ID, bleed.getBleedIDID());
                 viewIntent.putExtra(BLEED_NAME, bleed.getBleedName());
                 viewIntent.putExtra(BLEED_SEVERITY, bleed.getBleedSeverity());
                 viewIntent.putExtra(BLEED_SIDE, bleed.getBleedSide());

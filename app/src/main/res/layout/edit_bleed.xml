@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    tools:context=".editBleeds">
+
+
+    <Button
+        android:id="@+id/buttonHome"
+        android:layout_width="wrap_content"
+        android:layout_height="31dp"
+        android:textSize="7sp"
+        android:text="Return Home" />
+
+    <TextView
+        android:id="@+id/textMyBleeds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="Edit Bleed"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#2196F3"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewArtistName"
+        android:layout_width="match_parent"
+        android:layout_height="18dp"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <Spinner
+        android:id="@+id/SpinnerBleedLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/bleedLocations"
+        />
+
+    <Spinner
+        android:id="@+id/SpinnerBleedSide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/bleedSide"
+        />
+
+    <Spinner
+        android:id="@+id/SpinnerBleedSeverity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/bleedSeverity"
+        />
+
+    <Spinner
+        android:id="@+id/SpinnerBleedCause"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/bleedCause"
+        />
+
+
+    <Button
+        android:id="@+id/buttonDatePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="Select Bleed Date" />
+
+    <TextView
+        android:id="@+id/textViewDate"
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bleed Pain Rating"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+    <SeekBar
+        android:id="@+id/seekBarRating"
+        android:layout_width="match_parent"
+        android:layout_below="@id/textView2"
+        android:layout_height="wrap_content"
+
+        android:max="5" />
+
+
+    <Button
+        android:id="@+id/buttonAddTrack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save Changes" />
+
+
+
+
+
+</LinearLayout>

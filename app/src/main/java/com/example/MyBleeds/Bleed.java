@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Bleed {
 
-            private String bleedID;
+            private String bleedIDID;
             private String bleedName;
             private int bleedRating;
             private String bleedSide;
@@ -21,8 +21,8 @@ public class Bleed {
 
     }
 
-    public Bleed(String bleedID, String bleedName, int bleedRating, String bleedSide, String bleedSeverity, String bleedCause,String bleedDate) {
-        this.bleedID = bleedID;
+    public Bleed(String bleedIDID, String bleedName, int bleedRating, String bleedSide, String bleedSeverity, String bleedCause,String bleedDate) {
+        this.bleedIDID = bleedIDID;
         this.bleedName  = bleedName;
         this.bleedRating = bleedRating;
         this.bleedSide = bleedSide;
@@ -32,7 +32,7 @@ public class Bleed {
     }
 
     public String getBleedIDID() {
-        return bleedID;
+        return bleedIDID;
     }
 
     public String getBleedName() {

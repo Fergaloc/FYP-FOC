@@ -40,6 +40,14 @@ public class ViewBleeds extends AppCompatActivity {
     public static final String PATIENT_NAME = "patientname";
     public static final String PATIENT_ID = "patientid";
 
+    public static final String BLEED_ID = "bleedid";
+    public static final String BLEED_NAME = "bleedname";
+    public static final String BLEED_SIDE = "bleedside";
+    public static final String BLEED_SEVERITY = "bleedseverity";
+    public static final String BLEED_CAUSE = "bleedcause";
+    public static final String BLEED_DATE = "bleeddate";
+    
+
     FirebaseAuth mAuth;
 
     ListView listViewBleeds;
@@ -65,11 +73,12 @@ public class ViewBleeds extends AppCompatActivity {
         buttonHome = (Button) findViewById(R.id.buttonHome);
 
 
-
         Intent intent = getIntent();
 
         bleeds = new ArrayList<>();
 
+
+        //Gets the patient ID and finds their bleeds
         String id = intent.getStringExtra(PatientSettingsActivity.PATIENT_ID);
         databaseBleeds = FirebaseDatabase.getInstance().getReference("bleeds").child(id);
         query = databaseBleeds.child(id);
@@ -116,6 +125,28 @@ public class ViewBleeds extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+
+        listViewBleeds.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Bleed bleed = (Bleed) parent.getAdapter().getItem(position);
+
+
+                Intent viewIntent = new Intent(ViewBleeds.this, ViewSingleBleedPatient.class);
+                viewIntent.putExtra(BLEED_ID, bleed.getBleedIDID());
+                viewIntent.putExtra(BLEED_NAME, bleed.getBleedName());
+                viewIntent.putExtra(BLEED_SEVERITY, bleed.getBleedSeverity());
+                viewIntent.putExtra(BLEED_SIDE, bleed.getBleedSide());
+                viewIntent.putExtra(BLEED_DATE, bleed.getBleedDate());
+                viewIntent.putExtra(BLEED_CAUSE, bleed.getBleedCause());
+
+
+                startActivity(viewIntent);
+
+            }
+        });
 
 
 
