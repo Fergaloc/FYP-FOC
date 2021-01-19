@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/DialogHeading"
+        android:text="Add Treatment Data"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#2196F3"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+    </TextView>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_marginTop="50dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/treatment_reason"
+        android:entries="@array/treatmentReason"
+        android:layout_below="@+id/DialogHeading">
+
+    </Spinner>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/treatmentType"
+        android:layout_below="@id/treatment_reason"
+        android:entries="@array/treatmentType"
+        ></Spinner>
+
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:id="@+id/datePicker"
+       android:layout_below="@id/treatmentType"
+       android:hint="Select Date"
+       android:layout_marginTop="50dp"
+       android:gravity="center">
+
+   </TextView>
+
+
+
+
+
+
+
+
+
+
+</RelativeLayout>

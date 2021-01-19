@@ -96,4 +96,19 @@
         <item>Severe</item>
     </array>
 
+    //Treatment Reason
+    <array name="treatmentReason">
+        <item>Prophalaxis</item>
+        <item>On-Demand</item>
+        <item>N/A</item>
+    </array>
+
+    //Treatment Type
+    <array name="treatmentType">
+        <item>Hemlibra</item>
+        <item>Elocta</item>
+        <item>Advate</item>
+        <item>N/A</item>
+    </array>
+
 </resources>

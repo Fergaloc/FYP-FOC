@@ -27,22 +27,30 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class AddBleedActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class AddBleedActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TreatmentDialog.TreatmentDialogListener {
 
     public static final String PATIENT_NAME = "patientname";
     public static final String PATIENT_ID = "patientid";
+    public static String BLEED_ID = "bleedid";
 
     TextView textViewArtistsName, textViewDate;
     EditText editTextBleedLocation;
     SeekBar seekBarRating;
-    Button buttonAddTrack, buttonHome, buttonDatePicker;
+    Button buttonAddTrack, buttonHome, buttonDatePicker, buttonAddTreatment;
     Spinner SpinnerBleedSide, SpinnerBleedSeverity, SpinnerBleedCause, SpinnerBleedLocation;
+
+    TextView txtAddTreat;
 
     DatabaseReference databaseBleeds;
 
     List<Bleed> bleeds;
 
     FirebaseAuth mAuth;
+
+    String bleedIntentID;
+
+
+
 
 
 
@@ -64,12 +72,20 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
         SpinnerBleedLocation = (Spinner) findViewById(R.id.SpinnerBleedLocation);
         textViewDate = (TextView) findViewById(R.id.textViewDate);
         buttonDatePicker = (Button) findViewById(R.id.buttonDatePicker);
+        buttonAddTreatment = (Button) findViewById(R.id.buttonAddTreatment);
+        txtAddTreat = (TextView) findViewById(R.id.textAddTreatment) ;
+
+        buttonAddTreatment.setVisibility(View.INVISIBLE);
+        txtAddTreat.setVisibility(View.INVISIBLE);
+
+
+
 
         Intent intent = getIntent();
 
         bleeds = new ArrayList<>();
 
-        String id = intent.getStringExtra(PatientSettingsActivity.PATIENT_ID);
+        final String id = intent.getStringExtra(PatientSettingsActivity.PATIENT_ID);
         String name = intent.getStringExtra(PatientSettingsActivity.PATIENT_NAME);
 
         textViewArtistsName.setText(name);
@@ -77,10 +93,23 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
         //create new node in bleeds node, the bleeds id will match with the patients id
         databaseBleeds = FirebaseDatabase.getInstance().getReference("bleeds").child(id);
 
+
+        //Opening dialog to add treatment data.
+        buttonAddTreatment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog();
+
+            }
+        });
+
+
         buttonAddTrack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveBleed();
+                txtAddTreat.setVisibility(View.VISIBLE);
+                buttonAddTreatment.setVisibility(View.VISIBLE);
             }
         });
 
@@ -147,6 +176,7 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
     //saves bleed to Firebase.
     private void saveBleed(){
 
+
         String bleedLocation  = SpinnerBleedLocation.getSelectedItem().toString();
         int rating = seekBarRating.getProgress();
         String bleedSide = SpinnerBleedSide.getSelectedItem().toString();
@@ -160,7 +190,12 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
             Bleed bleed = new Bleed(id,bleedLocation , rating, bleedSide, bleedSeverity, bleedCause,bleedDate );
             databaseBleeds.child(id).setValue(bleed);
 
-            Toast.makeText(this,"Bleed saved successfully", Toast.LENGTH_LONG).show();
+            bleedIntentID = bleed.getBleedIDID();
+
+
+
+            Toast.makeText(this,"Bleed Saved Successfully", Toast.LENGTH_LONG).show();
+
 
         }else{
             Toast.makeText(this,"Bleed Date should not be empty", Toast.LENGTH_LONG).show();
@@ -173,4 +208,25 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
         String date =  dayOfMonth + "/" + (month+1) +  "/ "+ year;
         textViewDate.setText(date);
     }
+
+    public void openDialog() {
+
+        TreatmentDialog treatmentDialog = new TreatmentDialog();
+        treatmentDialog.show(getSupportFragmentManager(), "Treatment Dialog");
+
+        //Sending bleedID to dialog fragment via a bundle
+        Bundle bundle = new Bundle();
+        bundle.putString("BLEED_ID", bleedIntentID);
+        treatmentDialog.setArguments(bundle);
+
+    }
+
+    @Override
+    public void applyData(String Reason,String Type, String Date){
+
+
+    }
+
+
+
 }

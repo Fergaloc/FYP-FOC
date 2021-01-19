@@ -93,6 +93,8 @@ public class editBleeds extends AppCompatActivity implements DatePickerDialog.On
         textViewArtistsName.setText(name);
 
         //The following sets the spinner value to the selected bleed details.
+        //Uses created spinners and intent data.
+        //https://stackoverflow.com/questions/2390102/how-to-set-selected-item-of-spinner-by-value-not-by-position
         String bleedLocation = Bleedname;
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.bleedLocations, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

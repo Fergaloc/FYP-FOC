@@ -46,7 +46,7 @@ public class ViewBleeds extends AppCompatActivity {
     public static final String BLEED_SEVERITY = "bleedseverity";
     public static final String BLEED_CAUSE = "bleedcause";
     public static final String BLEED_DATE = "bleeddate";
-    
+
 
     FirebaseAuth mAuth;
 
