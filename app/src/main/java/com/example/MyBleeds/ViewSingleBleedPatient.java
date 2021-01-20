@@ -5,12 +5,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ViewSingleBleedPatient extends AppCompatActivity {
 
@@ -33,6 +44,16 @@ public class ViewSingleBleedPatient extends AppCompatActivity {
 
     Button buttonReturn,buttonEdit;
 
+    DatabaseReference databaseTreatment;
+
+    ListView listViewTreatment;
+
+
+    Query query;
+
+    String bleedIntentID;
+
+    List<Treatment> treatments;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +62,13 @@ public class ViewSingleBleedPatient extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
 
-        textViewShowID = (TextView) findViewById(R.id.textViewShowID);
+
         textViewShowCause = (TextView) findViewById(R.id.textViewShowCause);
         textViewShowLocation = (TextView) findViewById(R.id.textViewShowLocation);
         textViewShowDate = (TextView) findViewById(R.id.textViewShowDate);
         textViewShowSeverity = (TextView) findViewById(R.id.textViewShowSeverity);
         textViewShowSide = (TextView) findViewById(R.id.textViewShowSide);
+        listViewTreatment =(ListView) findViewById(R.id.ListViewTreatmentEdit);
 
         buttonEdit = (Button) findViewById(R.id.editBleedButton) ;
 
@@ -63,9 +85,6 @@ public class ViewSingleBleedPatient extends AppCompatActivity {
 
 
 
-
-        textViewShowID.setText(Bleedid);
-        textViewShowID.setVisibility(View.GONE);
 
         textViewShowCause.setText(Bleedcause);
         textViewShowLocation.setText(Bleedname);
@@ -110,6 +129,32 @@ public class ViewSingleBleedPatient extends AppCompatActivity {
 
 
                 startActivity(intent);
+
+            }
+        });
+
+
+
+        //Find treatment reference for bleed and querying location for our data.
+        databaseTreatment = FirebaseDatabase.getInstance().getReference("treatment").child(Bleedid);
+        query = databaseTreatment.child(Bleedid);
+        treatments = new ArrayList<>();
+
+        databaseTreatment.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                treatments.clear();
+                for(DataSnapshot treatmentSnapshot: dataSnapshot.getChildren()){
+                    Treatment treatment = treatmentSnapshot.getValue(Treatment.class);
+                    treatments.add(treatment);
+                }
+
+                TreatmentList treatmentListAdapter = new TreatmentList(ViewSingleBleedPatient.this, treatments);
+                listViewTreatment.setAdapter(treatmentListAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });

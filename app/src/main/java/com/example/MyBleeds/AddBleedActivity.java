@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -38,18 +40,19 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
     SeekBar seekBarRating;
     Button buttonAddTrack, buttonHome, buttonDatePicker, buttonAddTreatment;
     Spinner SpinnerBleedSide, SpinnerBleedSeverity, SpinnerBleedCause, SpinnerBleedLocation;
-
+    ListView listviewTreatment;
     TextView txtAddTreat;
 
-    DatabaseReference databaseBleeds;
+    DatabaseReference databaseBleeds, databaseTreatment;
 
     List<Bleed> bleeds;
+    List<Treatment> treatments;
 
     FirebaseAuth mAuth;
 
     String bleedIntentID;
 
-
+    Query query;
 
 
 
@@ -74,9 +77,12 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
         buttonDatePicker = (Button) findViewById(R.id.buttonDatePicker);
         buttonAddTreatment = (Button) findViewById(R.id.buttonAddTreatment);
         txtAddTreat = (TextView) findViewById(R.id.textAddTreatment) ;
+        listviewTreatment = (ListView) findViewById(R.id.listViewTreatment);
+
 
         buttonAddTreatment.setVisibility(View.INVISIBLE);
         txtAddTreat.setVisibility(View.INVISIBLE);
+        listviewTreatment.setVisibility(View.INVISIBLE);
 
 
 
@@ -94,6 +100,7 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
         databaseBleeds = FirebaseDatabase.getInstance().getReference("bleeds").child(id);
 
 
+
         //Opening dialog to add treatment data.
         buttonAddTreatment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,8 +115,6 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
             @Override
             public void onClick(View v) {
                 saveBleed();
-                txtAddTreat.setVisibility(View.VISIBLE);
-                buttonAddTreatment.setVisibility(View.VISIBLE);
             }
         });
 
@@ -193,6 +198,9 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
             bleedIntentID = bleed.getBleedIDID();
 
 
+            txtAddTreat.setVisibility(View.VISIBLE);
+            buttonAddTreatment.setVisibility(View.VISIBLE);
+            listviewTreatment.setVisibility(View.VISIBLE);
 
             Toast.makeText(this,"Bleed Saved Successfully", Toast.LENGTH_LONG).show();
 
@@ -218,6 +226,33 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
         Bundle bundle = new Bundle();
         bundle.putString("BLEED_ID", bleedIntentID);
         treatmentDialog.setArguments(bundle);
+
+
+        //Find treatment reference for bleed and querying location for our data.
+        databaseTreatment = FirebaseDatabase.getInstance().getReference("treatment").child(bleedIntentID);
+        query = databaseTreatment.child(bleedIntentID);
+        treatments = new ArrayList<>();
+
+        databaseTreatment.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                treatments.clear();
+                for(DataSnapshot treatmentSnapshot: dataSnapshot.getChildren()){
+                    Treatment treatment = treatmentSnapshot.getValue(Treatment.class);
+                    treatments.add(treatment);
+                }
+
+                TreatmentList treatmentListAdapter = new TreatmentList(AddBleedActivity.this, treatments);
+                listviewTreatment.setAdapter(treatmentListAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
 
     }
 

@@ -64,6 +64,7 @@ public class TreatmentDialog extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         saveTreatment();
 
+
                     }
 
 
@@ -156,10 +157,10 @@ public class TreatmentDialog extends AppCompatDialogFragment {
             Treatment treatment = new Treatment(id, treatmentReason, treatmentType, treatmentDate);
             databaseTreatment.child(id).setValue(treatment);
 
-            Toast.makeText(getContext(), "Bleed saved successfully", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Treatment saved successfully", Toast.LENGTH_LONG).show();
 
         } else {
-            Toast.makeText(getContext(), "Bleed Date should not be empty", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Treatment Date should not be empty", Toast.LENGTH_LONG).show();
         }
     }
 
