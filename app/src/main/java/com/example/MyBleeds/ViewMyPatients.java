@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,8 +15,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,6 +50,10 @@ public class ViewMyPatients extends AppCompatActivity {
 
     myPatientAdapter adapter;
 
+    Uri uriConvert;
+
+    Context context;
+
 
 
 
@@ -63,6 +71,8 @@ public class ViewMyPatients extends AppCompatActivity {
         PatientsRef = FirebaseDatabase.getInstance().getReference().child("patients").child(currentUserID);
         bleedsRef = FirebaseDatabase.getInstance().getReference().child("bleeds");
         SearchRef = FirebaseDatabase.getInstance().getReference().child("patients").child(currentUserID);
+
+        context = getApplicationContext();
 
 
 
@@ -153,6 +163,13 @@ public class ViewMyPatients extends AppCompatActivity {
                         String userRegion = dataSnapshot.child("patientRegion").getValue().toString();
                         String userDOB = dataSnapshot.child("patientDOB").getValue().toString();
                         String userSeverity = dataSnapshot.child("patientSeverity").getValue().toString();
+                        String userURL = dataSnapshot.child("imageURL").getValue().toString();
+
+                        uriConvert = Uri.parse(userURL);
+
+                        Glide.with(context)
+                                .load(uriConvert)
+                                .into(holder.PatientURL);
 
                         holder.PatientName.setText(userName);
                         holder.patientDOB.setText(userDOB);
@@ -198,12 +215,14 @@ public class ViewMyPatients extends AppCompatActivity {
     public static class PatientsViewHolder extends RecyclerView.ViewHolder{
 
         TextView PatientName, patientSeverity, patientRegion, patientDOB ;
+        ImageView PatientURL;
 
 
 
         public PatientsViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            PatientURL = itemView.findViewById(R.id.profileImage);
             PatientName = itemView.findViewById(R.id.TextViewNameList);
             patientSeverity = itemView.findViewById(R.id.TextViewSeverity);
             patientRegion  = itemView.findViewById(R.id.TextViewRegion);

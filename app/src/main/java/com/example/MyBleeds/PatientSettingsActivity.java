@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -61,7 +62,7 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
     DatabaseReference databasePatients;
 
     DatabaseReference databasepatient;
-    DatabaseReference dataRefName,dataRefDate,dataRefCounty;
+    DatabaseReference dataRefName,dataRefDate,dataRefCounty, datarefImg;
 
 
     ListView listViewArtists;
@@ -79,6 +80,18 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
     StorageReference storageReferencere;
 
     StorageReference imagereference;
+
+    String useURL;
+
+    Uri uriConvert;
+
+    String imgCheck;
+
+    Context context;
+
+
+
+
 
 
 
@@ -103,10 +116,40 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
         textViewDOB = (TextView) findViewById(R.id.textViewDOB);
         profilepic = (ImageView) findViewById(R.id.profilepic);
 
-
+        context = getApplicationContext();
         String uid = FirebaseAuth.getInstance().getUid();
 
         dataRefName = databasepatient.child(uid).child("patientName");
+
+        datarefImg = FirebaseDatabase.getInstance().getReference("patients").child("U32N7b9ZetXeQtBx9o9YIZBI7yB2").child(uid).child("imageURL");
+
+        //If statement, checks if user has a profile pic and displays if it does.
+        datarefImg.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                imgCheck = dataSnapshot.getValue(String.class);
+
+                if(dataSnapshot.exists()){
+
+                    uriConvert = Uri.parse(imgCheck);
+
+                    Glide.with(context)
+                            .load(uriConvert)
+                            .into(profilepic);
+                } else{
+
+
+                    profilepic.setImageDrawable(getResources().getDrawable(R.drawable.ic_add));
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
         //Getting data and setting the text views data for it.
             dataRefName.addValueEventListener(new ValueEventListener() {
@@ -158,7 +201,7 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
                     String region = spinnerRegion.getSelectedItem().toString();
                     String DOB = textViewDOB.getText().toString();
                     String severity = SpinnerpatientSeverity.getSelectedItem().toString();
-                    String imageurl =  storageReferencere.child("images/" + profilePicID).toString();
+                    String imageurl =  useURL;
 
                     if(TextUtils.isEmpty(name)){
                         editTextName.setError("Name Required");
@@ -234,6 +277,8 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
             uri = data.getData();
             profilepic.setImageURI(uri);
             uploadPicture();
+            getUrlAsync(useURL);
+
         }
     }
 
@@ -305,6 +350,26 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
 
         return true;
 
+    }
+
+    // Calls the server to securely obtain an unguessable download Url
+    private void getUrlAsync (String date){
+        // Points to the root reference
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        final String profilePicID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        final StorageReference riversRef = storageReferencere.child("images/" + profilePicID );
+
+        riversRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+        {
+            @Override
+            public void onSuccess(Uri downloadUrl)
+            {
+                downloadUrl.toString();
+                useURL = downloadUrl.toString();
+
+            }
+        });
     }
 
 }

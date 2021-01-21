@@ -165,7 +165,7 @@ public class editBleeds extends AppCompatActivity implements DatePickerDialog.On
             }
         });
 
-        
+
 
         //Find treatment reference for bleed and querying location for our data.
         databaseTreatment = FirebaseDatabase.getInstance().getReference("treatment").child(BleedID);

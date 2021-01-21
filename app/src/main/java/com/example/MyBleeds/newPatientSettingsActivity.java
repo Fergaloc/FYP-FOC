@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -61,7 +62,7 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
     DatabaseReference databasePatients;
 
     DatabaseReference databasepatient;
-    DatabaseReference dataRefName,dataRefDate;
+    DatabaseReference dataRefName,dataRefDate,datarefImg;
 
 
     ListView listViewArtists;
@@ -80,6 +81,15 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
 
     StorageReference imagereference;
 
+    String useURL;
+
+    Uri uriConvert;
+
+    String imgCheck;
+
+    Context context;
+
+
 
 
 
@@ -90,7 +100,7 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
         setContentView(R.layout.patient_settings);
         mAuth = FirebaseAuth.getInstance();
 
-        databasepatient = FirebaseDatabase.getInstance().getReference("patients").child("WdLiqbz0xFVc3D9iSFcK0hHtka32");
+        databasepatient = FirebaseDatabase.getInstance().getReference("patients").child("U32N7b9ZetXeQtBx9o9YIZBI7yB2");
 
         //getting views
         editTextName = (EditText) findViewById(R.id.editTextFirstName);
@@ -103,10 +113,42 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
         textViewDOB = (TextView) findViewById(R.id.textViewDOB);
         profilepic = (ImageView) findViewById(R.id.profilepic);
 
+        context = getApplicationContext();
 
         String uid = FirebaseAuth.getInstance().getUid();
 
         dataRefName = databasepatient.child(uid).child("patientName");
+
+
+        datarefImg = FirebaseDatabase.getInstance().getReference("patients").child("U32N7b9ZetXeQtBx9o9YIZBI7yB2").child(uid).child("imageURL");
+
+        //If statement, checks if user has a profile pic and displays if it does.
+        datarefImg.addValueEventListener(new ValueEventListener() {
+                                             @Override
+                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                 imgCheck = dataSnapshot.getValue(String.class);
+
+                                                 if(dataSnapshot.exists()){
+
+                                                     uriConvert = Uri.parse(imgCheck);
+
+                                                     Glide.with(context)
+                                                             .load(uriConvert)
+                                                             .into(profilepic);
+                                                 } else{
+
+                                                     profilepic.setImageDrawable(getResources().getDrawable(R.drawable.ic_add));
+
+
+                                                 }
+                                             }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
 
 
         storage = FirebaseStorage.getInstance();
@@ -129,7 +171,7 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
                 String region = spinnerRegion.getSelectedItem().toString();
                 String DOB = textViewDOB.getText().toString();
                 String severity = SpinnerpatientSeverity.getSelectedItem().toString();
-                String imageurl =  storageReferencere.child("images/" + profilePicID).toString();
+                String imageurl =  useURL;
 
                 if(TextUtils.isEmpty(name)){
                     editTextName.setError("Name Required");
@@ -205,6 +247,7 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
             uri = data.getData();
             profilepic.setImageURI(uri);
             uploadPicture();
+            getUrlAsync(useURL);
         }
     }
 
@@ -262,7 +305,7 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
     //
     private boolean updatePatient(String name, String region, String DOB, String severity, String imageurl){
 
-        String docID = "WdLiqbz0xFVc3D9iSFcK0hHtka32";
+        String docID = "U32N7b9ZetXeQtBx9o9YIZBI7yB2";
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -276,6 +319,26 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
 
         return true;
 
+    }
+
+    // Calls the server to securely obtain an unguessable download Url
+    private void getUrlAsync (String date){
+        // Points to the root reference
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        final String profilePicID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        final StorageReference riversRef = storageReferencere.child("images/" + profilePicID );
+
+        riversRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+        {
+            @Override
+            public void onSuccess(Uri downloadUrl)
+            {
+                downloadUrl.toString();
+                useURL = downloadUrl.toString();
+
+            }
+        });
     }
 
 }

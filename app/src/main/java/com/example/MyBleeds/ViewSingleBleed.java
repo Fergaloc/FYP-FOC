@@ -39,7 +39,7 @@ public class ViewSingleBleed extends AppCompatActivity {
 
     TextView textViewShowLocation, textViewShowCause, textViewShowSide, textViewShowDate, textViewShowSeverity;
 
-    Button buttonReturn,buttonEdit;
+    Button buttonReturn;
 
     DatabaseReference databaseTreatment;
 
@@ -68,7 +68,6 @@ public class ViewSingleBleed extends AppCompatActivity {
 
 
         //Hide edit bleed button for doctors
-        buttonEdit.setVisibility(View.GONE);
 
 
         //gets bleed data from previous page and displays it
@@ -89,7 +88,7 @@ public class ViewSingleBleed extends AppCompatActivity {
         textViewShowSide.setText(Bleedside);
 
         buttonReturn = (Button) findViewById(R.id.returnButton);
-        buttonEdit = (Button) findViewById(R.id.editBleedButton) ;
+
 
         buttonReturn.setOnClickListener(new View.OnClickListener() {
             @Override
