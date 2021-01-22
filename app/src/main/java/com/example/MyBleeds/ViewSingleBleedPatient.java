@@ -73,6 +73,9 @@ public class ViewSingleBleedPatient extends AppCompatActivity {
         buttonEdit = (Button) findViewById(R.id.editBleedButton) ;
 
 
+        listViewTreatment.setFocusable(false);
+
+
 
         //gets bleed data from previous page and displays it
         Intent intent = getIntent();

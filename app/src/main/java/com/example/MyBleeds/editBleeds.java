@@ -94,6 +94,8 @@ public class editBleeds extends AppCompatActivity implements DatePickerDialog.On
         listViewTreatment = (SwipeMenuListView) findViewById(R.id.listViewTreatmentEditBleed);
         buttonAddTreatment = (Button) findViewById(R.id.buttonAddTreatmentEdit);
 
+        //Makes sure page starts at the top.
+        listViewTreatment.setFocusable(false);
 
 
         //Gets bleed info from previous page

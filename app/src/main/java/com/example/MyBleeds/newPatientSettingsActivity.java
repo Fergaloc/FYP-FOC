@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -29,6 +30,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -91,7 +93,7 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
 
 
 
-
+    BottomNavigationView itemSelectedListener;
 
 
     @Override
@@ -106,12 +108,13 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
         editTextName = (EditText) findViewById(R.id.editTextFirstName);
         spinnerRegion = (Spinner) findViewById(R.id.spinnerRegion);
         buttonUpdate = (Button) findViewById(R.id.buttonUpdatePatient);
-        buttonHome = (Button) findViewById(R.id.buttonHome);
         buttonLogOut = (Button) findViewById(R.id.buttonLogOut);
         SpinnerpatientSeverity = (Spinner) findViewById(R.id.SpinnerpatientSeverity);
         buttonDOBPicker = (Button) findViewById(R.id.buttonDOBPicker);
         textViewDOB = (TextView) findViewById(R.id.textViewDOB);
         profilepic = (ImageView) findViewById(R.id.profilepic);
+
+        itemSelectedListener = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
         context = getApplicationContext();
 
@@ -139,7 +142,6 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
 
                                                      profilepic.setImageDrawable(getResources().getDrawable(R.drawable.ic_add));
 
-
                                                  }
                                              }
             @Override
@@ -164,6 +166,8 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
         buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                getUrlAsync(useURL);
                 //Sets name of image in storage as same as user ID
                 final String profilePicID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -172,6 +176,8 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
                 String DOB = textViewDOB.getText().toString();
                 String severity = SpinnerpatientSeverity.getSelectedItem().toString();
                 String imageurl =  useURL;
+
+
 
                 if(TextUtils.isEmpty(name)){
                     editTextName.setError("Name Required");
@@ -185,20 +191,7 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
 
         });
 
-        //Bringing user to home page, doesnt save data
-        buttonHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String patient = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                Intent intentSettings = new Intent(getApplicationContext(), Patient_HomeActivity.class);
 
-                intentSettings.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
-
-                startActivity(intentSettings);
-
-            }
-
-        });
 
 
         //Logs out user and send them to the Log-in page.
@@ -228,6 +221,54 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
                 showDatePickerDialog();
             }
         });
+
+
+
+        //Bottom navigation switch case to decide location based upon selected item
+        itemSelectedListener.setSelectedItemId(R.id.ic_account);
+
+        itemSelectedListener.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.ic_home:
+                        String patientnEW = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        Intent intentSettings = new Intent(getApplicationContext(), Patient_HomeActivity.class);
+
+                        intentSettings.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
+                        startActivity(intentSettings);
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.ic_search:
+                        String patient = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        Intent intent = new Intent(getApplicationContext(), ViewBleeds.class);
+
+                        intent.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
+                        startActivity(intent);
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.ic_account:
+
+                        break;
+                }
+
+                return false;
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     //https://www.youtube.com/watch?v=CQ5qcJetYAI
@@ -247,7 +288,6 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
             uri = data.getData();
             profilepic.setImageURI(uri);
             uploadPicture();
-            getUrlAsync(useURL);
         }
     }
 

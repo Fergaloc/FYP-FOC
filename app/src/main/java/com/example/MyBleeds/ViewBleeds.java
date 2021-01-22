@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -63,6 +65,8 @@ public class ViewBleeds extends AppCompatActivity {
 
     ArrayAdapter<BleedList> bleedListAdapter;
 
+    BottomNavigationView itemSelectedListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,8 +74,10 @@ public class ViewBleeds extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         listViewBleeds = (ListView) findViewById(R.id.listViewBleeds);
-        buttonHome = (Button) findViewById(R.id.buttonHome);
+        itemSelectedListener = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
+        //Makes sure page starts at the top.
+        listViewBleeds.setFocusable(false);
 
         Intent intent = getIntent();
 
@@ -84,19 +90,6 @@ public class ViewBleeds extends AppCompatActivity {
         query = databaseBleeds.child(id);
 
 
-        buttonHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String patient = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                Intent intentSettings = new Intent(getApplicationContext(), Patient_HomeActivity.class);
-
-                intentSettings.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
-
-                startActivity(intentSettings);
-
-            }
-
-        });
 
         // code to detect changes in values
         databaseBleeds.addValueEventListener(new ValueEventListener() {
@@ -118,6 +111,48 @@ public class ViewBleeds extends AppCompatActivity {
 
             }
         });
+
+
+        //Bottom navigation switch case to decide location based upon selected item
+        itemSelectedListener.setSelectedItemId(R.id.ic_search);
+
+        itemSelectedListener.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.ic_home:
+                        String patient = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        Intent intent = new Intent(getApplicationContext(), Patient_HomeActivity.class);
+
+                        intent.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
+                        startActivity(intent);
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.ic_search:
+                        break;
+
+                    case R.id.ic_account:
+
+                        String patientnEW = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        Intent intentSettings = new Intent(getApplicationContext(), PatientSettingsActivity.class);
+
+                        intentSettings.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
+
+                        startActivity(intentSettings);
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+
+                return false;
+            }
+        });
+
+
+
+
+
+
+
 
 
     }

@@ -1,230 +1,253 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent" android:layout_height="fill_parent">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".PatientSettingsActivity">
 
 
-    <ImageView
-        android:id="@+id/profilepic"
-        android:layout_width="97dp"
-        android:layout_height="74dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonHome" />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/editTextFirstName"
-        android:layout_width="158dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="84dp"
-        android:layout_marginEnd="68dp"
-        android:hint="Enter name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonUpdatePatient" />
 
-    <Spinner
-        android:id="@+id/spinnerRegion"
-        android:layout_width="148dp"
-        android:layout_height="21dp"
-        android:layout_below="@id/editTextFirstName"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="68dp"
-        android:entries="@array/genres"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/divider" />
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
-    <Button
-        android:id="@+id/buttonDOBPicker"
-        android:layout_width="61dp"
-        android:layout_height="28dp"
-        android:layout_below="@id/spinnerRegion"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="8dp"
-        android:background="@android:color/transparent"
-        android:drawableTop="@drawable/ic_date"
-        app:layout_constraintEnd_toStartOf="@+id/textViewDOB"
-        app:layout_constraintTop_toBottomOf="@+id/editTextFirstName" />
 
-    <TextView
-        android:id="@+id/textViewDOB"
-        android:layout_width="96dp"
-        android:layout_height="15dp"
-        android:layout_below="@id/buttonDOBPicker"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="68dp"
-        android:text=""
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/divider5" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".PatientSettingsActivity">
 
-    <Spinner
-        android:id="@+id/SpinnerpatientSeverity"
-        android:layout_width="148dp"
-        android:layout_height="21dp"
-        android:layout_below="@id/textViewDOB"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="68dp"
-        android:entries="@array/patientSeverity"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/divider2" />
 
-    <Button
-        android:id="@+id/buttonUpdatePatient"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginStart="300dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
-        android:background="@android:color/transparent"
-        android:drawableTop="@drawable/ic_save"
-        android:textColor="#2196F3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/profilepic"
+                android:layout_width="97dp"
+                android:layout_height="74dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="52dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonLogOut" />
 
-    <Button
-        android:id="@+id/buttonHome"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="22dp"
-        android:background="@android:color/transparent"
-        android:drawableTop="@drawable/ic_home"
-        android:textColor="#2196F3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <EditText
+                android:id="@+id/editTextFirstName"
+                android:layout_width="158dp"
+                android:layout_height="41dp"
+                android:layout_marginTop="84dp"
+                android:layout_marginEnd="68dp"
+                android:hint="Enter name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonUpdatePatient" />
 
-    <Button
-        android:id="@+id/buttonLogOut"
-        android:layout_width="wrap_content"
+            <Spinner
+                android:id="@+id/spinnerRegion"
+                android:layout_width="148dp"
+                android:layout_height="21dp"
+                android:layout_below="@id/editTextFirstName"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="68dp"
+                android:entries="@array/genres"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/divider" />
+
+            <Button
+                android:id="@+id/buttonDOBPicker"
+                android:layout_width="61dp"
+                android:layout_height="28dp"
+                android:layout_below="@id/spinnerRegion"
+                android:layout_marginTop="52dp"
+                android:layout_marginEnd="8dp"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/ic_date"
+                app:layout_constraintEnd_toStartOf="@+id/textViewDOB"
+                app:layout_constraintTop_toBottomOf="@+id/editTextFirstName" />
+
+            <TextView
+                android:id="@+id/textViewDOB"
+                android:layout_width="96dp"
+                android:layout_height="15dp"
+                android:layout_below="@id/buttonDOBPicker"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="68dp"
+                android:text=""
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/divider5" />
+
+            <Spinner
+                android:id="@+id/SpinnerpatientSeverity"
+                android:layout_width="148dp"
+                android:layout_height="21dp"
+                android:layout_below="@id/textViewDOB"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="68dp"
+                android:entries="@array/patientSeverity"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/divider2" />
+
+            <Button
+                android:id="@+id/buttonUpdatePatient"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="300dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/ic_save"
+                android:textColor="#2196F3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/buttonLogOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/buttonUpdatePatient"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="203dp"
+                android:text="Log Out"
+                android:textColor="#2196F3"
+                app:layout_constraintEnd_toStartOf="@+id/buttonUpdatePatient"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="109dp"
+                android:layout_height="21dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="52dp"
+                android:gravity="center"
+                android:text="EDIT"
+
+                android:textColor="#FFFFFF"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/profilepic" />
+
+            <TextView
+                android:id="@+id/TXTcounty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="50dp"
+                android:text="County"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/divider" />
+
+            <TextView
+                android:id="@+id/txtSeverity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="32dp"
+                android:text="Severity"
+                app:layout_constraintBottom_toTopOf="@+id/divider3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/divider2"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="409dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="100dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/divider5" />
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="409dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="100dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/divider" />
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="409dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="136dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/divider2" />
+
+            <View
+                android:id="@+id/divider4"
+                android:layout_width="409dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="104dp"
+                android:layout_marginEnd="1dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/divider5"
+                android:layout_width="409dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="100dp"
+                android:layout_marginEnd="1dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/divider4" />
+
+            <TextView
+                android:id="@+id/txtDOB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="50dp"
+                android:text="Date Of Birth"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/divider5" />
+
+            <TextView
+                android:id="@+id/textViewHeading"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="68dp"
+                android:layout_marginEnd="162dp"
+                android:text="Edit Profile"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/buttonUpdatePatient"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="100dp"
-        android:text="Log Out"
-        android:textColor="#2196F3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/divider3" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="109dp"
-        android:layout_height="21dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="52dp"
-        android:text="EDIT"
-        android:gravity="center"
-
-        android:textColor="#FFFFFF"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/profilepic" />
-
-    <TextView
-        android:id="@+id/TXTcounty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="50dp"
-        android:text="County"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/divider" />
-
-    <TextView
-        android:id="@+id/txtSeverity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="50dp"
-        android:text="Severity"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/divider2" />
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="409dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="100dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/divider5" />
-
-    <View
-        android:id="@+id/divider2"
-        android:layout_width="409dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="1dp"
-        android:background="?android:attr/listDivider"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/divider" />
+        app:menu="@menu/nav_menu"
+        android:layout_alignParentBottom="true"
+        app:itemTextColor="@drawable/navigation_view_colored"
+        app:itemIconTint="@drawable/navigation_view_colored"
+        >
 
-    <View
-        android:id="@+id/divider3"
-        android:layout_width="409dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="1dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/divider2" />
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-    <View
-        android:id="@+id/divider4"
-        android:layout_width="409dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="104dp"
-        android:layout_marginEnd="1dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/divider5"
-        android:layout_width="409dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="1dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/divider4" />
-
-    <TextView
-        android:id="@+id/txtDOB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="50dp"
-        android:text="Date Of Birth"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/divider5" />
-
-    <TextView
-        android:id="@+id/textViewHeading"
-        style="@style/TextAppearance.AppCompat.Medium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
-        android:text="Edit Profile"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="161dp" />
+    </RelativeLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
