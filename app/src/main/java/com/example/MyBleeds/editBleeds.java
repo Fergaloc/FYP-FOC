@@ -54,7 +54,7 @@ public class editBleeds extends AppCompatActivity implements DatePickerDialog.On
     TextView textViewArtistsName, textViewDate;
     EditText editTextBleedLocation;
     SeekBar seekBarRating;
-    Button buttonAddTrack, buttonHome, buttonDatePicker,buttonAddTreatment;
+    Button buttonAddTrack, buttonHome, buttonDatePicker,buttonAddTreatment,buttonReturn;
     Spinner SpinnerBleedSide, SpinnerBleedSeverity, SpinnerBleedCause, SpinnerBleedLocation;
 
     DatabaseReference databaseBleeds;
@@ -84,7 +84,7 @@ public class editBleeds extends AppCompatActivity implements DatePickerDialog.On
         editTextBleedLocation = (EditText) findViewById(R.id.editTextName);
         seekBarRating = (SeekBar) findViewById((R.id.seekBarRating));
         buttonAddTrack = (Button) findViewById(R.id.buttonAddTrack);
-        buttonHome = (Button) findViewById(R.id.buttonHome);
+
         SpinnerBleedSide = (Spinner) findViewById(R.id.SpinnerBleedSide);
         SpinnerBleedSeverity = (Spinner) findViewById(R.id.SpinnerBleedSeverity);
         SpinnerBleedCause = (Spinner) findViewById(R.id.SpinnerBleedCause);
@@ -92,7 +92,8 @@ public class editBleeds extends AppCompatActivity implements DatePickerDialog.On
         textViewDate = (TextView) findViewById(R.id.textViewDate);
         buttonDatePicker = (Button) findViewById(R.id.buttonDatePicker);
         listViewTreatment = (SwipeMenuListView) findViewById(R.id.listViewTreatmentEditBleed);
-        buttonAddTreatment = (Button) findViewById(R.id.buttonAddTreatmentEdit);
+        buttonAddTreatment = (Button) findViewById(R.id.buttonAddTreatment);
+        buttonReturn = (Button) findViewById(R.id.returnButton);
 
         //Makes sure page starts at the top.
         listViewTreatment.setFocusable(false);
@@ -271,28 +272,22 @@ public class editBleeds extends AppCompatActivity implements DatePickerDialog.On
             }
         });
 
-
-        buttonHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String patient = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                Intent intentSettings = new Intent(getApplicationContext(), Patient_HomeActivity.class);
-
-                intentSettings.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
-
-                startActivity(intentSettings);
-
-            }
-
-        });
-
-
         buttonAddTreatment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openDialog();
             }
         });
+
+
+        buttonReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               editBleeds.this.onBackPressed();
+
+            }
+        });
+
 
 
 

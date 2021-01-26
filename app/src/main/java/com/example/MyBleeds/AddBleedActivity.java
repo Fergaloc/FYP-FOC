@@ -7,6 +7,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -17,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,6 +56,8 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
 
     Query query;
 
+    BottomNavigationView bottomNavigationView;
+
 
 
 
@@ -68,7 +72,6 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
         editTextBleedLocation = (EditText) findViewById(R.id.editTextName);
         seekBarRating = (SeekBar) findViewById((R.id.seekBarRating));
         buttonAddTrack = (Button) findViewById(R.id.buttonAddTrack);
-        buttonHome = (Button) findViewById(R.id.buttonHome);
         SpinnerBleedSide = (Spinner) findViewById(R.id.SpinnerBleedSide);
         SpinnerBleedSeverity = (Spinner) findViewById(R.id.SpinnerBleedSeverity);
         SpinnerBleedCause = (Spinner) findViewById(R.id.SpinnerBleedCause);
@@ -78,11 +81,16 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
         buttonAddTreatment = (Button) findViewById(R.id.buttonAddTreatment);
         txtAddTreat = (TextView) findViewById(R.id.textAddTreatment) ;
         listviewTreatment = (ListView) findViewById(R.id.listViewTreatment);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+
 
 
         buttonAddTreatment.setVisibility(View.INVISIBLE);
         txtAddTreat.setVisibility(View.INVISIBLE);
         listviewTreatment.setVisibility(View.INVISIBLE);
+
+
+
 
 
 
@@ -119,19 +127,57 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
         });
 
 
-        buttonHome.setOnClickListener(new View.OnClickListener() {
+
+        //Bottom navigation switch case to decide location based upon selected item
+        bottomNavigationView.setSelectedItemId(R.id.ic_home);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                String patient = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                Intent intentSettings = new Intent(getApplicationContext(), Patient_HomeActivity.class);
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.ic_home:
 
-                intentSettings.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
+                        String patient3 = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        Intent intentHome = new Intent(getApplicationContext(), Patient_HomeActivity.class);
 
-                startActivity(intentSettings);
+                        intentHome.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
+                        startActivity(intentHome);
+                        overridePendingTransition(0,0);
+                        return true;
 
+                    case R.id.ic_search:
+                        String patient = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        Intent intent = new Intent(getApplicationContext(), ViewBleeds.class);
+
+                        intent.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
+                        startActivity(intent);
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.ic_account:
+
+                        String patientnEW = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        Intent intentSettings = new Intent(getApplicationContext(), PatientSettingsActivity.class);
+
+                        intentSettings.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
+
+                        startActivity(intentSettings);
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+
+                return false;
             }
-
         });
+
+
+
+
+
+
+
+
+
 
 //https://www.youtube.com/watch?v=AdTzD96AhE0
         // code from an online tutorial that shows a date picker once the button is picked.

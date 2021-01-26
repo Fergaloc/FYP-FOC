@@ -29,6 +29,7 @@
         <activity android:name=".ViewBleeds"></activity>
         <activity android:name=".ViewSingleBleedPatient"></activity>
         <activity android:name=".editBleeds"></activity>
+        <activity android:name=".ViewAllBleeds"></activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 

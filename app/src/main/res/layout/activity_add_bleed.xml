@@ -1,165 +1,280 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent" android:layout_height="fill_parent">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="16dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="16dp"
-    tools:context=".AddBleedActivity">
+    android:orientation="vertical">>
+
+    <ScrollView       android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
 
-    <Button
-        android:id="@+id/buttonHome"
-        android:layout_width="wrap_content"
-        android:layout_height="31dp"
-        android:textSize="7sp"
-        android:background="@android:color/transparent"
-        android:drawableTop="@drawable/ic_home" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".PatientSettingsActivity">
+
 
     <TextView
         android:id="@+id/textMyBleeds"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
         android:gravity="center"
         android:text="Add a Bleed"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#2196F3"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewArtistName"
         android:layout_width="match_parent"
         android:layout_height="18dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="16dp"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textMyBleeds" />
 
     <Spinner
         android:id="@+id/SpinnerBleedLocation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="267dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="2dp"
         android:entries="@array/bleedLocations"
- />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewArtistName" />
 
     <Spinner
         android:id="@+id/SpinnerBleedSide"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="267dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="2dp"
         android:entries="@array/bleedSide"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SpinnerBleedLocation" />
 
     <Spinner
         android:id="@+id/SpinnerBleedSeverity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="267dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="2dp"
         android:entries="@array/bleedSeverity"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SpinnerBleedSide" />
 
     <Spinner
         android:id="@+id/SpinnerBleedCause"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="267dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="2dp"
         android:entries="@array/bleedCause"
-        />
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SpinnerBleedSeverity" />
 
     <Button
         android:id="@+id/buttonDatePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_width="106dp"
+        android:layout_height="38dp"
         android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/transparent"
+        android:drawableTop="@drawable/ic_date"
         android:gravity="center"
-        android:text="Select Bleed Date" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <TextView
         android:id="@+id/textViewDate"
-        android:layout_width="match_parent"
-        android:layout_gravity="center"
+        android:layout_width="147dp"
+        android:layout_height="25dp"
         android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="116dp"
         android:gravity="center"
-        android:layout_height="wrap_content"
+        android:text=""
         android:textStyle="bold"
-        android:text="" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonDatePicker"
+        app:layout_constraintTop_toBottomOf="@+id/SpinnerBleedCause" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="187dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:text="Bleed Pain Rating"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonDatePicker" />
 
     <SeekBar
         android:id="@+id/seekBarRating"
         android:layout_width="match_parent"
-        android:layout_below="@id/textView2"
         android:layout_height="wrap_content"
+        android:layout_below="@id/textView2"
 
-        android:max="5" />
-
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:max="5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <Button
         android:id="@+id/buttonAddTrack"
+        android:layout_width="270dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="63dp"
+        android:text="Add "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekBarRating" />
+
+    <TextView
+        android:id="@+id/textAddTreatment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add " />
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:text="Add Treatment"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#2196F3"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider6" />
+
+            <Button
+                android:id="@+id/buttonAddTreatment"
+                android:layout_width="126dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/ic_add"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textAddTreatment" />
+
+            <ListView
+                android:id="@+id/listViewTreatment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="64dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonAddTreatment"></ListView>
+
+    <View
+        android:id="@+id/divider6"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="10dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonAddTrack" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:text="Bleed Location"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewArtistName" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Bleed Side"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Bleed Severity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Bleed Reason"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp">
 
-
-        <TextView
-            android:id="@+id/textAddTreatment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="Add Treatment"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#2196F3"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <LinearLayout
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentTop="true">
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/nav_menu"
+        android:layout_alignParentBottom="true"
+        app:itemTextColor="@drawable/navigation_view_colored"
+        app:itemIconTint="@drawable/navigation_view_colored"
+        >
 
-        <Button
-            android:id="@+id/buttonAddTreatment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            android:drawableTop="@drawable/ic_add" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp">
-
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/listViewTreatment"
-            ></ListView>
-
-    </LinearLayout>
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 
+</RelativeLayout>
 
-</LinearLayout>
-
-</ScrollView>

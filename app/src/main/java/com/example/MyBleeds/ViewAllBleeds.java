@@ -41,7 +41,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class ViewBleeds extends AppCompatActivity {
+public class ViewAllBleeds extends AppCompatActivity {
 
     public static final String PATIENT_NAME = "patientname";
     public static final String PATIENT_ID = "patientid";
@@ -77,9 +77,6 @@ public class ViewBleeds extends AppCompatActivity {
     String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +85,7 @@ public class ViewBleeds extends AppCompatActivity {
 
         listViewBleeds = (ListView) findViewById(R.id.listViewBleeds);
         itemSelectedListener = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-       spbleedLocation = (Spinner) findViewById(R.id.SpinnerBleedLocationView);
+        spbleedLocation = (Spinner) findViewById(R.id.SpinnerBleedLocationView);
         //Makes sure page starts at the top.
         listViewBleeds.setFocusable(false);
 
@@ -102,11 +99,13 @@ public class ViewBleeds extends AppCompatActivity {
         databaseBleeds = FirebaseDatabase.getInstance().getReference("bleeds").child(id);
         query = databaseBleeds.child(id);
 
+        spbleedLocation.setVisibility(View.GONE);
+
 
 
 
         // code to detect changes in values
-        /*
+
         databaseBleeds.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -116,9 +115,8 @@ public class ViewBleeds extends AppCompatActivity {
                     bleeds.add(bleed);
                 }
 
-                BleedList bleedListAdapter = new BleedList(ViewBleeds.this, bleeds);
+                BleedList bleedListAdapter = new BleedList(ViewAllBleeds.this, bleeds);
                 listViewBleeds.setAdapter(bleedListAdapter);
-
 
             }
             @Override
@@ -126,7 +124,7 @@ public class ViewBleeds extends AppCompatActivity {
 
             }
         });
-*/
+
 
 
         //Bottom navigation switch case to decide location based upon selected item
@@ -167,10 +165,6 @@ public class ViewBleeds extends AppCompatActivity {
 
 
 
-
-
-
-
     }
 
     @Override
@@ -185,7 +179,7 @@ public class ViewBleeds extends AppCompatActivity {
                 Bleed bleed = (Bleed) parent.getAdapter().getItem(position);
 
 
-                Intent viewIntent = new Intent(ViewBleeds.this, ViewSingleBleedPatient.class);
+                Intent viewIntent = new Intent(ViewAllBleeds.this, ViewSingleBleedPatient.class);
                 viewIntent.putExtra(BLEED_ID, bleed.getBleedIDID());
                 viewIntent.putExtra(BLEED_NAME, bleed.getBleedName());
                 viewIntent.putExtra(BLEED_SEVERITY, bleed.getBleedSeverity());
@@ -198,41 +192,6 @@ public class ViewBleeds extends AppCompatActivity {
 
             }
         });
-
-
-
-        //Query the data on what data is selected from the spinner and change the list view to show this data.
-        spbleedLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String spinnerSelector = spbleedLocation.getSelectedItem().toString();
-                Query queryLocation = databaseBleeds.orderByChild("bleedName").equalTo(spinnerSelector);
-
-                queryLocation.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        bleeds.clear();
-                        for(DataSnapshot trackSnapshot: dataSnapshot.getChildren()){
-                            Bleed bleed = trackSnapshot.getValue(Bleed.class);
-                            bleeds.add(bleed);
-                        }
-                        final BleedList bleedListAdapter = new BleedList(ViewBleeds.this, bleeds);
-                        listViewBleeds.setAdapter(bleedListAdapter);
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
 
 
     }

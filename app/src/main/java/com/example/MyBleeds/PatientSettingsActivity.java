@@ -205,7 +205,7 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
                     String region = spinnerRegion.getSelectedItem().toString();
                     String DOB = textViewDOB.getText().toString();
                     String severity = SpinnerpatientSeverity.getSelectedItem().toString();
-                    String imageurl =  uriConvert.toString();
+                    String imageurl =  useURL.toString();
 
                     if(TextUtils.isEmpty(name)){
                         editTextName.setError("Name Required");

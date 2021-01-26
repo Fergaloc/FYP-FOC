@@ -34,12 +34,12 @@ public class BleedList extends ArrayAdapter<Bleed> {
         View listViewItem = inflater.inflate(R.layout.layout_track_list,null,true);
 
         TextView textViewName = (TextView) listViewItem.findViewById(R.id.textViewName);
-        TextView textViewRating = (TextView) listViewItem.findViewById(R.id.textViewRating);
+        TextView textViewDate = (TextView) listViewItem.findViewById(R.id.textViewRating);
 
        Bleed bleed = bleeds.get(position);
 
         textViewName.setText(bleed.getBleedName());
-        textViewRating.setText(String.valueOf(bleed.getBleedDate()));
+        textViewDate.setText(String.valueOf(bleed.getBleedDate()));
 
         return listViewItem;
 

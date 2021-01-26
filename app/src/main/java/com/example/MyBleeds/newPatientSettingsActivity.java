@@ -64,7 +64,7 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
     DatabaseReference databasePatients;
 
     DatabaseReference databasepatient;
-    DatabaseReference dataRefName,dataRefDate,datarefImg;
+    DatabaseReference dataRefName,dataRefDate,datarefImg,databaseReference;
 
 
     ListView listViewArtists;
@@ -87,7 +87,7 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
 
     Uri uriConvert;
 
-    String imgCheck;
+    String imgCheck,userCheck;
 
     Context context;
 
@@ -116,13 +116,18 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
 
         itemSelectedListener = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
+
+        itemSelectedListener.setVisibility(View.GONE);
+
+
+
+
+
         context = getApplicationContext();
 
         String uid = FirebaseAuth.getInstance().getUid();
 
         dataRefName = databasepatient.child(uid).child("patientName");
-
-
         datarefImg = FirebaseDatabase.getInstance().getReference("patients").child("U32N7b9ZetXeQtBx9o9YIZBI7yB2").child(uid).child("imageURL");
 
         //If statement, checks if user has a profile pic and displays if it does.
@@ -152,7 +157,6 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
 
 
 
-
         storage = FirebaseStorage.getInstance();
         storageReferencere = storage.getReference();
 
@@ -175,7 +179,8 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
                 String region = spinnerRegion.getSelectedItem().toString();
                 String DOB = textViewDOB.getText().toString();
                 String severity = SpinnerpatientSeverity.getSelectedItem().toString();
-                String imageurl =  useURL;
+                //https://stackoverflow.com/questions/59789584/attempt-to-invoke-virtual-method-java-lang-string-android-net-uri-tostring-o
+                final String imageurl = uriConvert != null ? uriConvert.toString() : null;
 
 
 
@@ -185,6 +190,8 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
                 }
 
                 updatePatient(name, region, DOB, severity, imageurl);
+                itemSelectedListener.setVisibility(View.VISIBLE);
+
 
 
             }
@@ -257,6 +264,9 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
                 return false;
             }
         });
+
+
+
 
 
 
