@@ -5,79 +5,187 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+    android:orientation="vertical"
+    android:background="#F6F4F6">
 
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="157dp"
-            android:layout_marginTop="87dp"
-            android:layout_marginEnd="157dp"
-            android:gravity="center"
-            android:shadowColor="#2196F3"
-            android:text="myBleeds"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#2196F3"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/buttonAddBleed"
-            android:layout_width="275dp"
-            android:layout_height="75dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="75dp"
-            android:layout_marginTop="96dp"
-            android:layout_marginEnd="76dp"
-            android:text="Add Bleed"
-            android:textAllCaps="false"
-            android:textColor="#2196F3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-        <Button
-            android:id="@+id/buttonViewBleed"
-            android:layout_width="275dp"
-            android:layout_height="75dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="51dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="52dp"
-            android:text="View Bleeds"
-            android:textAllCaps="false"
-            android:textColor="#2196F3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.515"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonAddBleed" />
-
-        <Button
-            android:id="@+id/buttonViewHealth"
-            android:layout_width="275dp"
-            android:layout_height="75dp"
-            android:layout_gravity="center"
-            android:layout_margin="7dp"
-            android:layout_marginStart="68dp"
-            android:layout_marginEnd="129dp"
-            android:text="View my health"
-            android:textAllCaps="false"
-            android:textColor="#2196F3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonViewBleed" />
+            android:background="#F6F4F6">
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="281dp"
+                android:gravity="center"
+                android:shadowColor="#33B5E5"
+                android:text="myBleeds"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#33B5E5"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/buttonAddBleed"
+                android:layout_width="348dp"
+                android:layout_height="95dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="48dp"
+                android:layout_marginEnd="31dp"
+                android:background="#FFFFFF"
+                android:bottomLeftRadius="10dp"
+                android:bottomRightRadius="10dp"
+                android:textAllCaps="false"
+                android:textColor="#2196F3"
+                android:topLeftRadius="10dp"
+                android:topRightRadius="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+            <Button
+                android:id="@+id/buttonViewBleed"
+                android:layout_width="172dp"
+                android:layout_height="112dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="207dp"
+                android:background="#FFFFFF"
+                android:textAllCaps="false"
+                android:textColor="#2196F3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonAddBleed" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="135dp"
+                android:layout_height="23dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="200dp"
+                android:elevation="100dp"
+                android:text="Add a new bleed."
+                android:textColor="#333333"
+                app:layout_constraintEnd_toEndOf="@+id/buttonAddBleed"
+                app:layout_constraintTop_toTopOf="@+id/textView10" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="137dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="104dp"
+                android:drawableTop="@drawable/ic_add"
+                android:elevation="100dp"
+                app:layout_constraintEnd_toEndOf="@+id/buttonAddBleed"
+                app:layout_constraintTop_toTopOf="@+id/buttonAddBleed" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="72dp"
+                android:elevation="100dp"
+                android:text="View all Bleeds"
+                android:textColor="#333333"
+                app:layout_constraintEnd_toEndOf="@+id/buttonViewBleed"
+                app:layout_constraintTop_toTopOf="@+id/buttonViewBleed" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="43dp"
+                android:layout_marginTop="48dp"
+                android:layout_marginEnd="274dp"
+                android:text="myHealth"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#333333"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonViewBleed"
+                tools:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="256dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:elevation="100dp"
+                android:text="View a breakdown of all previous bleeds."
+                android:textColor="#333333"
+                app:layout_constraintEnd_toEndOf="@+id/buttonViewHealth"
+                app:layout_constraintTop_toTopOf="@+id/buttonViewHealth" />
+
+            <Button
+                android:id="@+id/buttonViewHealth"
+                android:layout_width="306dp"
+                android:layout_height="110dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="65dp"
+                android:background="#FFFFFF"
+                android:textAllCaps="false"
+                android:textColor="#2196F3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+            <View
+                android:id="@+id/divider10"
+                android:layout_width="409dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="128dp"
+                android:layout_marginEnd="1dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonViewHealth" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="72dp"
+                android:layout_marginTop="44dp"
+                android:text="Welcome, "
+                android:textColor="#333333"
+                app:layout_constraintStart_toEndOf="@+id/textView3"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="44dp"
+                android:textColor="#333333"
+                app:layout_constraintStart_toEndOf="@+id/textView14"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -95,6 +203,8 @@
         >
 
 </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+
 
 </RelativeLayout>
 

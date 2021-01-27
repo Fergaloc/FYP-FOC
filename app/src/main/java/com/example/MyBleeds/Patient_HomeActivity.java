@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -40,12 +41,16 @@ public class Patient_HomeActivity extends AppCompatActivity {
     Button buttonAdd;
     Button buttonView;
     Button buttonUserSettings;
+    Button buttonHealth;
+
+    TextView txtUserName;
+
 
 
 
     List<Patient> patients;
 
-    DatabaseReference databasePatients,databaseReference;
+    DatabaseReference databasePatients,databaseReference,databaseName;
 
     FirebaseAuth mAuth;
 
@@ -68,6 +73,26 @@ public class Patient_HomeActivity extends AppCompatActivity {
         buttonAdd = (Button) findViewById(R.id.buttonAddBleed);
         buttonView = (Button) findViewById(R.id.buttonViewBleed);
         itemSelectedListener = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        txtUserName = (TextView) findViewById(R.id.txtUserName);
+        buttonHealth = (Button) findViewById(R.id.buttonViewHealth) ;
+
+
+
+        databaseName = FirebaseDatabase.getInstance().getReference("patients").child("U32N7b9ZetXeQtBx9o9YIZBI7yB2").child(uid).child("patientName");
+        databaseName.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String name = dataSnapshot.getValue(String.class);
+                txtUserName.setText(name);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
         //Brings us to add bleeds page, also works as view bleeds page
         buttonAdd.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +116,22 @@ public class Patient_HomeActivity extends AppCompatActivity {
 
                 String patient = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 Intent intent = new Intent(getApplicationContext(), ViewAllBleeds.class);
+
+                intent.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
+
+
+                startActivity(intent);
+
+            }
+        });
+
+
+        buttonHealth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String patient = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                Intent intent = new Intent(getApplicationContext(), myHealthActivity.class);
 
                 intent.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
 

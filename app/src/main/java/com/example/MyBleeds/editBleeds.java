@@ -359,11 +359,25 @@ public class editBleeds extends AppCompatActivity implements DatePickerDialog.On
     }
 
 
-
+    //changes date format for easier query.
+    //https://stackoverflow.com/questions/14153811/date-format-change-in-datepicker-and-calendar/14153993#14153993#answers
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        String date =  dayOfMonth + "/" + (month+1) +  "/ "+ year;
-        textViewDate.setText(date);
+
+        int months = month + 1;
+        String formattedMonth = "" + months;
+        String formattedDayOfMonth = "" + dayOfMonth;
+
+        if(months < 10){
+
+            formattedMonth = "0" + months;
+        }
+        if(dayOfMonth < 10){
+
+            formattedDayOfMonth = "0" + dayOfMonth;
+        }
+        textViewDate.setText(year + "/" + formattedMonth + "/" + formattedDayOfMonth);
+
     }
 
 

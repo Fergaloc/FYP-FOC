@@ -47,4 +47,5 @@ dependencies {
     //Swipe list view
     compile 'com.baoyz.swipemenulistview:library:1.3.0'
 
+
 }
