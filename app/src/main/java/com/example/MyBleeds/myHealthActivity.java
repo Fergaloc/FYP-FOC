@@ -2,13 +2,23 @@ package com.example.MyBleeds;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -46,13 +56,21 @@ public class myHealthActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
 
+    //vars for recyclerview.
+    private View bleedView;
+    private RecyclerView recyclerView;
+    ArrayList<Bleed> arrayList;
+    Context context;
 
-    DatabaseReference databaseBleeds;
+        private Query query, queryDatesD;
+
+
+
+    DatabaseReference databaseBleeds,databaseRef,dataBleed;
     List<Bleed> bleeds;
-    Query query;
-
 
     BottomNavigationView itemSelectedListener;
+    ListView listViewTarget;
 
     TextView txtBleedAmount,txtTarget;
 
@@ -109,7 +127,21 @@ public class myHealthActivity extends AppCompatActivity {
         itemSelectedListener = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         txtBleedAmount = (TextView) findViewById(R.id.txtBleedAmount);
         txtTarget = (TextView) findViewById(R.id.txtTarget);
+        listViewTarget = (ListView) findViewById(R.id.listViewTarget);
 
+        //recylcer
+        arrayList = new ArrayList<>();
+        context = getApplicationContext();
+        recyclerView = findViewById(R.id.bleedRecycler);
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+
+
+        String uid = mAuth.getUid();
+        queryDatesD = FirebaseDatabase.getInstance().getReference().child("bleeds").child(uid).orderByChild("bleedDate").startAt(SixDates).endAt(currentDate);
+
+        dataBleed = FirebaseDatabase.getInstance().getReference().child("bleeds").child(uid);
 
 
 
@@ -160,7 +192,6 @@ public class myHealthActivity extends AppCompatActivity {
 
 
         //  A query that finds the amount of bleeds a user has had in the past 6 months
-        final String uid = FirebaseAuth.getInstance().getUid();
 
         Query queryDates = FirebaseDatabase.getInstance().getReference().child("bleeds").child(uid).orderByChild("bleedDate").startAt(SixDates).endAt(currentDate);
 
@@ -340,7 +371,34 @@ public class myHealthActivity extends AppCompatActivity {
                         if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0) {
                             maxEntry = entry;
                             String TargetJoint = maxEntry.toString();
-                            txtTarget.setText(TargetJoint);
+
+                            String names = entry.getKey();
+                            txtTarget.setText(names);
+
+
+                            Query TargetQ = databaseBleeds.orderByChild("bleedName").equalTo(names);
+                            //Shows all bleeds for target joints
+                            TargetQ.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    bleeds.clear();
+                                    for(DataSnapshot trackSnapshot: dataSnapshot.getChildren()){
+                                        Bleed bleed = trackSnapshot.getValue(Bleed.class);
+                                        bleeds.add(bleed);
+                                    }
+                                    final BleedList bleedListAdapter = new BleedList(myHealthActivity.this, bleeds);
+                                    listViewTarget.setAdapter(bleedListAdapter);
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+
+
+
 
                         }
                         String maxKey = Collections.max(topBleeds.keySet());
@@ -357,17 +415,82 @@ public class myHealthActivity extends AppCompatActivity {
         });
 
 
+
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
+        //Creates Firebase recycler that adds bleeds to horizontal view.
+
+        FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Bleed>().setQuery(dataBleed, Bleed.class).build();
+
+        FirebaseRecyclerAdapter<Bleed, myHealthActivity.BleedViewHolder> adapter =  new FirebaseRecyclerAdapter<Bleed, myHealthActivity.BleedViewHolder>(options) {
 
 
+            @Override
+            protected void onBindViewHolder(@NonNull final BleedViewHolder holder, int position, @NonNull Bleed model) {
 
+                final String bleedID = getRef(position).getKey();
+
+                dataBleed.child(bleedID).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        final String bleedID = dataSnapshot.child("bleedIDID").getValue().toString();
+                        final String bleedName = dataSnapshot.child("bleedName").getValue().toString();
+                        String bleedDate = dataSnapshot.child("bleedDate").getValue().toString();
+                        String bleedSeverity = dataSnapshot.child("bleedSeverity").getValue().toString();
+
+                        holder.txtSeverity.setText(bleedSeverity);
+                        holder.txtName.setText(bleedName);
+                        holder.txtDate.setText(bleedDate);
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
+            }
+
+
+            @NonNull
+            @Override
+            public BleedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_bleedlist, parent, false);
+                myHealthActivity.BleedViewHolder viewHolder = new myHealthActivity.BleedViewHolder(view);
+                return viewHolder;
+
+            }
+        };
+
+        recyclerView.setAdapter(adapter);
+        adapter.startListening();
     }
 
+
+    public static class BleedViewHolder extends RecyclerView.ViewHolder{
+
+        TextView txtName, txtSeverity, txtDate ;
+
+
+        public BleedViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            txtName = itemView.findViewById(R.id.txtbleedName);
+           txtSeverity = itemView.findViewById(R.id.bleedSeverity);
+            txtDate  = itemView.findViewById(R.id.txtBleedDate);
+
+        }
+    }
 
 
 }

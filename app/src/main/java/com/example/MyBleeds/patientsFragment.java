@@ -49,6 +49,8 @@ public class patientsFragment extends Fragment {
         PatientsRef = FirebaseDatabase.getInstance().getReference().child("patients").child(currentUserID);
         bleedsRef = FirebaseDatabase.getInstance().getReference().child("bleeds");
 
+
+
         return PatientView;
     }
 

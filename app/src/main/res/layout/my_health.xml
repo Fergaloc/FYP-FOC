@@ -54,6 +54,19 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView3"
                 tools:textStyle="bold" />
 
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/bleedRecycler"
+                android:layout_width="375dp"
+                android:layout_height="120dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="1dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView21"></androidx.recyclerview.widget.RecyclerView>
+
             <TextView
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
@@ -82,6 +95,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:text="In the past 6 months you have had "
+                android:textColor="#333333"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
@@ -90,8 +104,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="160dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="28dp"
                 android:text="Bleeds"
+                android:textColor="#333333"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -99,40 +114,37 @@
                 android:id="@+id/textView17"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="73dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="168dp"
                 android:text="You're current target joint is "
+                android:textColor="#333333"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView15" />
+                app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
             <TextView
                 android:id="@+id/textView18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="33dp"
-                android:layout_marginTop="49dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="18dp"
                 android:text="Previous target joints bleeds :"
+                android:textColor="#333333"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
             <ListView
-                android:layout_width="310dp"
-                android:layout_height="112dp"
-                android:layout_marginStart="53dp"
-                android:layout_marginTop="7dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView18" />
-
-            <TextView
-                android:id="@+id/textView20"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="77dp"
-                android:text="View all your past bleeds here"
+                android:id="@+id/listViewTarget"
+                android:layout_width="331dp"
+                android:layout_height="170dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="40dp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-            />
+                app:layout_constraintTop_toBottomOf="@+id/textView18">
+
+            </ListView>
 
             <TextView
                 android:id="@+id/txtBleedAmount"
@@ -141,7 +153,10 @@
                 android:layout_marginStart="58dp"
                 android:layout_marginTop="160dp"
                 android:layout_marginEnd="62dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#333333"
                 app:layout_constraintEnd_toStartOf="@+id/textView16"
+                app:layout_constraintHorizontal_bias="0.083"
                 app:layout_constraintStart_toEndOf="@+id/textView15"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -149,10 +164,23 @@
                 android:id="@+id/txtTarget"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
-                android:layout_marginEnd="122dp"
+                android:layout_marginTop="208dp"
+                android:layout_marginEnd="92dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#333333"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtBleedAmount" />
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="270dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:text="View all Bleeds during this period here."
+                android:textColor="#333333"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
