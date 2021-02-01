@@ -56,6 +56,8 @@ public class myHealthActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
 
+
+    TextView txtUserName;
     //vars for recyclerview.
     private View bleedView;
     private RecyclerView recyclerView;
@@ -66,7 +68,8 @@ public class myHealthActivity extends AppCompatActivity {
 
 
 
-    DatabaseReference databaseBleeds,databaseRef,dataBleed;
+    DatabaseReference databaseBleeds,databaseRef,dataBleed,databaseName;
+    Query databaseDates;
     List<Bleed> bleeds;
 
     BottomNavigationView itemSelectedListener;
@@ -128,6 +131,7 @@ public class myHealthActivity extends AppCompatActivity {
         txtBleedAmount = (TextView) findViewById(R.id.txtBleedAmount);
         txtTarget = (TextView) findViewById(R.id.txtTarget);
         listViewTarget = (ListView) findViewById(R.id.listViewTarget);
+        txtUserName = (TextView) findViewById(R.id.txtUserName);
 
         //recylcer
         arrayList = new ArrayList<>();
@@ -143,6 +147,30 @@ public class myHealthActivity extends AppCompatActivity {
 
         dataBleed = FirebaseDatabase.getInstance().getReference().child("bleeds").child(uid);
 
+//        databaseDates = dataBleed.orderByChild("bleedDates").limitToFirst(countBleeds);
+
+
+
+
+
+        //Gets user name
+        databaseName = FirebaseDatabase.getInstance().getReference("patients").child("U32N7b9ZetXeQtBx9o9YIZBI7yB2").child(uid).child("patientName");
+        databaseName.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String name = dataSnapshot.getValue(String.class);
+                txtUserName.setText(name);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
 
 
         Intent intent = getIntent();
@@ -157,8 +185,6 @@ public class myHealthActivity extends AppCompatActivity {
 
 
         //Bottom navigation switch case to decide location based upon selected item
-        itemSelectedListener.setSelectedItemId(R.id.ic_search);
-
         itemSelectedListener.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -435,7 +461,7 @@ public class myHealthActivity extends AppCompatActivity {
 
                 final String bleedID = getRef(position).getKey();
 
-                dataBleed.child(bleedID).addValueEventListener(new ValueEventListener() {
+                dataBleed.child(bleedID).orderByChild("bleedDates").limitToFirst(countBleeds).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
