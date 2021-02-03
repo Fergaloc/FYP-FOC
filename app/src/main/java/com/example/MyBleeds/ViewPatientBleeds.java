@@ -41,6 +41,8 @@ public class ViewPatientBleeds extends AppCompatActivity {
     public static final String BLEED_SEVERITY = "bleedseverity";
     public static final String BLEED_CAUSE = "bleedcause";
     public static final String BLEED_DATE = "bleeddate";
+    public static final String PATIENT_NAME = "patientName";
+    public static final String PATIENT_ID = "patientID";
 
     private String patientsID;
 
@@ -52,6 +54,7 @@ public class ViewPatientBleeds extends AppCompatActivity {
 
     DatabaseReference databaseBleeds;
     List<Bleed> bleeds;
+    String name,ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +68,15 @@ public class ViewPatientBleeds extends AppCompatActivity {
         String PatientName;
 
         patientsID = getIntent().getExtras().get("patientID").toString();
-
         PatientName = getIntent().getExtras().get("patientName").toString();
+
+      //  PatientName = name;
+      //  patientsID = ID;
+
 
 
         //sets patient name
-        tvPatientName.setText(PatientName);
+       tvPatientName.setText(PatientName);
 
         databaseBleeds = FirebaseDatabase.getInstance().getReference("bleeds").child(patientsID);
 

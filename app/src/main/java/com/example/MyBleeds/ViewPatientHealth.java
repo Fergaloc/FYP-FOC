@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,8 +17,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -42,7 +43,7 @@ import java.util.Locale;
 import java.util.Map;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
-public class myHealthActivity extends AppCompatActivity {
+public class ViewPatientHealth extends AppCompatActivity {
 
     public static final String PATIENT_NAME = "patientname";
     public static final String PATIENT_ID = "patientid";
@@ -67,6 +68,8 @@ public class myHealthActivity extends AppCompatActivity {
 
     private Query query, queryDatesD;
 
+    String patientsID;
+
 
 
     DatabaseReference databaseBleeds,databaseRef,dataBleed,databaseName;
@@ -83,6 +86,7 @@ public class myHealthActivity extends AppCompatActivity {
     //Sets Dates for now and for 6 months
     String currentDate = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).format(new Date());
     String SixDates = (LocalDate.now().minusMonths(6).format(DateTimeFormatter.ofPattern("yyyy/MM/dd")));
+
 
 
 
@@ -124,15 +128,13 @@ public class myHealthActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.my_health);
+        setContentView(R.layout.viewhealth);
         mAuth = FirebaseAuth.getInstance();
 
 
-        itemSelectedListener = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         txtBleedAmount = (TextView) findViewById(R.id.txtBleedAmount);
         txtTarget = (TextView) findViewById(R.id.txtTarget);
         listViewTarget = (ListView) findViewById(R.id.listViewTarget);
-        txtUserName = (TextView) findViewById(R.id.txtUserName);
 
         //recylcer
         arrayList = new ArrayList<>();
@@ -142,36 +144,14 @@ public class myHealthActivity extends AppCompatActivity {
                 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
+        patientsID = getIntent().getExtras().get("patientID").toString();
 
         String uid = mAuth.getUid();
-        queryDatesD = FirebaseDatabase.getInstance().getReference().child("bleeds").child(uid).orderByChild("bleedDate").startAt(SixDates).endAt(currentDate);
+        queryDatesD = FirebaseDatabase.getInstance().getReference().child("bleeds").child(patientsID).orderByChild("bleedDate").startAt(SixDates).endAt(currentDate);
 
-        dataBleed = FirebaseDatabase.getInstance().getReference().child("bleeds").child(uid);
-
-       // Toast.makeText(context,currentDate ,Toast.LENGTH_LONG).show();
+        dataBleed = FirebaseDatabase.getInstance().getReference().child("bleeds").child(patientsID);
 
 //        databaseDates = dataBleed.orderByChild("bleedDates").limitToFirst(countBleeds);
-
-
-
-
-
-        //Gets user name
-        databaseName = FirebaseDatabase.getInstance().getReference("patients").child("U32N7b9ZetXeQtBx9o9YIZBI7yB2").child(uid).child("patientName");
-        databaseName.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String name = dataSnapshot.getValue(String.class);
-                txtUserName.setText(name);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
 
 
 
@@ -182,47 +162,16 @@ public class myHealthActivity extends AppCompatActivity {
 
 
         //Gets the patient ID and finds their bleeds
-        String id = intent.getStringExtra(PatientSettingsActivity.PATIENT_ID);
-        databaseBleeds = FirebaseDatabase.getInstance().getReference("bleeds").child(id);
-        query = databaseBleeds.child(id);
 
+        databaseBleeds = FirebaseDatabase.getInstance().getReference("bleeds").child(patientsID);
+        query = databaseBleeds.child(patientsID);
 
-        //Bottom navigation switch case to decide location based upon selected item
-        itemSelectedListener.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.ic_home:
-                        String patient = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        Intent intent = new Intent(getApplicationContext(), Patient_HomeActivity.class);
-
-                        intent.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
-                        startActivity(intent);
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.ic_search:
-                        break;
-
-                    case R.id.ic_account:
-
-                        String patientnEW = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        Intent intentSettings = new Intent(getApplicationContext(), PatientSettingsActivity.class);
-
-                        intentSettings.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
-
-                        startActivity(intentSettings);
-                        overridePendingTransition(0,0);
-                        return true;
-                }
-
-                return false;
-            }
-        });
 
 
         //  A query that finds the amount of bleeds a user has had in the past 6 months
 
-        Query queryDates = FirebaseDatabase.getInstance().getReference().child("bleeds").child(uid).orderByChild("bleedDate").startAt(SixDates).endAt(currentDate);
+        Query queryDates = FirebaseDatabase.getInstance().getReference().child("bleeds").child(patientsID).orderByChild("bleedDate").startAt(SixDates).endAt(currentDate);
+
         queryDates.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -233,6 +182,7 @@ public class myHealthActivity extends AppCompatActivity {
 
                 } else{
                     txtBleedAmount.setText("O ");
+
 
                 }
 
@@ -413,7 +363,7 @@ public class myHealthActivity extends AppCompatActivity {
                                         Bleed bleed = trackSnapshot.getValue(Bleed.class);
                                         bleeds.add(bleed);
                                     }
-                                    final BleedList bleedListAdapter = new BleedList(myHealthActivity.this, bleeds);
+                                    final BleedList bleedListAdapter = new BleedList(ViewPatientHealth.this, bleeds);
                                     listViewTarget.setAdapter(bleedListAdapter);
 
                                 }
@@ -454,7 +404,7 @@ public class myHealthActivity extends AppCompatActivity {
 
         FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Bleed>().setQuery(dataBleed, Bleed.class).build();
 
-        FirebaseRecyclerAdapter<Bleed, myHealthActivity.BleedViewHolder> adapter =  new FirebaseRecyclerAdapter<Bleed, myHealthActivity.BleedViewHolder>(options) {
+        FirebaseRecyclerAdapter<Bleed, ViewPatientHealth.BleedViewHolder> adapter =  new FirebaseRecyclerAdapter<Bleed, ViewPatientHealth.BleedViewHolder>(options) {
 
 
             @Override
@@ -466,15 +416,21 @@ public class myHealthActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                        final String bleedID = dataSnapshot.child("bleedIDID").getValue().toString();
-                        final String bleedName = dataSnapshot.child("bleedName").getValue().toString();
-                        String bleedDate = dataSnapshot.child("bleedDate").getValue().toString();
-                        String bleedSeverity = dataSnapshot.child("bleedSeverity").getValue().toString();
 
-                        holder.txtSeverity.setText(bleedSeverity);
-                        holder.txtName.setText(bleedName);
-                        holder.txtDate.setText(bleedDate);
+                        final String bleedIDs = dataSnapshot.child("bleedIDID").getValue().toString();
+                            final String bleedName = dataSnapshot.child("bleedName").getValue().toString();
+                            String bleedDate = dataSnapshot.child("bleedDate").getValue().toString();
+                            String bleedSeverity = dataSnapshot.child("bleedSeverity").getValue().toString();
 
+                            holder.txtSeverity.setText(bleedSeverity);
+                            holder.txtName.setText(bleedName);
+                            holder.txtDate.setText(bleedDate);
+
+
+
+
+
+                      //  holder.txtName.setText("No Bleeds Found");
 
                     }
 
@@ -493,7 +449,7 @@ public class myHealthActivity extends AppCompatActivity {
             public BleedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_bleedlist, parent, false);
-                myHealthActivity.BleedViewHolder viewHolder = new myHealthActivity.BleedViewHolder(view);
+                ViewPatientHealth.BleedViewHolder viewHolder = new ViewPatientHealth.BleedViewHolder(view);
                 return viewHolder;
 
             }

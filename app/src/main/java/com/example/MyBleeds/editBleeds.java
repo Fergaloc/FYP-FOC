@@ -4,17 +4,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -25,6 +29,10 @@ import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,6 +40,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -49,6 +60,9 @@ public class editBleeds extends AppCompatActivity implements DatePickerDialog.On
     public static final String BLEED_CAUSE = "bleedcause";
     public static final String BLEED_DATE = "bleeddate";
 
+    //Constant for photo select.
+    private static final int PICK_IMAGE_REQUEST = 1;
+
 
 
     TextView textViewArtistsName, textViewDate;
@@ -63,6 +77,14 @@ public class editBleeds extends AppCompatActivity implements DatePickerDialog.On
 
     FirebaseAuth mAuth;
 
+    //Image Vars
+    Button btnChooseImage, btnSaveImage;
+    ImageView imgBleed;
+    private Uri mImageUri;
+    private StorageReference mStorageRef,newStorage;
+    private DatabaseReference mDatebaseRef;
+    private DatabaseReference mImgCheck;
+
 
     DatabaseReference databaseTreatment;
     SwipeMenuListView listViewTreatment;
@@ -71,7 +93,12 @@ public class editBleeds extends AppCompatActivity implements DatePickerDialog.On
 
     String bleedIntentID;
     String TreatmentID;
+    String imgCheck;
 
+    Uri uriConvert;
+
+    Context context;
+    String BleedingID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +122,37 @@ public class editBleeds extends AppCompatActivity implements DatePickerDialog.On
         buttonAddTreatment = (Button) findViewById(R.id.buttonAddTreatment);
         buttonReturn = (Button) findViewById(R.id.returnButton);
 
+
+        btnChooseImage = (Button) findViewById(R.id.btnSelectImage);
+        btnSaveImage = (Button) findViewById(R.id.btnSaveImage);
+        imgBleed = (ImageView) findViewById(R.id.imgBleedPhoto);
+        mStorageRef = FirebaseStorage.getInstance().getReference();
+        mDatebaseRef = FirebaseDatabase.getInstance().getReference("bleedImages");
+
+
+
+        //https://www.youtube.com/watch?v=gqIWrNitbbk
+        //Image chooser.
+        btnChooseImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFileChooser();
+
+            }
+        });
+
+
+        btnSaveImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uploadFile();
+
+            }
+        });
+
+
+
+
         //Makes sure page starts at the top.
         listViewTreatment.setFocusable(false);
 
@@ -110,6 +168,34 @@ public class editBleeds extends AppCompatActivity implements DatePickerDialog.On
          String Bleedside = intent.getStringExtra(ViewSingleBleedPatient.BLEED_SIDE);
          String Bleedcause = intent.getStringExtra(ViewSingleBleedPatient.BLEED_CAUSE);
         String Bleeddate = intent.getStringExtra(ViewSingleBleedPatient.BLEED_DATE);
+
+        mImgCheck = FirebaseDatabase.getInstance().getReference().child("bleedImages").child(BleedID).child(BleedID).child("imageUrl");
+
+        mImgCheck.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                imgCheck = dataSnapshot.getValue(String.class);
+
+                if(dataSnapshot.exists()){
+
+                    uriConvert = Uri.parse(imgCheck);
+                    Glide.with(getApplicationContext())
+                            .load(uriConvert)
+                            .into(imgBleed);
+                } else{
+
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
 
@@ -399,6 +485,76 @@ public class editBleeds extends AppCompatActivity implements DatePickerDialog.On
 
     @Override
     public void applyData(String Reason, String Type, String Date) {
+
+    }
+
+    private void openFileChooser() {
+        //https://www.youtube.com/watch?v=gqIWrNitbbk
+        //Image chooser.
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+
+
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
+            mImageUri = data.getData();
+            Glide.with(this).load(mImageUri).into(imgBleed);
+        }
+
+    }
+
+    private void uploadFile(){
+
+
+        //Code to upload image to firebase storage and firebase Database.
+        //https://www.youtube.com/watch?v=lPfQN-Sfnjw&t=1034s
+        if (mImageUri != null)
+        {
+            newStorage = mStorageRef.child("bleedImages/" + bleedIntentID);
+            newStorage.putFile(mImageUri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>()
+            {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception
+                {
+                    if (!task.isSuccessful())
+                    {
+                        throw task.getException();
+                    }
+                    return mStorageRef.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>()
+            {
+                private static final String TAG = "" ;
+
+                @Override
+                public void onComplete(@NonNull Task<Uri> task)
+                {
+                    if (task.isSuccessful())
+                    {
+                        Uri downloadUri = task.getResult();
+                        Log.e(TAG, "then: " + downloadUri.toString());
+
+
+                        BleedUpload upload = new BleedUpload(
+                                downloadUri.toString());
+
+                        mDatebaseRef.child(bleedIntentID).setValue(upload);
+                    } else
+                    {
+                        Toast.makeText(editBleeds.this, "upload failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+
+
+
 
     }
 

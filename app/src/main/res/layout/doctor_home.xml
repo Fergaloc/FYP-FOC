@@ -4,20 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#F6F4F6">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="#D1CDCD">
+        android:background="#F6F4F6">
 
 
         <TextView
             android:id="@+id/textView99"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="123dp"
+            android:layout_height="42dp"
             android:layout_centerInParent="true"
             android:gravity="center"
             android:shadowColor="#2196F3"
@@ -39,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="2.5"
-        android:background="#D1CDCD">
+        android:background="#F6F4F6">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,18 +51,20 @@
             android:paddingRight="15dp">
 
 
-            <Button
-                android:id="@+id/buttonViewPatients"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="7dp"
-                android:text="View Patients"
-                android:textAllCaps="false"
-                android:textColor="#2196F3" />
-
-
         </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonViewPatients"
+            android:layout_width="283dp"
+            android:layout_height="124dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="169dp"
+            android:layout_marginEnd="58dp"
+            android:background="@drawable/homebutton"
+            android:text="View Patients "
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#333333" />
 
 
     </RelativeLayout>

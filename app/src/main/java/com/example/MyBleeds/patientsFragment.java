@@ -21,7 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class patientsFragment extends Fragment {
+/*public class patientsFragment extends Fragment {
 
     private View PatientView;
     private RecyclerView myPatientList;
@@ -128,3 +128,4 @@ public class patientsFragment extends Fragment {
         }
     }
 }
+        */

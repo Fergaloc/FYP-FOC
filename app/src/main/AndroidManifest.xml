@@ -31,6 +31,8 @@
         <activity android:name=".editBleeds"></activity>
         <activity android:name=".ViewAllBleeds"></activity>
         <activity android:name=".myHealthActivity"></activity>
+        <activity android:name=".ViewPatientHome"></activity>
+        <activity android:name=".ViewPatientHealth"></activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 

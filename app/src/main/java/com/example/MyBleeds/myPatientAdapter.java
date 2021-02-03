@@ -48,15 +48,12 @@ public class myPatientAdapter extends RecyclerView.Adapter<myPatientAdapter.myPa
     @Override
     public void onBindViewHolder(@NonNull myPatientAdapterViewHolder holder, int position) {
 
-
         Patient  patient = arrayList.get(position);
 
         holder.textViewName.setText(patient.getPatientName());
         holder.textViewRegion.setText(patient.getPatientRegion());
         holder.textViewSeverity.setText(patient.getPatientSeverity());
         holder.textViewDOB.setText(patient.getPatientDOB());
-
-
 
     }
 

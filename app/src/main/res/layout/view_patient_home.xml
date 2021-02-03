@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F6F4F6">
+
+    <Button
+        android:id="@+id/btnViewHealth"
+        android:layout_width="283dp"
+        android:layout_height="124dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="169dp"
+        android:layout_marginEnd="58dp"
+        android:background="@drawable/homebutton"
+        android:text="View Patients Health"
+        android:textAllCaps="false"
+        android:textColor="#333333"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnViewRecent"
+        android:layout_width="283dp"
+        android:layout_height="124dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="56dp"
+        android:background="@drawable/homebutton"
+        android:text="View Recent Bleeds"
+        android:textAllCaps="false"
+        android:textColor="#333333"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnViewHealth" />
+
+    <TextView
+        android:id="@+id/txtHomeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="205dp"
+        android:layout_marginTop="107dp"
+        android:layout_marginEnd="206dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,6 +29,8 @@ public class ViewSingleBleed extends AppCompatActivity {
     public static final String BLEED_SEVERITY = "bleedseverity";
     public static final String BLEED_CAUSE = "bleedcause";
     public static final String BLEED_DATE = "bleeddate";
+    public static final String PATIENT_NAME = "patientname";
+    public static final String PATIENT_ID = "patientID";
 
 
     public static final String DOCTOR_ID = "doctorid";
@@ -51,6 +53,8 @@ public class ViewSingleBleed extends AppCompatActivity {
     String bleedIntentID;
 
     List<Treatment> treatments;
+
+    String name,ID;
 
 
 
@@ -80,7 +84,13 @@ public class ViewSingleBleed extends AppCompatActivity {
         String Bleedside = intent.getStringExtra(ViewPatientBleeds.BLEED_SIDE);
         String Bleedcause = intent.getStringExtra(ViewPatientBleeds.BLEED_CAUSE);
         String Bleeddate = intent.getStringExtra(ViewPatientBleeds.BLEED_DATE);
+        String PatientName = intent.getStringExtra(ViewPatientBleeds.PATIENT_NAME);
+        String PatientID = intent.getStringExtra(ViewPatientBleeds.PATIENT_ID);
 
+
+
+       // name = PatientName;
+       // ID = PatientID;
 
 
         textViewShowCause.setText(Bleedcause);
@@ -101,6 +111,7 @@ public class ViewSingleBleed extends AppCompatActivity {
                 intent.putExtra(DOCTOR_ID, mAuth.getCurrentUser().getUid());
 
                 startActivity(intent);
+
             }
         });
 
