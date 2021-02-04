@@ -1,17 +1,22 @@
 package com.example.MyBleeds;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,13 +45,15 @@ public class ViewSingleBleedPatient extends AppCompatActivity {
 
     TextView textViewDateBleed,textViewSeverityBleed, textViewLocationBleed, textViewCauseBleed, textViewSideBleed;
 
-    TextView textViewShowLocation, textViewShowCause, textViewShowSide, textViewShowDate, textViewShowSeverity,textViewShowID;
+    TextView textViewShowLocation, textViewShowCause, textViewShowSide, textViewShowDate, textViewShowSeverity,textViewShowID,txtPic;
 
     Button buttonReturn,buttonEdit;
 
-    DatabaseReference databaseTreatment;
+    DatabaseReference databaseTreatment,databaseImage;
 
     ListView listViewTreatment;
+
+    ImageView imgPic;
 
 
     Query query;
@@ -55,6 +62,8 @@ public class ViewSingleBleedPatient extends AppCompatActivity {
 
     List<Treatment> treatments;
 
+    private String imgCheck;
+    private Uri uriConvert;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +78,15 @@ public class ViewSingleBleedPatient extends AppCompatActivity {
         textViewShowSeverity = (TextView) findViewById(R.id.textViewShowSeverity);
         textViewShowSide = (TextView) findViewById(R.id.textViewShowSide);
         listViewTreatment =(ListView) findViewById(R.id.ListViewTreatmentEdit);
+
+
+
+        //For image
+        txtPic = (TextView) findViewById(R.id.txtPic);
+        imgPic = (ImageView) findViewById(R.id.imgPic);
+        txtPic.setVisibility(View.GONE);
+        imgPic.setVisibility(View.GONE);
+
 
         buttonEdit = (Button) findViewById(R.id.editBleedButton) ;
 
@@ -87,6 +105,59 @@ public class ViewSingleBleedPatient extends AppCompatActivity {
         final String Bleeddate = intent.getStringExtra(ViewBleeds.BLEED_DATE);
 
 
+
+
+
+        databaseImage = FirebaseDatabase.getInstance().getReference().child("bleedImages").child(Bleedid).child(Bleedid).child("imageUrl");
+        databaseImage.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                imgCheck = dataSnapshot.getValue(String.class);
+                if(dataSnapshot.exists()){
+
+                    uriConvert = Uri.parse(imgCheck);
+                    Glide.with(getApplicationContext())
+                            .load(uriConvert)
+                            .into(imgPic);
+
+                    txtPic.setVisibility(View.VISIBLE);
+                    imgPic.setVisibility(View.VISIBLE);
+
+
+
+                    imgPic.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            AlertDialog.Builder ImageDialog = new AlertDialog.Builder(ViewSingleBleedPatient.this);
+                            ImageDialog.setTitle("Bleed");
+                            ImageView showImage = new ImageView(ViewSingleBleedPatient.this);
+                            uriConvert = Uri.parse(imgCheck);
+                            Glide.with(getApplicationContext())
+                                    .load(uriConvert)
+                                    .into(showImage);
+
+                            ImageDialog.setNegativeButton("ok", new DialogInterface.OnClickListener()
+                            {
+                                public void onClick(DialogInterface arg0, int arg1)
+                                {
+                                }
+                            });
+                            ImageDialog.show();
+                        }
+                    });
+
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
         textViewShowCause.setText(Bleedcause);

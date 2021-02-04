@@ -1,15 +1,18 @@
 package com.example.MyBleeds;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,14 +42,15 @@ public class ViewSingleBleed extends AppCompatActivity {
 
     TextView textViewDateBleed,textViewSeverityBleed, textViewLocationBleed, textViewCauseBleed, textViewSideBleed;
 
-    TextView textViewShowLocation, textViewShowCause, textViewShowSide, textViewShowDate, textViewShowSeverity;
+    TextView textViewShowLocation, textViewShowCause, textViewShowSide, textViewShowDate, textViewShowSeverity,txtPic;
 
     Button buttonReturn,buttonedit;
 
-    DatabaseReference databaseTreatment;
+    DatabaseReference databaseTreatment,databaseImage;
 
     ListView listViewTreatment;
 
+    ImageView imgPic;
 
     Query query;
 
@@ -54,7 +58,8 @@ public class ViewSingleBleed extends AppCompatActivity {
 
     List<Treatment> treatments;
 
-    String name,ID;
+    private String imgCheck;
+    private Uri uriConvert;
 
 
 
@@ -71,6 +76,14 @@ public class ViewSingleBleed extends AppCompatActivity {
         listViewTreatment =(ListView) findViewById(R.id.ListViewTreatmentEdit);
         buttonedit = (Button) findViewById(R.id.editBleedButton);
 
+
+
+        //For image
+        txtPic = (TextView) findViewById(R.id.txtPic);
+        imgPic = (ImageView) findViewById(R.id.imgPic);
+        txtPic.setVisibility(View.GONE);
+        imgPic.setVisibility(View.GONE);
+
         listViewTreatment.setFocusable(false);
 
         //Hide edit bleed button for doctors
@@ -86,6 +99,33 @@ public class ViewSingleBleed extends AppCompatActivity {
         String Bleeddate = intent.getStringExtra(ViewPatientBleeds.BLEED_DATE);
         String PatientName = intent.getStringExtra(ViewPatientBleeds.PATIENT_NAME);
         String PatientID = intent.getStringExtra(ViewPatientBleeds.PATIENT_ID);
+
+
+
+        databaseImage = FirebaseDatabase.getInstance().getReference().child("bleedImages").child(Bleedid).child(Bleedid).child("bleedImages");
+        databaseImage.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                imgCheck = dataSnapshot.getValue(String.class);
+                if(dataSnapshot.exists()){
+
+                    uriConvert = Uri.parse(imgCheck);
+                    Glide.with(getApplicationContext())
+                            .load(uriConvert)
+                            .into(imgPic);
+
+                    txtPic.setVisibility(View.VISIBLE);
+                    imgPic.setVisibility(View.VISIBLE);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
 

@@ -84,6 +84,7 @@ public class editBleeds extends AppCompatActivity implements DatePickerDialog.On
     private StorageReference mStorageRef,newStorage;
     private DatabaseReference mDatebaseRef;
     private DatabaseReference mImgCheck;
+    private DatabaseReference newImg;
 
 
     DatabaseReference databaseTreatment;
@@ -140,16 +141,6 @@ public class editBleeds extends AppCompatActivity implements DatePickerDialog.On
 
             }
         });
-
-
-        btnSaveImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uploadFile();
-
-            }
-        });
-
 
 
 
@@ -376,6 +367,43 @@ public class editBleeds extends AppCompatActivity implements DatePickerDialog.On
 
 
 
+        //Code that deletes the existing photo and uploads a new one
+        btnSaveImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = getIntent();
+                final String BleedID = intent.getStringExtra(ViewSingleBleedPatient.BLEED_ID);
+
+                DatabaseReference dataDelete;
+                dataDelete = FirebaseDatabase.getInstance().getReference().child("bleedImage").child(BleedID).child(BleedID);
+                dataDelete.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        if(dataSnapshot.exists()){
+                            dataSnapshot.getRef().removeValue();
+                            StorageReference deleteImage = mStorageRef.child("bleedImages/" + BleedID);
+                            deleteImage.delete();
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+                uploadFile();
+
+            }
+        });
+
+
+
+
 
 
 //https://www.youtube.com/watch?v=AdTzD96AhE0
@@ -437,6 +465,8 @@ public class editBleeds extends AppCompatActivity implements DatePickerDialog.On
 
 
         Bleed bleed = new Bleed(bleedID, bleedName,bleedRating,bleedSide,bleedSeverity,bleedCause,bleedDate);
+
+        bleedIntentID = bleed.getBleedIDID();
 
         databaseReference.setValue(bleed);
 
@@ -512,11 +542,13 @@ public class editBleeds extends AppCompatActivity implements DatePickerDialog.On
     private void uploadFile(){
 
 
+        Intent intent = getIntent();
+        final String BleedID = intent.getStringExtra(ViewSingleBleedPatient.BLEED_ID);
         //Code to upload image to firebase storage and firebase Database.
         //https://www.youtube.com/watch?v=lPfQN-Sfnjw&t=1034s
         if (mImageUri != null)
         {
-            newStorage = mStorageRef.child("bleedImages/" + bleedIntentID);
+            newStorage = mStorageRef.child("bleedImages/" + BleedID);
             newStorage.putFile(mImageUri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>()
             {
                 @Override
@@ -544,7 +576,9 @@ public class editBleeds extends AppCompatActivity implements DatePickerDialog.On
                         BleedUpload upload = new BleedUpload(
                                 downloadUri.toString());
 
-                        mDatebaseRef.child(bleedIntentID).setValue(upload);
+
+
+                        mDatebaseRef.child(BleedID).setValue(upload);
                     } else
                     {
                         Toast.makeText(editBleeds.this, "upload failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();

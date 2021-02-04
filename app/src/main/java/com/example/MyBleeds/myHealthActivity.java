@@ -33,6 +33,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -41,7 +42,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-@RequiresApi(api = Build.VERSION_CODES.O)
+//@RequiresApi(api = Build.VERSION_CODES.O)
 public class myHealthActivity extends AppCompatActivity {
 
     public static final String PATIENT_NAME = "patientname";
@@ -82,7 +83,7 @@ public class myHealthActivity extends AppCompatActivity {
 
     //Sets Dates for now and for 6 months
     String currentDate = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).format(new Date());
-    String SixDates = (LocalDate.now().minusMonths(6).format(DateTimeFormatter.ofPattern("yyyy/MM/dd")));
+   // String SixDates = (LocalDate.now().minusMonths(6).format(DateTimeFormatter.ofPattern("yyyy/MM/dd")));
 
 
 
@@ -134,6 +135,18 @@ public class myHealthActivity extends AppCompatActivity {
         listViewTarget = (ListView) findViewById(R.id.listViewTarget);
         txtUserName = (TextView) findViewById(R.id.txtUserName);
 
+
+
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, -6);
+        Date result = cal.getTime();
+        String SixMonths = result.toString();
+
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+        String dateInSix = formatter.format(Date.parse(SixMonths));
+
+
         //recylcer
         arrayList = new ArrayList<>();
         context = getApplicationContext();
@@ -144,7 +157,7 @@ public class myHealthActivity extends AppCompatActivity {
 
 
         String uid = mAuth.getUid();
-        queryDatesD = FirebaseDatabase.getInstance().getReference().child("bleeds").child(uid).orderByChild("bleedDate").startAt(SixDates).endAt(currentDate);
+        queryDatesD = FirebaseDatabase.getInstance().getReference().child("bleeds").child(uid).orderByChild("bleedDate").startAt(dateInSix).endAt(currentDate);
 
         dataBleed = FirebaseDatabase.getInstance().getReference().child("bleeds").child(uid);
 
@@ -222,7 +235,7 @@ public class myHealthActivity extends AppCompatActivity {
 
         //  A query that finds the amount of bleeds a user has had in the past 6 months
 
-        Query queryDates = FirebaseDatabase.getInstance().getReference().child("bleeds").child(uid).orderByChild("bleedDate").startAt(SixDates).endAt(currentDate);
+        Query queryDates = FirebaseDatabase.getInstance().getReference().child("bleeds").child(uid).orderByChild("bleedDate").startAt(dateInSix).endAt(currentDate);
         queryDates.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

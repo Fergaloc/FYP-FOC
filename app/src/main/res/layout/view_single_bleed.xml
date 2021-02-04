@@ -170,7 +170,7 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginStart="150dp"
-        android:layout_marginTop="452dp"
+        android:layout_marginTop="544dp"
         android:layout_marginEnd="150dp"
         android:text="Treatments"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -190,7 +190,28 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTreatmentLabal" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewTreatmentLabal"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/imgPic"
+        android:layout_width="97dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewShowDate"
+        app:srcCompat="@android:drawable/ic_menu_camera" />
+
+    <TextView
+        android:id="@+id/txtPic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:text="Bleed Image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDateBleed" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
