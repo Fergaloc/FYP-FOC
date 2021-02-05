@@ -1,9 +1,12 @@
 package com.example.MyBleeds;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -63,7 +66,9 @@ public class ViewSingleBleedPatient extends AppCompatActivity {
     List<Treatment> treatments;
 
     private String imgCheck;
-    private Uri uriConvert;
+    private Uri uriConvert,UriConverts;
+
+    ImageView imgDialog;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,28 +134,11 @@ public class ViewSingleBleedPatient extends AppCompatActivity {
                     imgPic.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            AlertDialog.Builder ImageDialog = new AlertDialog.Builder(ViewSingleBleedPatient.this);
-                            ImageDialog.setTitle("Bleed");
-                            ImageView showImage = new ImageView(ViewSingleBleedPatient.this);
-                            uriConvert = Uri.parse(imgCheck);
-                            Glide.with(getApplicationContext())
-                                    .load(uriConvert)
-                                    .into(showImage);
 
-                            ImageDialog.setNegativeButton("ok", new DialogInterface.OnClickListener()
-                            {
-                                public void onClick(DialogInterface arg0, int arg1)
-                                {
-                                }
-                            });
-                            ImageDialog.show();
-                        }
-                    });
-
-
-
+                            openDialog();
                 }
-
+            });
+                }
             }
 
             @Override
@@ -235,4 +223,28 @@ public class ViewSingleBleedPatient extends AppCompatActivity {
 
 
     }
+
+
+    public void openDialog() {
+
+        // Create a custom dialog object
+        final Dialog dialog = new Dialog(ViewSingleBleedPatient.this);
+        // Include dialog.xml file
+        dialog.setContentView(R.layout.bleeddialog);
+        // Set dialog title
+        dialog.setTitle("Bleed");
+
+        // set values for custom dialog components - text, image or button
+
+        ImageView image = dialog.findViewById(R.id.dialog_imageview);
+        Glide.with(getApplicationContext())
+                .load(uriConvert)
+                .into(image);
+
+        dialog.show();
+
+
+    }
+
+
 }

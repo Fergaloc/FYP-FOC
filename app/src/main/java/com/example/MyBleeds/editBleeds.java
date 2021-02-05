@@ -386,7 +386,10 @@ public class editBleeds extends AppCompatActivity implements DatePickerDialog.On
                             StorageReference deleteImage = mStorageRef.child("bleedImages/" + BleedID);
                             deleteImage.delete();
 
+                            uploadFile();
+
                         }
+                        uploadFile();
 
                     }
 
@@ -395,8 +398,6 @@ public class editBleeds extends AppCompatActivity implements DatePickerDialog.On
 
                     }
                 });
-
-                uploadFile();
 
             }
         });
@@ -544,6 +545,8 @@ public class editBleeds extends AppCompatActivity implements DatePickerDialog.On
 
         Intent intent = getIntent();
         final String BleedID = intent.getStringExtra(ViewSingleBleedPatient.BLEED_ID);
+
+        mDatebaseRef = FirebaseDatabase.getInstance().getReference("bleedImages").child(BleedID);
         //Code to upload image to firebase storage and firebase Database.
         //https://www.youtube.com/watch?v=lPfQN-Sfnjw&t=1034s
         if (mImageUri != null)
@@ -558,11 +561,10 @@ public class editBleeds extends AppCompatActivity implements DatePickerDialog.On
                     {
                         throw task.getException();
                     }
-                    return mStorageRef.getDownloadUrl();
+                    return newStorage.getDownloadUrl();
                 }
             }).addOnCompleteListener(new OnCompleteListener<Uri>()
             {
-                private static final String TAG = "" ;
 
                 @Override
                 public void onComplete(@NonNull Task<Uri> task)
@@ -570,12 +572,9 @@ public class editBleeds extends AppCompatActivity implements DatePickerDialog.On
                     if (task.isSuccessful())
                     {
                         Uri downloadUri = task.getResult();
-                        Log.e(TAG, "then: " + downloadUri.toString());
-
 
                         BleedUpload upload = new BleedUpload(
                                 downloadUri.toString());
-
 
 
                         mDatebaseRef.child(BleedID).setValue(upload);

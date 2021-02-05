@@ -135,8 +135,6 @@ public class myHealthActivity extends AppCompatActivity {
         listViewTarget = (ListView) findViewById(R.id.listViewTarget);
         txtUserName = (TextView) findViewById(R.id.txtUserName);
 
-
-
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MONTH, -6);
         Date result = cal.getTime();

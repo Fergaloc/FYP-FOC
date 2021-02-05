@@ -1,5 +1,6 @@
 package com.example.MyBleeds;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -102,13 +103,13 @@ public class ViewSingleBleed extends AppCompatActivity {
 
 
 
-        databaseImage = FirebaseDatabase.getInstance().getReference().child("bleedImages").child(Bleedid).child(Bleedid).child("bleedImages");
+        databaseImage = FirebaseDatabase.getInstance().getReference().child("bleedImages").child(Bleedid).child(Bleedid).child("imageUrl");
         databaseImage.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 imgCheck = dataSnapshot.getValue(String.class);
-                if(dataSnapshot.exists()){
+                if (dataSnapshot.exists()) {
 
                     uriConvert = Uri.parse(imgCheck);
                     Glide.with(getApplicationContext())
@@ -117,8 +118,16 @@ public class ViewSingleBleed extends AppCompatActivity {
 
                     txtPic.setVisibility(View.VISIBLE);
                     imgPic.setVisibility(View.VISIBLE);
-                }
 
+
+                    imgPic.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            openDialog();
+                        }
+                    });
+                }
             }
 
             @Override
@@ -145,12 +154,12 @@ public class ViewSingleBleed extends AppCompatActivity {
         buttonReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String doctor = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                Intent intent = new Intent(getApplicationContext(), ViewMyPatients.class);
+                //String doctor = FirebaseAuth.getInstance().getCurrentUser().getUid();
+              //  Intent intent = new Intent(getApplicationContext(), ViewMyPatients.class);
+               // intent.putExtra(DOCTOR_ID, mAuth.getCurrentUser().getUid());
+               // startActivity(intent);
 
-                intent.putExtra(DOCTOR_ID, mAuth.getCurrentUser().getUid());
-
-                startActivity(intent);
+                ViewSingleBleed.this.onBackPressed();
 
             }
         });
@@ -181,6 +190,28 @@ public class ViewSingleBleed extends AppCompatActivity {
             }
         });
 
+
+
+    }
+
+
+    public void openDialog() {
+
+        // Create a custom dialog object
+        final Dialog dialog = new Dialog(ViewSingleBleed.this);
+        // Include dialog.xml file
+        dialog.setContentView(R.layout.bleeddialog);
+        // Set dialog title
+        dialog.setTitle("Bleed");
+
+        // set values for custom dialog components - text, image or button
+
+        ImageView image = dialog.findViewById(R.id.dialog_imageview);
+        Glide.with(getApplicationContext())
+                .load(uriConvert)
+                .into(image);
+
+        dialog.show();
 
 
     }
