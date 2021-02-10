@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.MyBleeds">
+    package="com.example.MyBleeds" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -8,32 +10,34 @@
         android:label="myBleeds"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name="com.example.MyBleeds.SignUpActivity">
+        android:theme="@style/AppTheme" >
+        <activity android:name=".SignUpActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.MyBleeds.AddBleedActivity"></activity>
-        <activity android:name="com.example.MyBleeds.LoginDoctorActivity"> </activity>
-        <activity android:name=".DoctorHomeActivity"></activity>
-        <activity android:name="com.example.MyBleeds.LogInActivity"> </activity>
-        <activity android:name=".ViewMyPatients"></activity>
-        <activity android:name=".newPatientSettingsActivity"></activity>
-        <activity android:name=".AddDoctorActivity"></activity>
-        <activity android:name=".Patient_HomeActivity"></activity>
-        <activity android:name=".ViewSingleBleed"></activity>
-        <activity android:name=".PatientSettingsActivity"></activity>
-        <activity android:name=".ViewPatientBleeds"></activity>
-        <activity android:name=".ViewBleeds"></activity>
-        <activity android:name=".ViewSingleBleedPatient"></activity>
-        <activity android:name=".editBleeds"></activity>
-        <activity android:name=".ViewAllBleeds"></activity>
-        <activity android:name=".myHealthActivity"></activity>
-        <activity android:name=".ViewPatientHome"></activity>
-        <activity android:name=".ViewPatientHealth"></activity>
+        <activity android:name=".AddBleedActivity" />
+        <activity android:name=".LoginDoctorActivity" >
+        </activity>
+        <activity android:name=".DoctorHomeActivity" />
+        <activity android:name=".LogInActivity" >
+        </activity>
+        <activity android:name=".ViewMyPatients" />
+        <activity android:name=".newPatientSettingsActivity" />
+        <activity android:name=".AddDoctorActivity" />
+        <activity android:name=".Patient_HomeActivity" />
+        <activity android:name=".ViewSingleBleed" />
+        <activity android:name=".PatientSettingsActivity" />
+        <activity android:name=".ViewPatientBleeds" />
+        <activity android:name=".ViewBleeds" />
+        <activity android:name=".ViewSingleBleedPatient" />
+        <activity android:name=".editBleeds" />
+        <activity android:name=".ViewAllBleeds" />
+        <activity android:name=".myHealthActivity" />
+        <activity android:name=".ViewPatientHome" />
+        <activity android:name=".ViewPatientHealth" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

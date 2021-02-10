@@ -70,7 +70,7 @@ public class myHealthActivity extends AppCompatActivity {
 
 
 
-    DatabaseReference databaseBleeds,databaseRef,dataBleed,databaseName;
+    DatabaseReference databaseBleeds,databaseRef,dataBleed,databaseName,databaseLS;
     Query databaseDates;
     List<Bleed> bleeds;
 
@@ -158,6 +158,7 @@ public class myHealthActivity extends AppCompatActivity {
         queryDatesD = FirebaseDatabase.getInstance().getReference().child("bleeds").child(uid).orderByChild("bleedDate").startAt(dateInSix).endAt(currentDate);
 
         dataBleed = FirebaseDatabase.getInstance().getReference().child("bleeds").child(uid);
+        databaseLS = FirebaseDatabase.getInstance().getReference().child("bleeds").child(uid);
 
        // Toast.makeText(context,currentDate ,Toast.LENGTH_LONG).show();
 
@@ -182,8 +183,6 @@ public class myHealthActivity extends AppCompatActivity {
 
             }
         });
-
-
 
 
 

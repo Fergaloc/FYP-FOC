@@ -41,6 +41,7 @@ public class BleedList extends ArrayAdapter<Bleed> {
         textViewName.setText(bleed.getBleedName());
         textViewDate.setText(String.valueOf(bleed.getBleedDate()));
 
+
         return listViewItem;
 
 

@@ -41,7 +41,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class ViewAllBleeds extends AppCompatActivity {
+public class ViewAllBleeds extends AppCompatActivity implements filterDialog.FilterDialogListener {
 
     public static final String PATIENT_NAME = "patientname";
     public static final String PATIENT_ID = "patientid";
@@ -56,11 +56,12 @@ public class ViewAllBleeds extends AppCompatActivity {
 
     FirebaseAuth mAuth;
 
-    ListView listViewBleeds;
-    Button buttonHome,btnSix;
+    ListView listViewBleeds,listViewLS;
+    Button buttonHome,btnSix,btnFilter;
 
-    DatabaseReference databaseBleeds;
+    DatabaseReference databaseBleeds,databaseLS;
     List<Bleed> bleeds;
+    List<Bleed> bleededs;
 
 
     Query query;
@@ -86,22 +87,32 @@ public class ViewAllBleeds extends AppCompatActivity {
         listViewBleeds = (ListView) findViewById(R.id.listViewBleeds);
         itemSelectedListener = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         spbleedLocation = (Spinner) findViewById(R.id.SpinnerBleedLocationView);
+        listViewLS = (ListView) findViewById(R.id.listviewLS);
+        btnFilter = (Button) findViewById(R.id.btnFilter);
+
         //Makes sure page starts at the top.
         listViewBleeds.setFocusable(false);
 
         Intent intent = getIntent();
 
         bleeds = new ArrayList<>();
+        bleededs = new ArrayList<>();
 
 
         //Gets the patient ID and finds their bleeds
         String id = intent.getStringExtra(PatientSettingsActivity.PATIENT_ID);
-        databaseBleeds = FirebaseDatabase.getInstance().getReference("bleeds").child(id);
-        query = databaseBleeds.child(id);
+        String uid = FirebaseAuth.getInstance().getUid();
+        databaseBleeds = FirebaseDatabase.getInstance().getReference("bleeds").child(uid);
+        databaseLS = FirebaseDatabase.getInstance().getReference().child("bleeds").child(uid);
+        query = databaseBleeds.child(uid);
 
         spbleedLocation.setVisibility(View.GONE);
 
 
+        Intent Filterintent = getIntent();
+        final String filterLocation = Filterintent.getStringExtra("BLEED_LOCATION");
+        final String filterSeverity = Filterintent.getStringExtra("BLEED_SEVERITY");
+        final String filterCause = Filterintent.getStringExtra("BLEED_CAUSE");
 
 
         // code to detect changes in values
@@ -161,7 +172,266 @@ public class ViewAllBleeds extends AppCompatActivity {
             }
         });
 
+        //if all items are passed thro.
+        Query all = databaseLS.orderByChild("bleedName").equalTo(filterLocation);
+        all.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                bleededs.clear();
+
+                for (DataSnapshot bleedSnapshot : dataSnapshot.getChildren()) {
+                    Bleed bleeded = bleedSnapshot.getValue(Bleed.class);
+
+                    if (bleeded.getBleedCause().equals(filterCause) && bleeded.getBleedSeverity().equals(filterSeverity)) {
+                        bleededs.add(bleeded);
+                        final BleedList bleedListAdapter = new BleedList(ViewAllBleeds.this, bleededs);
+                        listViewLS.setAdapter(bleedListAdapter);
+                    } else {
+
+
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
+
+
+
+
+        //if no Cause is passed.
+        if(TextUtils.isEmpty(filterCause)) {
+
+            Query location = databaseLS.orderByChild("bleedName").equalTo(filterLocation);
+            location.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    bleededs.clear();
+
+                    for (DataSnapshot bleedSnapshot : dataSnapshot.getChildren()) {
+                        Bleed bleeded = bleedSnapshot.getValue(Bleed.class);
+
+
+                        if (bleeded.getBleedSeverity().equals(filterSeverity)) {
+
+                            bleededs.add(bleeded);
+                            final BleedList bleedListAdapter = new BleedList(ViewAllBleeds.this, bleededs);
+                            listViewLS.setAdapter(bleedListAdapter);
+                        } else {
+
+
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+
+        //if no location is selected we filter without it
+        if (TextUtils.isEmpty(filterLocation)){
+
+            //Sample code to show Severe Bleeds from the Calf Location.
+            Query Cause = databaseLS.orderByChild("bleedCause").equalTo(filterCause);
+            Cause.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    bleededs.clear();
+
+                    for (DataSnapshot bleedSnapshot : dataSnapshot.getChildren()) {
+                        Bleed bleeded = bleedSnapshot.getValue(Bleed.class);
+
+
+                        if (bleeded.getBleedSeverity().equals(filterSeverity)) {
+                            bleededs.add(bleeded);
+                            final BleedList bleedListAdapter = new BleedList(ViewAllBleeds.this, bleededs);
+                            listViewLS.setAdapter(bleedListAdapter);
+                        } else {
+
+
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+
+        //if no Severity is selected we filter without it
+        if (TextUtils.isEmpty(filterSeverity)){
+
+            Query Severity = databaseLS.orderByChild("bleedName").equalTo(filterLocation);
+            Severity.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    bleededs.clear();
+
+                    for (DataSnapshot bleedSnapshot : dataSnapshot.getChildren()) {
+                        Bleed bleeded = bleedSnapshot.getValue(Bleed.class);
+
+                        if (bleeded.getBleedCause().equals(filterCause)) {
+                            bleededs.add(bleeded);
+                            final BleedList bleedListAdapter = new BleedList(ViewAllBleeds.this, bleededs);
+                            listViewLS.setAdapter(bleedListAdapter);
+                        } else {
+
+
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+
+
+
+        if(TextUtils.isEmpty(filterCause) && (TextUtils.isEmpty(filterSeverity))) {
+            //if only Location is passed
+            Query onlyLoc = databaseLS.orderByChild("bleedName").equalTo(filterLocation);
+            onlyLoc.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    bleededs.clear();
+
+                    for (DataSnapshot bleedSnapshot : dataSnapshot.getChildren()) {
+                        Bleed bleeded = bleedSnapshot.getValue(Bleed.class);
+                        bleededs.add(bleeded);
+                        final BleedList bleedListAdapter = new BleedList(ViewAllBleeds.this, bleededs);
+                        listViewLS.setAdapter(bleedListAdapter);
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+
+        if(TextUtils.isEmpty(filterCause) && (TextUtils.isEmpty(filterLocation))) {
+            //If only severity is selected
+            Query onlySeverity = databaseLS.orderByChild("bleedSeverity").equalTo(filterSeverity);
+            onlySeverity.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    bleededs.clear();
+
+                    for (DataSnapshot bleedSnapshot : dataSnapshot.getChildren()) {
+                        Bleed bleeded = bleedSnapshot.getValue(Bleed.class);
+                        bleededs.add(bleeded);
+                        final BleedList bleedListAdapter = new BleedList(ViewAllBleeds.this, bleededs);
+                        listViewLS.setAdapter(bleedListAdapter);
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+
+
+        if(TextUtils.isEmpty(filterSeverity) && (TextUtils.isEmpty(filterLocation))){
+            //if only cause is picked
+            Query onlyCause = databaseLS.orderByChild("bleedCause").equalTo(filterCause);
+            onlyCause.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    bleededs.clear();
+
+                    for (DataSnapshot bleedSnapshot : dataSnapshot.getChildren()) {
+                        Bleed bleeded = bleedSnapshot.getValue(Bleed.class);
+                        bleededs.add(bleeded);
+                        final BleedList bleedListAdapter = new BleedList(ViewAllBleeds.this, bleededs);
+                        listViewLS.setAdapter(bleedListAdapter);
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
+        }
+
+
+        //if all filters are empty, we display all bleeds.
+
+        if(TextUtils.isEmpty(filterSeverity) && (TextUtils.isEmpty(filterLocation)) && (TextUtils.isEmpty(filterCause))){
+            //if only cause is picked
+
+           databaseBleeds.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    bleededs.clear();
+
+                    for (DataSnapshot bleedSnapshot : dataSnapshot.getChildren()) {
+                        Bleed bleeded = bleedSnapshot.getValue(Bleed.class);
+                        bleededs.add(bleeded);
+                        final BleedList bleedListAdapter = new BleedList(ViewAllBleeds.this, bleededs);
+                        listViewLS.setAdapter(bleedListAdapter);
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
+        }
+
+
+
+
+        btnFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFilterDialog();
+            }
+        });
 
 
 
@@ -192,8 +462,27 @@ public class ViewAllBleeds extends AppCompatActivity {
 
             }
         });
+    }
 
+    public void openFilterDialog(){
+
+        filterDialog filterDialog = new filterDialog();
+        filterDialog.show(getSupportFragmentManager(), "Filter Dialog");
 
     }
+
+
+    @Override
+    public void applyData(String Location, String Severity, String Cause) {
+
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+
+
 
 }

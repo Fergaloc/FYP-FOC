@@ -74,7 +74,6 @@ public class TreatmentDialog extends AppCompatDialogFragment {
         String BleedID = bundle.getString("TEXT", "");
 
 
-        Toast.makeText(getContext(), BleedID, Toast.LENGTH_SHORT).show();
 
 
         spinnerReason = view.findViewById(R.id.treatment_reason);

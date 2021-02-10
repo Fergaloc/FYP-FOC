@@ -66,6 +66,41 @@
         <item>Other</item>
     </array>
 
+
+    //bleed location array Filter
+    <array name="bleedLocationsFilter">
+        <item></item>
+        <item>Abdominal Bleed</item>
+        <item>Ankle</item>
+        <item>Arm</item>
+        <item>Back</item>
+        <item>Buttock</item>
+        <item>Calf</item>
+        <item>Dental Procedure</item>
+        <item>Ear</item>
+        <item>Elbow</item>
+        <item>Eye</item>
+        <item>Face</item>
+        <item>Foot</item>
+        <item>Gums</item>
+        <item>Hand</item>
+        <item>Head</item>
+        <item>Hip</item>
+        <item>Knee</item>
+        <item>Neck</item>
+        <item>Nose</item>
+        <item>Shoulder</item>
+        <item>Thigh</item>
+        <item>Toe</item>
+        <item>Tongue</item>
+        <item>Wrist</item>
+        <item>Other</item>
+    </array>
+
+
+
+
+
     //bleed side array
     <array name="bleedSide">
         <item>Left</item>
@@ -80,8 +115,29 @@
         <item>Severe</item>
     </array>
 
+    //bleed Severity Array Filter
+    <array name="bleedSeverityFilter">
+        <item></item>
+        <item>Mild</item>
+        <item>Moderate</item>
+        <item>Severe</item>
+    </array>
+
+
+
+
+
     //Cause of bleed Array
     <array name="bleedCause">
+        <item>Trauma</item>
+        <item>Spontaneous</item>
+        <item>N/A</item>
+    </array>
+
+
+    //Cause of bleed Array Filter
+    <array name="bleedCauseFilter">
+        <item></item>
         <item>Trauma</item>
         <item>Spontaneous</item>
         <item>N/A</item>
@@ -109,5 +165,11 @@
         <item>Advate</item>
         <item>N/A</item>
     </array>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

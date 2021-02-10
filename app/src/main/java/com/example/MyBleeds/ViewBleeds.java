@@ -171,6 +171,9 @@ public class ViewBleeds extends AppCompatActivity {
 
 
 
+
+
+
     }
 
     @Override
@@ -236,5 +239,6 @@ public class ViewBleeds extends AppCompatActivity {
 
 
     }
+
 
 }
