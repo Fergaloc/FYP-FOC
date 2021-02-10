@@ -267,7 +267,7 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
 
                         case R.id.ic_search:
                             String patient = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                            Intent intent = new Intent(getApplicationContext(), ViewBleeds.class);
+                            Intent intent = new Intent(getApplicationContext(), ViewAllBleeds.class);
 
                             intent.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
                             startActivity(intent);

@@ -211,7 +211,14 @@ public class myHealthActivity extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.ic_search:
-                        break;
+                        String patient2 = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        Intent intent2 = new Intent(getApplicationContext(), ViewAllBleeds.class);
+
+                        intent2.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
+                        startActivity(intent2);
+                        overridePendingTransition(0, 0);
+                        return true;
+
 
                     case R.id.ic_account:
 

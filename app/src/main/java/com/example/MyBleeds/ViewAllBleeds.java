@@ -63,6 +63,9 @@ public class ViewAllBleeds extends AppCompatActivity implements filterDialog.Fil
     List<Bleed> bleeds;
     List<Bleed> bleededs;
 
+    TextView txtLoc,txtSev,txtCause;
+
+
 
     Query query;
 
@@ -81,17 +84,19 @@ public class ViewAllBleeds extends AppCompatActivity implements filterDialog.Fil
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.view_bleeds_activity);
+        setContentView(R.layout.view_filer_bleeds);
         mAuth = FirebaseAuth.getInstance();
 
-        listViewBleeds = (ListView) findViewById(R.id.listViewBleeds);
+
         itemSelectedListener = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        spbleedLocation = (Spinner) findViewById(R.id.SpinnerBleedLocationView);
         listViewLS = (ListView) findViewById(R.id.listviewLS);
         btnFilter = (Button) findViewById(R.id.btnFilter);
 
+        txtCause = (TextView) findViewById(R.id.txtCauseFilter);
+        txtLoc = (TextView) findViewById(R.id.txtFilterLocation);
+        txtSev = (TextView) findViewById(R.id.txtFilterSevere);
+
         //Makes sure page starts at the top.
-        listViewBleeds.setFocusable(false);
 
         Intent intent = getIntent();
 
@@ -106,7 +111,6 @@ public class ViewAllBleeds extends AppCompatActivity implements filterDialog.Fil
         databaseLS = FirebaseDatabase.getInstance().getReference().child("bleeds").child(uid);
         query = databaseBleeds.child(uid);
 
-        spbleedLocation.setVisibility(View.GONE);
 
 
         Intent Filterintent = getIntent();
@@ -115,27 +119,26 @@ public class ViewAllBleeds extends AppCompatActivity implements filterDialog.Fil
         final String filterCause = Filterintent.getStringExtra("BLEED_CAUSE");
 
 
-        // code to detect changes in values
+        if(TextUtils.isEmpty(filterSeverity)){
 
-        databaseBleeds.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                bleeds.clear();
-                for(DataSnapshot trackSnapshot: dataSnapshot.getChildren()){
-                    Bleed bleed = trackSnapshot.getValue(Bleed.class);
-                    bleeds.add(bleed);
-                }
+            txtSev.setVisibility(View.GONE);
+        }
 
-                BleedList bleedListAdapter = new BleedList(ViewAllBleeds.this, bleeds);
-                listViewBleeds.setAdapter(bleedListAdapter);
+        if(TextUtils.isEmpty(filterLocation)){
 
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            txtLoc.setVisibility(View.GONE);
 
-            }
-        });
+        }
 
+        if(TextUtils.isEmpty(filterCause)){
+
+            txtCause.setVisibility(View.GONE);
+
+        }
+
+        txtSev.setText(filterSeverity);
+        txtLoc.setText(filterLocation);
+        txtCause.setText(filterCause);
 
 
         //Bottom navigation switch case to decide location based upon selected item
@@ -442,7 +445,7 @@ public class ViewAllBleeds extends AppCompatActivity implements filterDialog.Fil
         super.onStart();
 
 
-        listViewBleeds.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listViewLS.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -462,8 +465,9 @@ public class ViewAllBleeds extends AppCompatActivity implements filterDialog.Fil
 
             }
         });
-    }
 
+
+    }
     public void openFilterDialog(){
 
         filterDialog filterDialog = new filterDialog();

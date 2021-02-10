@@ -153,7 +153,7 @@ public class Patient_HomeActivity extends AppCompatActivity {
                      break;
                  case R.id.ic_search:
                      String patient = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                     Intent intent = new Intent(getApplicationContext(), ViewBleeds.class);
+                     Intent intent = new Intent(getApplicationContext(), ViewAllBleeds.class);
 
                      intent.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
                      startActivity(intent);
