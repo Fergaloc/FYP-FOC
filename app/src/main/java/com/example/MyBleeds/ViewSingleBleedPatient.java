@@ -31,7 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewSingleBleedPatient extends AppCompatActivity {
+public class ViewSingleBleedPatient extends AppCompatActivity implements DeleteDialog.DeleteDialogListener {
 
     public static final String BLEED_NAME = "bleedname";
     public static final String BLEED_ID = "bleedid";
@@ -50,7 +50,7 @@ public class ViewSingleBleedPatient extends AppCompatActivity {
 
     TextView textViewShowLocation, textViewShowCause, textViewShowSide, textViewShowDate, textViewShowSeverity,textViewShowID,txtPic;
 
-    Button buttonReturn,buttonEdit;
+    Button buttonReturn,buttonEdit,buttonDelete;
 
     DatabaseReference databaseTreatment,databaseImage;
 
@@ -83,6 +83,8 @@ public class ViewSingleBleedPatient extends AppCompatActivity {
         textViewShowSeverity = (TextView) findViewById(R.id.textViewShowSeverity);
         textViewShowSide = (TextView) findViewById(R.id.textViewShowSide);
         listViewTreatment =(ListView) findViewById(R.id.ListViewTreatmentEdit);
+        buttonDelete = (Button) findViewById(R.id.btnDelete);
+
 
 
 
@@ -108,6 +110,8 @@ public class ViewSingleBleedPatient extends AppCompatActivity {
         final String Bleedside = intent.getStringExtra(ViewBleeds.BLEED_SIDE);
         final String Bleedcause = intent.getStringExtra(ViewBleeds.BLEED_CAUSE);
         final String Bleeddate = intent.getStringExtra(ViewBleeds.BLEED_DATE);
+
+
 
 
 
@@ -167,6 +171,18 @@ public class ViewSingleBleedPatient extends AppCompatActivity {
                 intent.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
 
                 startActivity(intent);
+            }
+        });
+
+
+
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                openDeleteDialog();
+
+
             }
         });
 
@@ -247,4 +263,29 @@ public class ViewSingleBleedPatient extends AppCompatActivity {
     }
 
 
+    public void openDeleteDialog(){
+
+        //Opens Dialog and brings bleed id
+        DeleteDialog deleteDialog = new DeleteDialog();
+        deleteDialog.show(getSupportFragmentManager(), "Delete Dialog");
+
+        Intent intent = getIntent();
+        String BleedID = intent.getStringExtra(ViewSingleBleedPatient.BLEED_ID);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("BLEED_ID", BleedID);
+       deleteDialog.setArguments(bundle);
+
+    }
+
+
+    @Override
+    public void applyData() {
+
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
 }

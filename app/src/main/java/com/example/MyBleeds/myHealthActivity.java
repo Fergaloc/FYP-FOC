@@ -419,7 +419,6 @@ public class myHealthActivity extends AppCompatActivity {
                             String names = entry.getKey();
                             txtTarget.setText(names);
 
-
                             Query TargetQ = databaseBleeds.orderByChild("bleedName").equalTo(names);
                             //Shows all bleeds for target joints
                             TargetQ.addValueEventListener(new ValueEventListener() {

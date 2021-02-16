@@ -175,7 +175,7 @@ public class ViewAllBleeds extends AppCompatActivity implements filterDialog.Fil
             }
         });
 
-        //if all items are passed thro.
+        //if all items are passed through from Filtet.
         Query all = databaseLS.orderByChild("bleedName").equalTo(filterLocation);
         all.addValueEventListener(new ValueEventListener() {
             @Override
@@ -207,11 +207,7 @@ public class ViewAllBleeds extends AppCompatActivity implements filterDialog.Fil
 
 
 
-
-
-
-
-        //if no Cause is passed.
+        //if no Cause is passed through
         if(TextUtils.isEmpty(filterCause)) {
 
             Query location = databaseLS.orderByChild("bleedName").equalTo(filterLocation);
@@ -246,7 +242,7 @@ public class ViewAllBleeds extends AppCompatActivity implements filterDialog.Fil
         }
 
 
-        //if no location is selected we filter without it
+        //if no location is passed through
         if (TextUtils.isEmpty(filterLocation)){
 
             //Sample code to show Severe Bleeds from the Calf Location.

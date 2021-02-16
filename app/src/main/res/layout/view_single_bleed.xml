@@ -170,7 +170,7 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginStart="150dp"
-        android:layout_marginTop="544dp"
+        android:layout_marginTop="520dp"
         android:layout_marginEnd="150dp"
         android:text="Treatments"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -212,6 +212,18 @@
         android:text="Bleed Image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewDateBleed" />
+
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/transparent"
+        android:drawableTop="@drawable/ic_delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ListViewTreatmentEdit" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
