@@ -226,7 +226,7 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
                 public void onClick(View v) {
                     FirebaseAuth.getInstance().signOut();
                     finish();
-                    startActivity(new Intent(PatientSettingsActivity.this, LogInActivity.class));
+                    startActivity(new Intent(PatientSettingsActivity.this, welcomepage.class));
                 }
             });
 

@@ -103,7 +103,7 @@ public class DoctorHomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 finish();
-                startActivity(new Intent(DoctorHomeActivity.this, LogInActivity.class));
+                startActivity(new Intent(DoctorHomeActivity.this, welcomepage.class));
             }
         });
 

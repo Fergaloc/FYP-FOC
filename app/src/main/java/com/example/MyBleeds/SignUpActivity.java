@@ -57,7 +57,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         findViewById(R.id.buttonSignUp).setOnClickListener(this);
         findViewById(R.id.textViewLogin).setOnClickListener(this);
-        findViewById(R.id.textViewDoctor).setOnClickListener(this);
+
     }
 
 
@@ -131,9 +131,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(new Intent(this, LogInActivity.class));
                 break;
 
-            case R.id.textViewDoctor:
-                finish();
-                startActivity(new Intent(this, LoginDoctorActivity.class));
         }
     }
 }

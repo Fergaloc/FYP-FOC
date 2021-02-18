@@ -63,13 +63,13 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         }
 
         if (password.length() < 6) {
-            editTextPassword.setError("Minimum lenght of password should be 6");
+            editTextPassword.setError("Minimum length of password should be 6");
             editTextPassword.requestFocus();
             return;
         }
 
 
-//Log in function, with code to send user to main activity page after completion, Function provided by Android
+       //Log in function, with code to send user to main activity page after completion, Function provided by Android
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

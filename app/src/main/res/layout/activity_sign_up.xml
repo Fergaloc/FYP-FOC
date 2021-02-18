@@ -87,17 +87,6 @@
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:textColor="#2196F3" />
 
-            <TextView
-                android:id="@+id/textViewDoctor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:text="Are you a registered Doctor? Sign in here"
-                android:textAlignment="center"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:textColor="#2196F3" />
-
-
         </LinearLayout>
 
         <ProgressBar

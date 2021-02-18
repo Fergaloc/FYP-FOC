@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F6F4F6">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgPatient"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="69dp"
+        android:src="@mipmap/ic_patient"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtWho" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgDoctor"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="69dp"
+        android:layout_marginEnd="16dp"
+        android:src="@mipmap/ic_doctor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtWho" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgParent"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="69dp"
+        android:layout_marginEnd="46dp"
+        android:src="@mipmap/ic_parent"
+        app:layout_constraintEnd_toStartOf="@+id/imgDoctor"
+        app:layout_constraintStart_toEndOf="@+id/imgPatient"
+        app:layout_constraintTop_toBottomOf="@+id/txtWho" />
+
+    <TextView
+        android:id="@+id/txtWho"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="147dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="147dp"
+        android:text="Who are you ? "
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#1d627a"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtWelcome" />
+
+    <TextView
+        android:id="@+id/txtPatient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="12dp"
+        android:text="Patient"
+        android:textAllCaps="true"
+        android:textColor="#65AEDC"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgPatient" />
+
+    <TextView
+        android:id="@+id/txtParent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="101dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="98dp"
+        android:text="Parent"
+        android:textAllCaps="true"
+        android:textColor="#B084DC"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/txtDoctor"
+        app:layout_constraintStart_toEndOf="@+id/txtPatient"
+        app:layout_constraintTop_toBottomOf="@+id/imgParent" />
+
+    <TextView
+        android:id="@+id/txtDoctor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="36dp"
+        android:text="Doctor "
+        android:textAllCaps="true"
+        android:textColor="#FAD86B"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgDoctor" />
+
+    <TextView
+        android:id="@+id/txtWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="157dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="157dp"
+        android:text="Welcome to myBleeds"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

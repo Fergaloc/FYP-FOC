@@ -9,12 +9,14 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="16dp"
-    tools:context=".AddBleedActivity">
+    tools:context=".AddBleedActivity"
+    android:background="#F6F4F6">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="384dp"
         android:layout_height="642dp"
-        tools:context=".PatientSettingsActivity">
+        tools:context=".PatientSettingsActivity"
+        android:background="#F6F4F6">
 
         <ListView
             android:id="@+id/listViewBleeds"
