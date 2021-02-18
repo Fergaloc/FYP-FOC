@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F6F4F6">
+
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".PatientSettingsActivity"
+            android:background="#F6F4F6">
+
+            <TextView
+                android:id="@+id/textViewHeading"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="168dp"
+                android:text="Settings "
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/buttonAccount"
+                android:layout_width="399dp"
+                android:layout_height="71dp"
+                android:layout_marginTop="84dp"
+                android:background="#F6F4F6"
+                android:drawableRight="@drawable/ic_advance"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="Edit Account Settings"
+                android:gravity="left|center_vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewHeading" />
+
+
+            <Button
+                android:id="@+id/buttonParent"
+                android:layout_width="399dp"
+                android:layout_height="71dp"
+                android:background="#F6F4F6"
+                android:drawableRight="@drawable/ic_advance"
+                android:gravity="left|center_vertical"
+                android:text="Add Parent Account"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonAccount" />
+
+            <Button
+                android:id="@+id/buttonLogout"
+                android:layout_width="399dp"
+                android:layout_height="71dp"
+                android:layout_marginTop="8dp"
+                android:background="#F6F4F6"
+                android:drawableRight="@drawable/ic_advance"
+                android:gravity="left|center_vertical"
+                android:text="Log Out"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonParent" />
+
+            <View
+                android:id="@+id/divider15"
+                android:layout_width="409dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="164dp"
+                android:layout_marginEnd="1dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonLogout" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/nav_menu"
+        android:layout_alignParentBottom="true"
+        app:itemTextColor="@drawable/navigation_view_colored"
+        app:itemIconTint="@drawable/navigation_view_colored"
+        >
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+</RelativeLayout>
+
+
+

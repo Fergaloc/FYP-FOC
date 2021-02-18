@@ -11,18 +11,21 @@ public class Patient {
     private String patientDOB;
     private String patientSeverity;
     private String imageURL;
+    private String parentID;
+
 
 
     public Patient() {
 
     }
 
-    public Patient(String patientName, String patientRegion,String patientDOB, String patientSeverity, String imageURL) {
+    public Patient(String patientName, String patientRegion,String patientDOB, String patientSeverity, String imageURL,String parentID) {
         this.patientName = patientName;
         this.patientRegion= patientRegion;
         this.patientDOB = patientDOB;
         this.patientSeverity = patientSeverity;
         this.imageURL = imageURL;
+        this.parentID = parentID;
     }
 
 
@@ -46,6 +49,12 @@ public class Patient {
         return imageURL;
     }
 
+    public String getParentID() {
+        return parentID;
+    }
+
+
+
 
     public void setImageURL(String imageURL){
         this.imageURL = imageURL;
@@ -66,4 +75,9 @@ public class Patient {
     public void setPatientRegion(String patientRegion) {
         this.patientRegion = patientRegion;
     }
+
+    public void setParentID(String parentID) {
+        this.parentID = parentID;
+    }
 }
+

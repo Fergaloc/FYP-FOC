@@ -181,7 +181,7 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
                 String severity = SpinnerpatientSeverity.getSelectedItem().toString();
                 //https://stackoverflow.com/questions/59789584/attempt-to-invoke-virtual-method-java-lang-string-android-net-uri-tostring-o
                 final String imageurl = uriConvert != null ? uriConvert.toString() : null;
-
+                String parentID = "";
 
 
                 if(TextUtils.isEmpty(name)){
@@ -189,7 +189,7 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
                     return;
                 }
 
-                updatePatient(name, region, DOB, severity, imageurl);
+                updatePatient(name, region, DOB, severity, imageurl,parentID);
                 itemSelectedListener.setVisibility(View.VISIBLE);
 
 
@@ -353,7 +353,7 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
     }
 
     //
-    private boolean updatePatient(String name, String region, String DOB, String severity, String imageurl){
+    private boolean updatePatient(String name, String region, String DOB, String severity, String imageurl, String parentID){
 
         String docID = "U32N7b9ZetXeQtBx9o9YIZBI7yB2";
 
@@ -361,7 +361,7 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("patients").child(docID).child(uid);
 
-        Patient patient = new Patient( name , region, DOB, severity,imageurl);
+        Patient patient = new Patient( name , region, DOB, severity,imageurl, parentID);
 
         //overide with new patient
 

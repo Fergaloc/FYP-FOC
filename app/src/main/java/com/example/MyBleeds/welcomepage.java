@@ -62,6 +62,13 @@ public class welcomepage  extends AppCompatActivity {
             }
         });
 
+        imgParent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent parentIntent = new Intent(getApplicationContext(), ParentLogIn.class);
+                startActivity(parentIntent);
+            }
+        });
 
     }
 }

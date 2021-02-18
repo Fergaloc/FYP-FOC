@@ -40,6 +40,11 @@
         <activity android:name=".ViewPatientHealth" />
         <activity android:name=".SignUpActivity"></activity>
         <activity android:name=".welcomepage"></activity>
+        <activity android:name=".ParentHome"></activity>
+        <activity android:name=".ParentSignUp"></activity>
+        <activity android:name=".ParentLogIn"></activity>
+        <activity android:name=".ParentNewDetails"></activity>
+
     </application>
 
 </manifest>

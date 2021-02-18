@@ -206,13 +206,15 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
                     String DOB = textViewDOB.getText().toString();
                     String severity = SpinnerpatientSeverity.getSelectedItem().toString();
                     String imageurl =  useURL.toString();
+                    String parentID = "";
+
 
                     if(TextUtils.isEmpty(name)){
                         editTextName.setError("Name Required");
                         return;
                     }
 
-                    updatePatient(name, region, DOB, severity, imageurl);
+                    updatePatient(name, region, DOB, severity, imageurl,parentID);
 
 
                 }
@@ -370,7 +372,7 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
     }
 
     //
-    private boolean updatePatient(String name, String region, String DOB, String severity, String imageurl){
+    private boolean updatePatient(String name, String region, String DOB, String severity, String imageurl,String parentID){
 
         String docID = "U32N7b9ZetXeQtBx9o9YIZBI7yB2";
 
@@ -378,7 +380,7 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("patients").child(docID).child(uid);
 
-        Patient patient = new Patient( name , region, DOB, severity,imageurl);
+        Patient patient = new Patient( name , region, DOB, severity,imageurl,parentID);
 
         //overide with new patient
 
