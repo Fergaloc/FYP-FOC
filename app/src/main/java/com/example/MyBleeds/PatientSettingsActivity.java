@@ -2,7 +2,6 @@ package com.example.MyBleeds;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -11,17 +10,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,7 +24,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -37,17 +31,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class PatientSettingsActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
@@ -57,7 +46,7 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
 
 
     EditText editTextName;
-    Button buttonUpdate, buttonHome, buttonLogOut,buttonDOBPicker;
+    Button buttonUpdate,buttonDOBPicker;
     Spinner spinnerRegion, SpinnerpatientSeverity;
     TextView textViewDOB;
 
@@ -109,8 +98,7 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
         //getting views
         editTextName = (EditText) findViewById(R.id.editTextFirstName);
         spinnerRegion = (Spinner) findViewById(R.id.spinnerRegion);
-        buttonUpdate = (Button) findViewById(R.id.buttonUpdatePatient);
-        buttonLogOut = (Button) findViewById(R.id.buttonLogOut);
+        buttonUpdate = (Button) findViewById(R.id.btnSaveuid);
         SpinnerpatientSeverity = (Spinner) findViewById(R.id.SpinnerpatientSeverity);
         buttonDOBPicker = (Button) findViewById(R.id.buttonDOBPicker);
         textViewDOB = (TextView) findViewById(R.id.textViewDOB);
@@ -222,15 +210,6 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
             });
 
 
-        //Logs out user and send them to the Log-in page.
-            buttonLogOut.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    FirebaseAuth.getInstance().signOut();
-                    finish();
-                    startActivity(new Intent(PatientSettingsActivity.this, welcomepage.class));
-                }
-            });
 
 
             profilepic.setOnClickListener(new View.OnClickListener() {
@@ -278,7 +257,15 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
 
                         case R.id.ic_account:
 
-                            break;
+                            String patientnEWs = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                            Intent intentSetting = new Intent(getApplicationContext(), PatientAccountMenu.class);
+
+                            intentSetting.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
+
+                            startActivity(intentSetting);
+                            overridePendingTransition(0,0);
+                            return true;
+
                     }
 
                     return false;

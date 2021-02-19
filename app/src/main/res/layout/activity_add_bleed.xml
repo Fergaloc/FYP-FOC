@@ -18,24 +18,24 @@
             tools:context=".PatientSettingsActivity">
 
 
-    <TextView
-        android:id="@+id/textMyBleeds"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="center"
-        android:text="Add a Bleed"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#2196F3"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textMyBleeds"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center"
+                android:text="Add a Bleed"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#1d627a"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewArtistName"
@@ -158,22 +158,22 @@
                 app:layout_constraintTop_toBottomOf="@+id/seekBarRating" />
 
             <TextView
-        android:id="@+id/textAddTreatment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="center"
-        android:text="Add Treatment"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#2196F3"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider6" />
+                android:id="@+id/textAddTreatment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center"
+                android:text="Add Treatment"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#1d627a"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider6" />
 
             <Button
                 android:id="@+id/buttonAddTreatment"

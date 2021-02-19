@@ -25,13 +25,14 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class ParentHome extends AppCompatActivity {
 
     public static final String PARENT_NAME = "PARENT_NAME";
 
     Button buttonViewPatients;
-    Button buttonLogOut;
+    Button buttonLogOut,buttonSettings;
 
     List<Patient> patients;
 
@@ -43,7 +44,7 @@ public class ParentHome extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.doctor_home);
+        setContentView(R.layout.parent_home);
         mAuth = FirebaseAuth.getInstance();
 
         Intent intent = getIntent();
@@ -52,7 +53,7 @@ public class ParentHome extends AppCompatActivity {
 
         databasePatients = FirebaseDatabase.getInstance().getReference("parents");
         buttonViewPatients = (Button) findViewById(R.id.buttonViewPatients);
-        buttonLogOut = (Button) findViewById(R.id.buttonLogOutDoctor);
+        buttonSettings = (Button) findViewById(R.id.buttonViewSettingsParent);
 
 
 
@@ -85,19 +86,14 @@ public class ParentHome extends AppCompatActivity {
         });
 
 
-
-
-
-
-        //Logs out user and send them to the Log-in page.
-        buttonLogOut.setOnClickListener(new View.OnClickListener() {
+        buttonSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                finish();
-                startActivity(new Intent(ParentHome.this, welcomepage.class));
+                Intent Settings = new Intent(ParentHome.this, ParentSettingsHome.class);
+                startActivity(Settings);
             }
         });
+
 
 
     }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,65 +9,54 @@
     android:background="#F6F4F6">
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="#F6F4F6">
+    <TextView
+        android:id="@+id/textView99"
+        android:layout_width="123dp"
+        android:layout_height="42dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="144dp"
+        android:gravity="center"
+        android:shadowColor="#1d627a"
+        android:text="myBleeds"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#1d627a"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonViewChild"
+        android:layout_width="271dp"
+        android:layout_height="98dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="159dp"
+        android:layout_marginEnd="70dp"
+        android:background="@drawable/homebutton"
+        android:text="View Children "
+        android:textAllCaps="false"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#333333"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView99" />
+
+    <Button
+        android:id="@+id/buttonViewSettingsParent"
+        android:layout_width="54dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="29dp"
+        android:background="@android:color/transparent"
+        android:drawableTop="@drawable/ic_settings"
+        android:textAllCaps="false"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#333333"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-        <TextView
-            android:id="@+id/textView99"
-            android:layout_width="123dp"
-            android:layout_height="42dp"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:shadowColor="#2196F3"
-            android:text="myBleeds"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#2196F3"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/buttonLogOutDoctor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Log Out" />
-
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="2.5"
-        android:background="#F6F4F6">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:orientation="vertical"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp">
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/buttonViewPatients"
-            android:layout_width="283dp"
-            android:layout_height="124dp"
-            android:layout_marginStart="70dp"
-            android:layout_marginTop="169dp"
-            android:layout_marginEnd="58dp"
-            android:background="@drawable/homebutton"
-            android:text="View Children "
-            android:textAllCaps="false"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#333333" />
-
-
-    </RelativeLayout>
-
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

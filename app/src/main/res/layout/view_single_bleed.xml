@@ -174,7 +174,7 @@
         android:layout_marginEnd="150dp"
         android:text="Treatments"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#2196F3"
+        android:textColor="#1d627a"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></TextView>

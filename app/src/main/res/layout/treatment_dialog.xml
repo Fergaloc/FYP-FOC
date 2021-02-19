@@ -4,14 +4,14 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/DialogHeading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/DialogHeading"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:text="Add Treatment Data"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#2196F3"
-        android:layout_gravity="center"
-        android:gravity="center">
+        android:textColor="#1d627a">
 
     </TextView>
 

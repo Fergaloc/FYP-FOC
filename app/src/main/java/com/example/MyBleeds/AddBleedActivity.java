@@ -184,7 +184,7 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
                     case R.id.ic_account:
 
                         String patientnEW = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        Intent intentSettings = new Intent(getApplicationContext(), PatientSettingsActivity.class);
+                        Intent intentSettings = new Intent(getApplicationContext(), PatientAccountMenu.class);
 
                         intentSettings.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
 

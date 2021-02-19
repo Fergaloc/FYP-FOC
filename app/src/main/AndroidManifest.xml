@@ -44,6 +44,10 @@
         <activity android:name=".ParentSignUp"></activity>
         <activity android:name=".ParentLogIn"></activity>
         <activity android:name=".ParentNewDetails"></activity>
+        <activity android:name=".PatientAccountMenu"></activity>
+        <activity android:name=".AddParent"></activity>
+        <activity android:name=".ParentViewID"></activity>
+        <activity android:name=".ParentSettingsHome"></activity>
 
     </application>
 

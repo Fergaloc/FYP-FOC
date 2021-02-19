@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".PatientSettingsActivity">
+
+
+            <Button
+                android:id="@+id/btnSaveuid"
+                android:layout_width="71dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="170dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="170dp"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/ic_save"
+                android:textColor="#2196F3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editUID" />
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="409dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="1dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView36" />
+
+            <TextView
+                android:id="@+id/textView30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="109dp"
+                android:layout_marginTop="75dp"
+                android:layout_marginEnd="110dp"
+                android:text="Parent Unique Identifier "
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="#333333"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView31" />
+
+            <TextView
+                android:id="@+id/textView31"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="98dp"
+                android:layout_marginTop="42dp"
+                android:layout_marginEnd="98dp"
+                android:text="Add a Parent Account"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#1d627a"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/editUID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="101dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView30" />
+
+            <TextView
+                android:id="@+id/textView32"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="124dp"
+                android:text="Where do you find the Unique Identifier ?"
+                android:textColor="#333333"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider14" />
+
+            <TextView
+                android:id="@+id/textView33"
+                android:layout_width="332dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="51dp"
+                android:text="Parents can access their Identifier by logging into their account and viewing the ID in the settings section."
+                android:textColor="#333333"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView32" />
+
+            <View
+                android:id="@+id/divider14"
+                android:layout_width="409dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="31dp"
+                android:layout_marginEnd="1dp"
+                android:background="?android:attr/listDivider"
+                android:textColor="#333333"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnSaveuid" />
+
+            <TextView
+                android:id="@+id/textView34"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="132dp"
+                android:text="What functionality does a parent have ?"
+                android:textColor="#333333"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView33" />
+
+            <TextView
+                android:id="@+id/textView35"
+                android:layout_width="318dp"
+                android:layout_height="39dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="65dp"
+                android:text="A parent may view all bleeds and all myHealth functionalities for their assoicated accounts ."
+                android:textColor="#333333"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView34" />
+
+            <TextView
+                android:id="@+id/textView36"
+                android:layout_width="318dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="65dp"
+                android:text="They cannot upload new bleeds for themselves or any other user."
+                android:textColor="#333333"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView35" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/nav_menu"
+        android:layout_alignParentBottom="true"
+        app:itemTextColor="@drawable/navigation_view_colored"
+        app:itemIconTint="@drawable/navigation_view_colored"
+        >
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+</RelativeLayout>
+
+
+
