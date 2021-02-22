@@ -45,7 +45,7 @@ public class ViewSingleBleed extends AppCompatActivity {
 
     TextView textViewShowLocation, textViewShowCause, textViewShowSide, textViewShowDate, textViewShowSeverity,txtPic;
 
-    Button buttonReturn,buttonedit;
+    Button buttonReturn,buttonedit,buttonDelete;
 
     DatabaseReference databaseTreatment,databaseImage;
 
@@ -63,11 +63,15 @@ public class ViewSingleBleed extends AppCompatActivity {
     private Uri uriConvert;
 
 
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_single_bleed);
         mAuth = FirebaseAuth.getInstance();
+
+        buttonDelete = (Button) findViewById(R.id.btnDelete);
+
+        buttonDelete.setVisibility(View.GONE);
+
 
         textViewShowCause = (TextView) findViewById(R.id.textViewShowCause);
         textViewShowLocation = (TextView) findViewById(R.id.textViewShowLocation);

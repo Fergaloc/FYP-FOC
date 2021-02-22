@@ -48,6 +48,9 @@
         <activity android:name=".AddParent"></activity>
         <activity android:name=".ParentViewID"></activity>
         <activity android:name=".ParentSettingsHome"></activity>
+        <activity android:name=".ParentViewChildren"></activity>
+        <activity android:name=".ParentViewChildHome"></activity>
+        <activity android:name=".ParentViewBleeds"></activity>
 
     </application>
 

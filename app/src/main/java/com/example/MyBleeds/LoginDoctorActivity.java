@@ -34,7 +34,6 @@ public class LoginDoctorActivity extends AppCompatActivity implements View.OnCli
         editTextPassword = (EditText) findViewById(R.id.editTextPasswordDoctor);
 
 
-        findViewById(R.id.textViewSignupDoctor).setOnClickListener(this);
         findViewById(R.id.buttonLoginDoctor).setOnClickListener(this);
 
     }
@@ -101,10 +100,6 @@ public class LoginDoctorActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.textViewSignupDoctor:
-                finish();
-                startActivity(new Intent(this, SignUpActivity.class));
-                break;
 
             case R.id.buttonLoginDoctor:
                 userLogin();

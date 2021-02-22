@@ -31,7 +31,7 @@ public class ParentHome extends AppCompatActivity {
 
     public static final String PARENT_NAME = "PARENT_NAME";
 
-    Button buttonViewPatients;
+    Button buttonViewChild;
     Button buttonLogOut,buttonSettings;
 
     List<Patient> patients;
@@ -52,7 +52,7 @@ public class ParentHome extends AppCompatActivity {
         String uid = FirebaseAuth.getInstance().getUid();
 
         databasePatients = FirebaseDatabase.getInstance().getReference("parents");
-        buttonViewPatients = (Button) findViewById(R.id.buttonViewPatients);
+        buttonViewChild = (Button) findViewById(R.id.buttonViewChild);
         buttonSettings = (Button) findViewById(R.id.buttonViewSettingsParent);
 
 
@@ -94,6 +94,14 @@ public class ParentHome extends AppCompatActivity {
             }
         });
 
+
+        buttonViewChild.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Child = new Intent(ParentHome.this , ParentViewChildren.class);
+                startActivity(Child);
+            }
+        });
 
 
     }

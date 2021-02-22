@@ -1,10 +1,5 @@
 package com.example.MyBleeds;
 
-import android.net.Uri;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class Patient {
     private String patientName;
     private String patientRegion;
@@ -29,7 +24,7 @@ public class Patient {
     }
 
 
-    public String getPatientName() {
+    public  String getPatientName() {
         return patientName;
     }
 
@@ -52,7 +47,6 @@ public class Patient {
     public String getParentID() {
         return parentID;
     }
-
 
 
 
@@ -79,5 +73,7 @@ public class Patient {
     public void setParentID(String parentID) {
         this.parentID = parentID;
     }
+
+
 }
 

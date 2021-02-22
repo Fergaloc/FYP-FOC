@@ -161,6 +161,8 @@ public class TreatmentDialog extends AppCompatDialogFragment {
         } else {
             Toast.makeText(getContext(), "Treatment Date should not be empty", Toast.LENGTH_LONG).show();
         }
+
+
     }
 
 }

@@ -81,7 +81,8 @@ public class ParentViewID extends AppCompatActivity {
 
         txtIdentifier.setText(uid);
 
-
+       // https://stackoverflow.com/questions/12780085/button-to-copy-the-value-of-a-string-to-the-clipboard
+       //Copies ID to clipboard
         buttonCopy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
