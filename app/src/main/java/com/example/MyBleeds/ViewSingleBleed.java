@@ -164,6 +164,7 @@ public class ViewSingleBleed extends AppCompatActivity {
                // startActivity(intent);
 
                 ViewSingleBleed.this.onBackPressed();
+                finish();
 
             }
         });

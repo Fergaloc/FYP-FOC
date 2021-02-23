@@ -24,12 +24,13 @@
                 android:layout_width="71dp"
                 android:layout_height="28dp"
                 android:layout_marginStart="170dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="12dp"
                 android:layout_marginEnd="170dp"
                 android:background="@android:color/transparent"
                 android:drawableTop="@drawable/ic_save"
                 android:textColor="#2196F3"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editUID" />
 
@@ -119,13 +120,14 @@
                 android:layout_width="409dp"
                 android:layout_height="1dp"
                 android:layout_marginStart="1dp"
-                android:layout_marginTop="31dp"
+                android:layout_marginTop="34dp"
                 android:layout_marginEnd="1dp"
                 android:background="?android:attr/listDivider"
                 android:textColor="#333333"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnSaveuid" />
+                app:layout_constraintTop_toBottomOf="@+id/btnDeleteParent" />
 
             <TextView
                 android:id="@+id/textView34"
@@ -166,6 +168,28 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView35" />
+
+            <TextView
+                android:id="@+id/textView40"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="24dp"
+                android:text="Remove your current Parent Accounts"
+                android:textColor="#333333"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnSaveuid" />
+
+            <Button
+                android:id="@+id/btnDeleteParent"
+                android:layout_width="55dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="43dp"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/ic_delete"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnSaveuid" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

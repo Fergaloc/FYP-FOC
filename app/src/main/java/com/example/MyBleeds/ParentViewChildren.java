@@ -145,6 +145,7 @@ public class ParentViewChildren extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ParentViewChildren.this.onBackPressed();
+                finish();
             }
         });
 

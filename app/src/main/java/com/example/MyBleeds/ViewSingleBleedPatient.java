@@ -171,6 +171,7 @@ public class ViewSingleBleedPatient extends AppCompatActivity implements DeleteD
                 intent.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
 
                 startActivity(intent);
+                finish();
             }
         });
 

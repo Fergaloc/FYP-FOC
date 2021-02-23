@@ -44,7 +44,7 @@ public class ParentViewChildHome extends AppCompatActivity {
     TextView tvPatientName;
     DatabaseReference databaseBleeds;
 
-    Button btnViewAllBleeds;
+    Button btnViewAllBleeds,btnReturnViewChildHome;
     Button btnViewHealth;
     String ID,name;
 
@@ -57,6 +57,8 @@ public class ParentViewChildHome extends AppCompatActivity {
 
         btnViewAllBleeds = (Button) findViewById(R.id.btnViewRecent);
         btnViewHealth = (Button) findViewById(R.id.btnViewHealth);
+        btnReturnViewChildHome = (Button) findViewById(R.id.btnReturnViewChildHome);
+
 
         tvPatientName = (TextView) findViewById(R.id.txtHomeName);
         String PatientName;
@@ -102,15 +104,23 @@ public class ParentViewChildHome extends AppCompatActivity {
             public void onClick(View v) {
 
                 //Passing the user ID to the next page
-                Intent patientIntents = new Intent(getApplicationContext(), ViewPatientHealth.class);
+                Intent patientIntents = new Intent(getApplicationContext(), ParentViewHealth.class);
                 patientIntents.putExtra(PATIENT_NAME, name);
-                patientIntents.putExtra(PATIENT_ID, ID);
+                patientIntents.putExtra(PATIENT_ID, patientsID);
                 startActivity(patientIntents);
 
 
             }
         });
 
+
+        btnReturnViewChildHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParentViewChildHome.this.onBackPressed();
+                finish();
+            }
+        });
 
 
 

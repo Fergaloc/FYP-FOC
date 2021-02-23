@@ -57,7 +57,7 @@ public class ParentViewBleeds extends AppCompatActivity implements parentFilterD
     FirebaseAuth mAuth;
 
     ListView listViewBleeds,listViewLS;
-    Button buttonHome,btnSix,btnFilter;
+    Button buttonHome,btnSix,btnFilter,btnReturnParentFilter;
 
     DatabaseReference databaseBleeds,databaseLS;
     List<Bleed> bleeds;
@@ -92,7 +92,7 @@ String patientID;
         listViewLS = (ListView) findViewById(R.id.listviewLS);
         btnFilter = (Button) findViewById(R.id.btnFilter);
         txtChildID = (TextView) findViewById(R.id.txtChildID);
-
+        btnReturnParentFilter = (Button) findViewById(R.id.btnReturnParentFilter);
 
         txtCause = (TextView) findViewById(R.id.txtCauseFilter);
         txtLoc = (TextView) findViewById(R.id.txtFilterLocation);
@@ -110,7 +110,13 @@ String patientID;
         final String newsID = Filterintent.getStringExtra("PATIENT_ID");
 
 
-
+        btnReturnParentFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParentViewBleeds.this.onBackPressed();
+                finish();
+            }
+        });
 
         Intent intent = getIntent();
         String id = intent.getStringExtra(ParentViewChildHome.PATIENT_ID);

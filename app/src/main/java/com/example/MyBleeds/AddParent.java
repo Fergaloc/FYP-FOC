@@ -59,6 +59,7 @@ public class AddParent extends AppCompatActivity {
 
     EditText editTextID;
     Button  buttonSave;
+    Button btnDeleteParent;
 
 
 
@@ -80,8 +81,10 @@ public class AddParent extends AppCompatActivity {
         databasepatient = FirebaseDatabase.getInstance().getReference("patients").child("U32N7b9ZetXeQtBx9o9YIZBI7yB2").child(uid);
 
         //getting views
-     buttonSave = (Button) findViewById(R.id.btnSaveuid) ;
-     editTextID = (EditText) findViewById(R.id.editUID);
+        buttonSave = (Button) findViewById(R.id.btnSaveuid);
+        btnDeleteParent = (Button) findViewById(R.id.btnDeleteParent);
+
+        editTextID = (EditText) findViewById(R.id.editUID);
         itemSelectedListener = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
         editTextID.setFocusable(false);
@@ -98,30 +101,66 @@ public class AddParent extends AppCompatActivity {
                 dbParent = FirebaseDatabase.getInstance().getReference("parent");
 
 
-               dbParent.addValueEventListener(new ValueEventListener() {
-                   @Override
-                   public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                dbParent.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                       if (dataSnapshot.hasChild(ParentID)) {
+                        if (dataSnapshot.hasChild(ParentID)) {
 
-                           databasepatient.child("parentID").setValue(ParentID);
+                            databasepatient.child("parentID").setValue(ParentID);
 
-                           Toast.makeText(context, "Parent Added ", Toast.LENGTH_SHORT).show();
-
-
-                       }
-
-                       Toast.makeText(context, "Unique Identifier not found ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Parent Added ", Toast.LENGTH_SHORT).show();
 
 
-                   }
-                   @Override
-                   public void onCancelled(@NonNull DatabaseError databaseError) {
+                        }
 
-                   }
-               });
+                        Toast.makeText(context, "Unique Identifier not found ", Toast.LENGTH_SHORT).show();
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
 
             }
+        });
+
+
+        btnDeleteParent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                final String ParentIDs = editTextID.getText().toString().trim();
+                databasepatient.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        if (dataSnapshot.hasChild("parentID")) {
+
+                            databasepatient.child("parentID").setValue("");
+
+                            Toast.makeText(context, "Parent Removed ", Toast.LENGTH_SHORT).show();
+
+                        }
+
+                        Toast.makeText(context, "No Parent assinged to user. ", Toast.LENGTH_SHORT).show();
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+
+
         });
 
 
