@@ -21,10 +21,10 @@
             android:layout_height="42dp"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:shadowColor="#2196F3"
+            android:shadowColor="#1d627a"
             android:text="myBleeds"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#2196F3"
+            android:textColor="#1d627a"
             android:textStyle="bold" />
 
         <Button

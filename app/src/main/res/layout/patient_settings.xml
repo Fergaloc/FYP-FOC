@@ -159,10 +159,14 @@
                 android:layout_width="409dp"
                 android:layout_height="1dp"
                 android:layout_marginStart="1dp"
-                android:layout_marginTop="136dp"
+                android:layout_marginTop="100dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="50dp"
                 android:background="?android:attr/listDivider"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/divider2" />
+                app:layout_constraintTop_toTopOf="@+id/divider17" />
 
             <View
                 android:id="@+id/divider4"
@@ -210,6 +214,38 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView41"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="50dp"
+                android:text="Comprehemsive Care Center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider17" />
+
+            <Spinner
+                android:id="@+id/spCCC"
+                android:layout_width="148dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="68dp"
+                android:entries="@array/CCC"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider17" />
+
+            <View
+                android:id="@+id/divider17"
+                android:layout_width="409dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="100dp"
+                android:layout_marginEnd="1dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -52,6 +52,7 @@
         <activity android:name=".ParentViewChildHome"></activity>
         <activity android:name=".ParentViewBleeds"></activity>
         <activity android:name=".ParentViewHealth"></activity>
+        <activity android:name=".DoctorViewPatients"></activity>
 
     </application>
 

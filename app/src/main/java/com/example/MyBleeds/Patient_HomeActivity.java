@@ -66,7 +66,7 @@ public class Patient_HomeActivity extends AppCompatActivity {
         final String uid = FirebaseAuth.getInstance().getUid();
 
         mAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference("patients").child("U32N7b9ZetXeQtBx9o9YIZBI7yB2");
+        databaseReference = FirebaseDatabase.getInstance().getReference("patients");
 
         databasePatients = FirebaseDatabase.getInstance().getReference("patients");
 
@@ -78,7 +78,7 @@ public class Patient_HomeActivity extends AppCompatActivity {
 
 
 
-        databaseName = FirebaseDatabase.getInstance().getReference("patients").child("U32N7b9ZetXeQtBx9o9YIZBI7yB2").child(uid).child("patientName");
+        databaseName = FirebaseDatabase.getInstance().getReference("patients").child(uid).child("patientName");
         databaseName.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

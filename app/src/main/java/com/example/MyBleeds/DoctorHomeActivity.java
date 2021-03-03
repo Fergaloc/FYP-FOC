@@ -88,7 +88,7 @@ public class DoctorHomeActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 String doctor = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                Intent intent = new Intent(getApplicationContext(), ViewMyPatients.class);
+                Intent intent = new Intent(getApplicationContext(), DoctorViewPatients.class);
 
                 intent.putExtra(DOCTOR_ID, mAuth.getCurrentUser().getUid());
 

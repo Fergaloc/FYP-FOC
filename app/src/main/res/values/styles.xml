@@ -165,6 +165,16 @@
         <item>Advate</item>
         <item>N/A</item>
     </array>
+
+
+    //Comprehemsive Care Centers
+    <array name="CCC">
+        <item>The Coagulation Centre in Cork University Hospital (CUH)</item>
+        <item>Children’s Health Ireland (CHI) at Crumlin</item>
+        <item>The National Coagulation Centre (NCC) in St. James’s Hospital in Dublin.</item>
+    </array>
+
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

@@ -1,29 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
     android:layout_gravity="center"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="100">
+    
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="50"
+        android:weightSum="100"
+        >
+        
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_weight="50"
+            android:id="@+id/patientPic"
+            ></ImageView>
 
     <TextView
         android:id="@+id/textViewName"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="TextView"
+        android:layout_weight="50"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textStyle="bold"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
-
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:orientation="vertical"
+        android:layout_weight="50" >
 
     <TextView
-        android:id="@+id/textViewGenre"
+        android:id="@+id/textViewSeveritys"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
- />
+        android:gravity="center"
+        android:text="TextView" />
+        
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:text="DOB"
+            android:id="@+id/patientDOB"
+            ></TextView>
+
+
+    </LinearLayout>
 </LinearLayout>

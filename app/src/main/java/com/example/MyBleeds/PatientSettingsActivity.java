@@ -47,7 +47,7 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
 
     EditText editTextName;
     Button buttonUpdate,buttonDOBPicker;
-    Spinner spinnerRegion, SpinnerpatientSeverity;
+    Spinner spinnerRegion, SpinnerpatientSeverity,spinnerCenter;
     TextView textViewDOB;
 
     DatabaseReference databasePatients;
@@ -93,7 +93,7 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
         setContentView(R.layout.patient_settings);
         mAuth = FirebaseAuth.getInstance();
 
-        databasepatient = FirebaseDatabase.getInstance().getReference("patients").child("U32N7b9ZetXeQtBx9o9YIZBI7yB2");
+        databasepatient = FirebaseDatabase.getInstance().getReference("patients");
 
         //getting views
         editTextName = (EditText) findViewById(R.id.editTextFirstName);
@@ -104,7 +104,7 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
         textViewDOB = (TextView) findViewById(R.id.textViewDOB);
         profilepic = (ImageView) findViewById(R.id.profilepic);
             itemSelectedListener = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-
+            spinnerCenter = (Spinner) findViewById(R.id.spCCC);
 
             editTextName.setFocusable(false);
 
@@ -113,7 +113,7 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
 
         dataRefName = databasepatient.child(uid).child("patientName");
 
-        datarefImg = FirebaseDatabase.getInstance().getReference("patients").child("U32N7b9ZetXeQtBx9o9YIZBI7yB2").child(uid).child("imageURL");
+        datarefImg = FirebaseDatabase.getInstance().getReference("patients").child(uid).child("imageURL");
 
         //If statement, checks if user has a profile pic and displays if it does.
         datarefImg.addValueEventListener(new ValueEventListener() {
@@ -193,8 +193,21 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
                     String region = spinnerRegion.getSelectedItem().toString();
                     String DOB = textViewDOB.getText().toString();
                     String severity = SpinnerpatientSeverity.getSelectedItem().toString();
-                    String imageurl =  useURL.toString();
+                   String imageurl =  useURL.toString();
+                 //   String imageurl = uriConvert != null ? uriConvert.toString() : null;
                     String parentID = "";
+                    String doctorID = "";
+
+
+
+                    //if statement to determine the doctor id based on hospital
+                    if(spinnerCenter.getSelectedItem().toString().equals("The Coagulation Centre in Cork University Hospital (CUH)")){
+                        doctorID = "U32N7b9ZetXeQtBx9o9YIZBI7yB2";
+                    }
+                    if  (spinnerCenter.getSelectedItem().toString().equals("Children’s Health Ireland (CHI) at Crumlin")){
+                        doctorID = "WdLiqbz0xFVc3D9iSFcK0hHtka32";
+                    };
+
 
 
                     if(TextUtils.isEmpty(name)){
@@ -202,7 +215,8 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
                         return;
                     }
 
-                    updatePatient(name, region, DOB, severity, imageurl,parentID);
+                    updatePatient(name, region, DOB, severity, imageurl,parentID,doctorID);
+                    Toast.makeText(PatientSettingsActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
 
 
                 }
@@ -359,15 +373,15 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
     }
 
     //
-    private boolean updatePatient(String name, String region, String DOB, String severity, String imageurl,String parentID){
+    private boolean updatePatient(String name, String region, String DOB, String severity, String imageurl,String parentID,String doctorID){
 
         String docID = "U32N7b9ZetXeQtBx9o9YIZBI7yB2";
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("patients").child(docID).child(uid);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("patients").child(uid);
 
-        Patient patient = new Patient( name , region, DOB, severity,imageurl,parentID);
+        Patient patient = new Patient( name , region, DOB, severity,imageurl,parentID,doctorID);
 
         //overide with new patient
 
