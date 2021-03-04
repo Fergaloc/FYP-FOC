@@ -16,11 +16,21 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
 
     FirebaseAuth mAuth;
     EditText editTextEmail, editTextPassword;
+
+    DatabaseReference dbRef;
+
+    String id;
+
 
 
     @Override
@@ -89,11 +99,25 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     protected void onStart() {
         super.onStart();
 
-        //Brings user to home page if already logged in , MUST CHANGE FOR TESTING - FOC(23NOV20)
-        if (mAuth.getCurrentUser() != null) {
-            finish();
-            startActivity(new Intent(this, Patient_HomeActivity.class));
-        }
+        String uid = FirebaseAuth.getInstance().getUid();
+        dbRef = FirebaseDatabase.getInstance().getReference().child("patients").child(uid);
+
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (mAuth.getCurrentUser() != null && dataSnapshot.exists() ) {
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), Patient_HomeActivity.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     //switch case to decide what action is taken next.
