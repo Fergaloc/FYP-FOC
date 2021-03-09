@@ -22,11 +22,9 @@
         <activity android:name=".LoginDoctorActivity" >
         </activity>
         <activity android:name=".DoctorHomeActivity" />
-        <activity android:name=".LogInActivity" >
-        </activity>
+        <activity android:name=".LogInActivity" />
         <activity android:name=".ViewMyPatients" />
         <activity android:name=".newPatientSettingsActivity" />
-        <activity android:name=".AddDoctorActivity" />
         <activity android:name=".Patient_HomeActivity" />
         <activity android:name=".ViewSingleBleed" />
         <activity android:name=".PatientSettingsActivity" />
@@ -53,6 +51,7 @@
         <activity android:name=".ParentViewBleeds"></activity>
         <activity android:name=".ParentViewHealth"></activity>
         <activity android:name=".DoctorViewPatients"></activity>
+        <activity android:name=".patientFAQ"></activity>
 
     </application>
 

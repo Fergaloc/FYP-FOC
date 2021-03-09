@@ -67,8 +67,6 @@ public class DoctorHomeActivity extends AppCompatActivity {
                     finish();
                     startActivity(new Intent(DoctorHomeActivity.this, LogInActivity.class));
                     Toast.makeText(DoctorHomeActivity.this, "You have been Logged Out, please Login via the Patient Portal", Toast.LENGTH_SHORT).show();
-
-
                 }
             }
 

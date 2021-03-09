@@ -51,21 +51,40 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewHeading" />
 
+
             <Button
-                android:id="@+id/buttonParentID"
+                android:id="@+id/buttonFAQ"
                 android:layout_width="fill_parent"
-                android:layout_weight="1"
                 android:layout_height="75dp"
                 android:layout_marginStart="18dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="18dp"
+                android:layout_weight="1"
+                android:background="#F6F4F6"
+                android:drawableRight="@drawable/ic_advance"
+                android:gravity="left|center_vertical"
+                android:text="FAQ"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonAccountParent" />
+
+            <Button
+                android:id="@+id/buttonParentID"
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="18dp"
+                android:layout_weight="1"
                 android:background="#F6F4F6"
                 android:drawableRight="@drawable/ic_advance"
                 android:gravity="left|center_vertical"
                 android:text="Add Parent Account"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/buttonAccountParent" />
+                app:layout_constraintTop_toBottomOf="@+id/buttonFAQ" />
 
             <Button
                 android:id="@+id/buttonLogoutParent"

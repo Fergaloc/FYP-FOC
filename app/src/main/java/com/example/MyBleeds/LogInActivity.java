@@ -99,24 +99,32 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     protected void onStart() {
         super.onStart();
 
-        String uid = FirebaseAuth.getInstance().getUid();
-        dbRef = FirebaseDatabase.getInstance().getReference().child("patients").child(uid);
+        if((mAuth.getCurrentUser() != null)){
 
-        dbRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            String id = FirebaseAuth.getInstance().getUid();
 
-                if (mAuth.getCurrentUser() != null && dataSnapshot.exists() ) {
-                    finish();
-                    startActivity(new Intent(getApplicationContext(), Patient_HomeActivity.class));
+            dbRef = FirebaseDatabase.getInstance().getReference().child("patients").child(id);
+
+            dbRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    if (dataSnapshot.exists() ) {
+                        finish();
+                        startActivity(new Intent(getApplicationContext(), Patient_HomeActivity.class));
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+
+
+
+
+        }
 
     }
 

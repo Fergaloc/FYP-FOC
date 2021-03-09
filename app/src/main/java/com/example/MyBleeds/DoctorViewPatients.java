@@ -68,8 +68,6 @@ public class DoctorViewPatients extends AppCompatActivity {
     Button btnBack;
 
 
-
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.doctor_viewpatients);
@@ -78,7 +76,7 @@ public class DoctorViewPatients extends AppCompatActivity {
 
         lstPatients = (ListView) findViewById(R.id.lstPatients);
         SearchText = (EditText) findViewById(R.id.edtName);
-        btnBack = (Button) findViewById(R.id.btnBack);
+        btnBack = (Button) findViewById(R.id.buttonBack);
 
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();

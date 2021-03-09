@@ -2,7 +2,9 @@ package com.example.MyBleeds;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -50,6 +52,7 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
     Spinner spinnerRegion, SpinnerpatientSeverity,spinnerCenter;
     TextView textViewDOB;
 
+    ImageView imgInfo;
     DatabaseReference databasePatients;
 
     DatabaseReference databasepatient;
@@ -105,6 +108,7 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
         profilepic = (ImageView) findViewById(R.id.profilepic);
             itemSelectedListener = (BottomNavigationView) findViewById(R.id.bottom_navigation);
             spinnerCenter = (Spinner) findViewById(R.id.spCCC);
+            imgInfo = (ImageView) findViewById(R.id.imgInfo);
 
             editTextName.setFocusable(false);
 
@@ -189,7 +193,7 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
                     //Sets name of image in storage as same as user ID
                     final String profilePicID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-                    String name = editTextName.getText().toString().trim();
+                    String name = editTextName.getText().toString();
                     String region = spinnerRegion.getSelectedItem().toString();
                     String DOB = textViewDOB.getText().toString();
                     String severity = SpinnerpatientSeverity.getSelectedItem().toString();
@@ -199,16 +203,20 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
                     String doctorID = "";
 
 
-
                     //if statement to determine the doctor id based on hospital
-                    if(spinnerCenter.getSelectedItem().toString().equals("The Coagulation Centre in Cork University Hospital (CUH)")){
+                    if(spinnerCenter.getSelectedItem().toString().equals("Cork University Hospital (CUH)")){
                         doctorID = "U32N7b9ZetXeQtBx9o9YIZBI7yB2";
                     }
                     if  (spinnerCenter.getSelectedItem().toString().equals("Children’s Health Ireland (CHI) at Crumlin")){
                         doctorID = "WdLiqbz0xFVc3D9iSFcK0hHtka32";
                     };
+                    if(spinnerCenter.getSelectedItem().toString().equals("St. James’s Hospital in Dublin")){
+                        doctorID = "MlkCgTNliecZ5jS7lxzHHmaWedo1";
+                    }
+                    if(spinnerCenter.getSelectedItem().toString().equals("")){
+                        doctorID = "";
 
-
+                    }
 
                     if(TextUtils.isEmpty(name)){
                         editTextName.setError("Name Required");
@@ -222,6 +230,7 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
                 }
 
             });
+
 
 
 
@@ -288,7 +297,15 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
 
 
 
+            imgInfo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                    new AlertDialog.Builder(PatientSettingsActivity.this).setTitle("Care Center Information").setMessage("Please select which Center you attend, if you wish to not share your data please select none. For more information please see the FAQ section.").show();
+
+
+                }
+            });
 
 
 

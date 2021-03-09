@@ -25,7 +25,7 @@ public class PatientAccountMenu extends AppCompatActivity {
 
 
     EditText editTextName;
-    Button  buttonLogOut,buttonAccount,buttonParent;
+    Button  buttonLogOut,buttonAccount,buttonParent,buttonFAQ;
 
     DatabaseReference databasePatients;
 
@@ -56,7 +56,7 @@ public class PatientAccountMenu extends AppCompatActivity {
         buttonParent = (Button) findViewById(R.id.buttonParentID);
         buttonAccount = (Button) findViewById(R.id.buttonAccountParent);
         itemSelectedListener = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-
+        buttonFAQ = (Button) findViewById(R.id.buttonFAQ) ;
 
 
         context = getApplicationContext();
@@ -83,6 +83,7 @@ public class PatientAccountMenu extends AppCompatActivity {
             public void onClick(View v) {
                 Intent accountIntent = new Intent(PatientAccountMenu.this , PatientSettingsActivity.class);
                 startActivity(accountIntent);
+
             }
         });
 
@@ -91,9 +92,19 @@ public class PatientAccountMenu extends AppCompatActivity {
             public void onClick(View v) {
                 Intent parentIntent = new Intent(PatientAccountMenu.this, AddParent.class);
                 startActivity(parentIntent);
+
             }
         });
 
+
+        buttonFAQ.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent FAQintent = new Intent(PatientAccountMenu.this , patientFAQ.class);
+                startActivity(FAQintent);
+
+            }
+        });
 
         //Bottom navigation switch case to decide location based upon selected item
         itemSelectedListener.setSelectedItemId(R.id.ic_account);

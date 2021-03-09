@@ -187,6 +187,8 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
 
 
 
+
+
                 if(TextUtils.isEmpty(name)){
                     editTextName.setError("Name Required");
                     return;

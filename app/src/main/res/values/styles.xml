@@ -169,9 +169,10 @@
 
     //Comprehemsive Care Centers
     <array name="CCC">
-        <item>The Coagulation Centre in Cork University Hospital (CUH)</item>
+        <item></item>
+        <item>Cork University Hospital (CUH)</item>
         <item>Children’s Health Ireland (CHI) at Crumlin</item>
-        <item>The National Coagulation Centre (NCC) in St. James’s Hospital in Dublin.</item>
+        <item>St. James’s Hospital in Dublin</item>
     </array>
 
 
