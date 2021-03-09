@@ -109,7 +109,6 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
         btnChooseImage = (Button) findViewById(R.id.btnSelectImage);
-        btnSaveImage = (Button) findViewById(R.id.btnSaveImage);
         imgBleed = (ImageView) findViewById(R.id.imgBleedPhoto);
         mStorageRef = FirebaseStorage.getInstance().getReference();
       //  mDatebaseRef = FirebaseDatabase.getInstance().getReference("bleedImages").child(bleedIntentID);
@@ -120,7 +119,6 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
         txtAddTreat.setVisibility(View.INVISIBLE);
         listviewTreatment.setVisibility(View.INVISIBLE);
         btnChooseImage.setVisibility(View.INVISIBLE);
-        btnSaveImage.setVisibility(View.INVISIBLE);
         imgBleed.setVisibility(View.INVISIBLE);
 
 
@@ -209,13 +207,6 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
         });
 
 
-        btnSaveImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                 uploadFile();
-
-            }
-        });
 
 
 //https://www.youtube.com/watch?v=AdTzD96AhE0
@@ -380,6 +371,7 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
                 && data != null && data.getData() != null) {
             mImageUri = data.getData();
             Glide.with(this).load(mImageUri).into(imgBleed);
+            uploadFile();
         }
 
     }

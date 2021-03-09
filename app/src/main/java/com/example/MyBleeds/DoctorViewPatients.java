@@ -47,7 +47,7 @@ public class DoctorViewPatients extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String currentUserID;
 
-    DatabaseReference SearchRef,allPs;
+    DatabaseReference SearchRef, allPs;
     private ArrayList<String> keys = new ArrayList<>();
     private ArrayList<String> filterkeys = new ArrayList<>();
 
@@ -95,7 +95,7 @@ public class DoctorViewPatients extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 patientsList.clear();
-                for (DataSnapshot patientSnapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot patientSnapshot : dataSnapshot.getChildren()) {
                     Patient patiented = patientSnapshot.getValue(Patient.class);
                     patients.add(patiented);
                     keys.add(patientSnapshot.getKey());
@@ -108,7 +108,7 @@ public class DoctorViewPatients extends AppCompatActivity {
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                             Patient patient = (Patient) parent.getAdapter().getItem(position);
-                            final  String patientID =  all.getRef().getKey();
+                            final String patientID = all.getRef().getKey();
                             String myKey = keys.get(position);
 
                             Intent patientIntent = new Intent(getApplicationContext(), ViewPatientHome.class);
@@ -116,15 +116,11 @@ public class DoctorViewPatients extends AppCompatActivity {
                             startActivity(patientIntent);
                             finish();
 
+                            filterkeys.clear();
+                            patientsList.clear();
+
                         }
                     });
-
-
-
-
-
-
-
 
 
                 }
@@ -135,7 +131,6 @@ public class DoctorViewPatients extends AppCompatActivity {
 
             }
         });
-
 
 
         SearchText.addTextChangedListener(new TextWatcher() {
@@ -157,23 +152,22 @@ public class DoctorViewPatients extends AppCompatActivity {
 
                         patientsList.clear();
                         patients.clear();
-                        for (DataSnapshot patientSnapshot : dataSnapshot.getChildren()){
+                        for (DataSnapshot patientSnapshot : dataSnapshot.getChildren()) {
                             Patient patiented = patientSnapshot.getValue(Patient.class);
 
-                            if(patiented.getPatientName().contains(s)) {
+                            if (patiented.getPatientName().contains(s)) {
                                 patients.add(patiented);
                                 final PatientList patientListAdapter = new PatientList(DoctorViewPatients.this, patients);
                                 lstPatients.setAdapter(patientListAdapter);
                                 patientListAdapter.notifyDataSetChanged();
                                 filterkeys.add(patientSnapshot.getKey());
 
-
                                 lstPatients.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                                         Patient patient = (Patient) parent.getAdapter().getItem(position);
-                                        final  String patientID =  all.getRef().getKey();
+                                        final String patientID = all.getRef().getKey();
                                         String myKeys = filterkeys.get(position);
 
                                         Intent patientIntent = new Intent(getApplicationContext(), ViewPatientHome.class);
@@ -181,12 +175,11 @@ public class DoctorViewPatients extends AppCompatActivity {
                                         startActivity(patientIntent);
                                         finish();
 
+                                        filterkeys.clear();
+                                        patientsList.clear();
 
                                     }
                                 });
-
-
-
 
 
                             }
@@ -199,16 +192,27 @@ public class DoctorViewPatients extends AppCompatActivity {
                     }
                 });
 
+
             }
+
+
 
             @Override
             public void afterTextChanged(Editable s) {
 
                 patientsList.clear();
 
-            }
-        });
+                final PatientList patientListAdapter = new PatientList(DoctorViewPatients.this, patients);
+                lstPatients.setAdapter(patientListAdapter);
+                patientListAdapter.notifyDataSetChanged();
 
+
+
+
+            }
+
+
+        });
 
 
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -220,16 +224,12 @@ public class DoctorViewPatients extends AppCompatActivity {
         });
 
 
-
-
     }
 
 
     @Override
     protected void onStart() {
         super.onStart();
-
-
 
     }
 }

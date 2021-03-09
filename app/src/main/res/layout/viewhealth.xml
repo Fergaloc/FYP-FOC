@@ -20,40 +20,17 @@
 
 
             <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="281dp"
-                android:gravity="center"
-                android:shadowColor="#1d627a"
-                android:text="myBleeds"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="#1d627a"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
                 android:id="@+id/textView12"
                 android:layout_width="99dp"
                 android:layout_height="37dp"
-                android:layout_marginStart="43dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="274dp"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="4dp"
                 android:text="myHealth"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="#333333"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3"
+                app:layout_constraintTop_toBottomOf="@+id/divider7"
                 tools:textStyle="bold" />
-
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/bleedRecycler"
@@ -97,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="168dp"
+                android:layout_marginTop="156dp"
                 android:text="The current target joint is "
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#333333"
@@ -135,8 +112,8 @@
                 android:id="@+id/txtBleedAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="188dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginStart="144dp"
+                android:layout_marginTop="24dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#333333"
                 app:layout_constraintStart_toStartOf="parent"
@@ -146,8 +123,8 @@
                 android:id="@+id/txtTarget"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="72dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="80dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#333333"
                 android:textStyle="bold"
@@ -171,12 +148,22 @@
                 android:layout_width="409dp"
                 android:layout_height="1dp"
                 android:layout_marginStart="1dp"
-                android:layout_marginTop="23dp"
+                android:layout_marginTop="3dp"
                 android:layout_marginEnd="1dp"
                 android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="132dp"
+                android:layout_height="72dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="2dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@mipmap/ic_launcher_foreground" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

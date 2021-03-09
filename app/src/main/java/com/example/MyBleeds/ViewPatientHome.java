@@ -58,7 +58,7 @@ public class ViewPatientHome extends AppCompatActivity {
     TextView tvPatientName;
     DatabaseReference databaseBleeds;
 
-    Button btnViewAllBleeds;
+    Button btnViewAllBleeds,btnDocBack;
     Button btnViewHealth;
     String ID,name;
 
@@ -81,18 +81,19 @@ public class ViewPatientHome extends AppCompatActivity {
         txtDOB = (TextView) findViewById(R.id.txtDOBhome);
         txtRegion = (TextView) findViewById(R.id.txtRegionHome);
         imgPatientHome = (CircleImageView) findViewById(R.id.imgPatientHome);
+        btnDocBack = (Button) findViewById(R.id.btnDocBack);
 
         String PatientName;
 
         patientsID = getIntent().getExtras().get("patientID").toString();
-       // PatientName = getIntent().getExtras().get("patientName").toString();
+        // PatientName = getIntent().getExtras().get("patientName").toString();
 
         ID = patientsID;
 
-      //  name = PatientName;
+        //  name = PatientName;
 
         //sets patient name
-      //  tvPatientName.setText(PatientName);
+        //  tvPatientName.setText(PatientName);
 
         databaseBleeds = FirebaseDatabase.getInstance().getReference("bleeds").child(patientsID);
 
@@ -133,6 +134,15 @@ public class ViewPatientHome extends AppCompatActivity {
         });
 
 
+        btnDocBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent homeIntent = new Intent(getApplicationContext(), DoctorHomeActivity.class);
+                startActivity(homeIntent);
+                finish();
+            }
+        });
+
     }
 
 
@@ -143,33 +153,33 @@ public class ViewPatientHome extends AppCompatActivity {
 
 
 
-   btnViewAllBleeds.setOnClickListener(new View.OnClickListener() {
-       @Override
-       public void onClick(View v) {
+        btnViewAllBleeds.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-           //Passing the user ID to the next page
-           Intent patientIntent = new Intent(getApplicationContext(), ViewPatientBleeds.class);
-         //  patientIntent.putExtra("patientName", name);
-           patientIntent.putExtra(PATIENT_ID, ID);
-           startActivity(patientIntent);
+                //Passing the user ID to the next page
+                Intent patientIntent = new Intent(getApplicationContext(), ViewPatientBleeds.class);
+                //  patientIntent.putExtra("patientName", name);
+                patientIntent.putExtra(PATIENT_ID, ID);
+                startActivity(patientIntent);
 
-       }
-   });
-
-
-   btnViewHealth.setOnClickListener(new View.OnClickListener() {
-       @Override
-       public void onClick(View v) {
-
-           //Passing the user ID to the next page
-           Intent patientIntents = new Intent(getApplicationContext(), ViewPatientHealth.class);
-          // patientIntents.putExtra("patientName", name);
-           patientIntents.putExtra("patientID", ID);
-           startActivity(patientIntents);
+            }
+        });
 
 
-       }
-   });
+        btnViewHealth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Passing the user ID to the next page
+                Intent patientIntents = new Intent(getApplicationContext(), ViewPatientHealth.class);
+                // patientIntents.putExtra("patientName", name);
+                patientIntents.putExtra("patientID", ID);
+                startActivity(patientIntents);
+
+
+            }
+        });
 
 
 
@@ -178,4 +188,3 @@ public class ViewPatientHome extends AppCompatActivity {
 
 
 }
-

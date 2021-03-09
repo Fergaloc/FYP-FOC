@@ -25,7 +25,7 @@
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:gravity="center"
                 android:text="Add a Bleed"
@@ -37,7 +37,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+            <TextView
         android:id="@+id/textViewArtistName"
         android:layout_width="match_parent"
         android:layout_height="18dp"
@@ -50,45 +50,45 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textMyBleeds" />
 
-    <Spinner
-        android:id="@+id/SpinnerBleedLocation"
-        android:layout_width="267dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="2dp"
-        android:entries="@array/bleedLocations"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewArtistName" />
+            <Spinner
+                android:id="@+id/SpinnerBleedLocation"
+                android:layout_width="250dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="2dp"
+                android:entries="@array/bleedLocations"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewArtistName" />
 
-    <Spinner
-        android:id="@+id/SpinnerBleedSide"
-        android:layout_width="267dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="2dp"
-        android:entries="@array/bleedSide"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SpinnerBleedLocation" />
+            <Spinner
+                android:id="@+id/SpinnerBleedSide"
+                android:layout_width="250dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="2dp"
+                android:entries="@array/bleedSide"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/SpinnerBleedLocation" />
 
-    <Spinner
-        android:id="@+id/SpinnerBleedSeverity"
-        android:layout_width="267dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="2dp"
-        android:entries="@array/bleedSeverity"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SpinnerBleedSide" />
+            <Spinner
+                android:id="@+id/SpinnerBleedSeverity"
+                android:layout_width="250dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="2dp"
+                android:entries="@array/bleedSeverity"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/SpinnerBleedSide" />
 
-    <Spinner
-        android:id="@+id/SpinnerBleedCause"
-        android:layout_width="267dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="2dp"
-        android:entries="@array/bleedCause"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SpinnerBleedSeverity" />
+            <Spinner
+                android:id="@+id/SpinnerBleedCause"
+                android:layout_width="250dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="2dp"
+                android:entries="@array/bleedCause"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/SpinnerBleedSeverity" />
 
     <Button
         android:id="@+id/buttonDatePicker"
@@ -272,32 +272,18 @@
                 android:layout_width="94dp"
                 android:layout_height="47dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:text="Choose Bleed Photo"
                 android:textSize="10sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/buttonAddTrack" />
 
-            <Button
-                android:id="@+id/btnSaveImage"
-                android:layout_width="97dp"
-                android:layout_height="49dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:text="Save Photo"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider8"
-                tools:textSize="12sp" />
-
             <ImageView
                 android:id="@+id/imgBleedPhoto"
                 android:layout_width="120dp"
                 android:layout_height="72dp"
-                android:layout_marginStart="43dp"
+                android:layout_marginStart="84dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="36dp"
-                app:layout_constraintEnd_toStartOf="@+id/btnSaveImage"
-                app:layout_constraintHorizontal_bias="0.625"
                 app:layout_constraintStart_toEndOf="@+id/btnSelectImage"
                 app:layout_constraintTop_toBottomOf="@+id/divider8"
                 app:srcCompat="@android:drawable/ic_menu_camera" />

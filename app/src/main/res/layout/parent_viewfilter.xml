@@ -11,9 +11,7 @@
     android:paddingTop="16dp"
     tools:context=".AddBleedActivity">
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="384dp"
@@ -130,8 +128,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    </ScrollView>
 
     <TextView
         android:id="@+id/txtChildID"
