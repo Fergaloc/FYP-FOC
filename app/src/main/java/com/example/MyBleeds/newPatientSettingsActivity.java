@@ -2,6 +2,7 @@ package com.example.MyBleeds;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -22,8 +23,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -44,6 +48,9 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
     public static final String PATIENT_NAME = "patientname";
     public static final String PATIENT_ID = "patientid";
 
+    //Constant for photo select.
+    private static final int PICK_IMAGE_REQUEST = 1;
+
 
     EditText editTextName;
     Button buttonUpdate, buttonHome, buttonLogOut,buttonDOBPicker;
@@ -57,7 +64,7 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
 
 
     ListView listViewArtists;
-
+    ImageView imgInfo;
     FirebaseAuth mAuth;
 
     List<Patient> patients;
@@ -67,6 +74,8 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
     Uri uri;
 
     FirebaseStorage storage;
+
+    String imageURL;
 
     StorageReference storageReferencere;
 
@@ -79,6 +88,11 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
     String imgCheck,userCheck;
 
     Context context;
+
+
+    private Uri mImageUri;
+    private StorageReference mStorageRef,newStorage;
+    private DatabaseReference mDatebaseRef;
 
 
 
@@ -103,6 +117,8 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
         buttonDOBPicker = (Button) findViewById(R.id.buttonDOBPicker);
         textViewDOB = (TextView) findViewById(R.id.textViewDOB);
         profilepic = (ImageView) findViewById(R.id.profilepic);
+        mStorageRef = FirebaseStorage.getInstance().getReference();
+        imgInfo = (ImageView) findViewById(R.id.imgInfo);
 
         itemSelectedListener = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
@@ -161,7 +177,7 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
             @Override
             public void onClick(View view) {
 
-                getUrlAsync(useURL);
+
                 //Sets name of image in storage as same as user ID
                 final String profilePicID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -171,20 +187,35 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
                 String region = spinnerRegion.getSelectedItem().toString();
                 String DOB = textViewDOB.getText().toString();
                 String severity = SpinnerpatientSeverity.getSelectedItem().toString();
-                //https://stackoverflow.com/questions/59789584/attempt-to-invoke-virtual-method-java-lang-string-android-net-uri-tostring-o
-                final String imageurl = uriConvert != null ? uriConvert.toString() : null;
+
+
+                String  imageurl = imgCheck;
+                if(TextUtils.isEmpty(imgCheck))
+                {
+                    imageurl = "";
+                }
+
+
+
+
                 String parentID = "";
 
                 String doctorID = "";
 
-                if(spinnerCenter.getSelectedItem().toString().equals("The Coagulation Centre in Cork University Hospital (CUH)")){
-                     doctorID = "U32N7b9ZetXeQtBx9o9YIZBI7yB2";
+                //if statement to determine the doctor id based on hospital
+                if(spinnerCenter.getSelectedItem().toString().equals("Cork University Hospital (CUH)")){
+                    doctorID = "U32N7b9ZetXeQtBx9o9YIZBI7yB2";
                 }
                 if  (spinnerCenter.getSelectedItem().toString().equals("Children’s Health Ireland (CHI) at Crumlin")){
                     doctorID = "WdLiqbz0xFVc3D9iSFcK0hHtka32";
                 };
+                if(spinnerCenter.getSelectedItem().toString().equals("St. James’s Hospital in Dublin")){
+                    doctorID = "MlkCgTNliecZ5jS7lxzHHmaWedo1";
+                }
+                if(spinnerCenter.getSelectedItem().toString().equals("")){
+                    doctorID = "";
 
-
+                }
 
 
                 if(TextUtils.isEmpty(name)){
@@ -194,6 +225,7 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
 
                 updatePatient(name, region, DOB, severity, imageurl,parentID, doctorID);
                 itemSelectedListener.setVisibility(View.VISIBLE);
+                Toast.makeText(newPatientSettingsActivity.this, "Profile Created", Toast.LENGTH_SHORT).show();
 
 
 
@@ -269,24 +301,40 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
         });
 
 
+
+
+        imgInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                new AlertDialog.Builder(newPatientSettingsActivity.this).setTitle("Care Center Information").setMessage("Please select which Center you attend, if you wish to not share your data please select none. For more information please see the FAQ section.").show();
+
+
+            }
+        });
+
+
     }
 
     //https://www.youtube.com/watch?v=CQ5qcJetYAI
     //method to fetch image from gallery
     private void choosePicture() {
+        //https://www.youtube.com/watch?v=gqIWrNitbbk
+        //Image chooser.
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent,1);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
 
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
         super.onActivityResult(requestCode,resultCode,data);
-        if(requestCode==1 && resultCode==RESULT_OK && data.getData()!=null){
+        if(requestCode== PICK_IMAGE_REQUEST && resultCode==RESULT_OK && data != null && data.getData() != null){
             uri = data.getData();
-            profilepic.setImageURI(uri);
+            mImageUri = data.getData();
+            Glide.with(this).load(mImageUri).into(profilepic);
             uploadPicture();
         }
     }
@@ -294,37 +342,43 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
     //Provided by Android to upload file to Firebase
     private void uploadPicture() {
 
-        final String profilePicID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final String uid = FirebaseAuth.getInstance().getUid();
 
-        final StorageReference riversRef = storageReferencere.child("images/" + profilePicID );
 
-        UploadTask uploadTask = riversRef.putFile(uri);
-        riversRef.putFile(uri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Toast.makeText(getApplicationContext(), "Image uploaded", Toast.LENGTH_LONG).show();
-
-                        riversRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
-                        {
-                            @Override
-                            public void onSuccess(Uri downloadUrl)
-                            {
-                                String url = uri.toString();
-                            }
-                        });
-
+        mDatebaseRef = FirebaseDatabase.getInstance().getReference("patients").child(uid).child("imageURL");
+        //Code to upload image to firebase storage and firebase Database.
+        //https://www.youtube.com/watch?v=lPfQN-Sfnjw&t=1034s
+        if (mImageUri != null) {
+            newStorage = mStorageRef.child("images/" + uid);
+            newStorage.putFile(mImageUri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        Toast.makeText(getApplicationContext(), "Upload Failed", Toast.LENGTH_LONG).show();
+                    return newStorage.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        Uri downloadUri = task.getResult();
+
+                        imageURL = downloadUri.toString();
+
+                        String uploadId = uid;
+
+                        mDatebaseRef.setValue(imageURL);
+
+                    } else {
+                        Toast.makeText(newPatientSettingsActivity.this, "upload failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                });
+                }
+            });
+        }
+
     }
-
-
 
     //https://www.youtube.com/watch?v=AdTzD96AhE0
     // code from an online tutorial that shows a date picker once the button is picked.
@@ -345,8 +399,6 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
     //
     private boolean updatePatient(String name, String region, String DOB, String severity, String imageurl, String parentID,String doctorID){
 
-        String docID = "U32N7b9ZetXeQtBx9o9YIZBI7yB2";
-
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("patients").child(uid);
@@ -361,24 +413,5 @@ public class newPatientSettingsActivity extends AppCompatActivity implements Dat
 
     }
 
-    // Calls the server to securely obtain an unguessable download Url
-    private void getUrlAsync (String date){
-        // Points to the root reference
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        final String profilePicID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        final StorageReference riversRef = storageReferencere.child("images/" + profilePicID );
-
-        riversRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
-        {
-            @Override
-            public void onSuccess(Uri downloadUrl)
-            {
-                downloadUrl.toString();
-                useURL = downloadUrl.toString();
-
-            }
-        });
-    }
 
 }

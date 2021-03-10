@@ -5,35 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#F6F4F6">
+    android:background="#F6F4F6"
+    android:orientation="vertical">
 
-
-    <TextView
-        android:id="@+id/textView99"
-        android:layout_width="123dp"
-        android:layout_height="42dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginEnd="144dp"
-        android:gravity="center"
-        android:shadowColor="#1d627a"
-        android:text="myBleeds"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#1d627a"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/buttonViewChild"
-        android:layout_width="271dp"
-        android:layout_height="98dp"
+        android:layout_width="272dp"
+        android:layout_height="126dp"
         android:layout_marginStart="70dp"
-        android:layout_marginTop="159dp"
+        android:layout_marginTop="55dp"
         android:layout_marginEnd="70dp"
         android:background="@drawable/homebutton"
         android:text="View Children "
@@ -42,7 +23,7 @@
         android:textColor="#333333"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView99" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
     <Button
         android:id="@+id/buttonViewSettingsParent"
@@ -57,6 +38,18 @@
         android:textColor="#333333"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="205dp"
+        android:layout_height="157dp"
+        android:layout_marginStart="103dp"
+        android:layout_marginTop="59dp"
+        android:layout_marginEnd="103dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@mipmap/ic_launcher_foreground" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

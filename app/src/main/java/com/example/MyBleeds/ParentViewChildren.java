@@ -88,13 +88,7 @@ public class ParentViewChildren extends AppCompatActivity {
         listViewChild = (ListView) findViewById(R.id.listViewChildren);
 
 
-        databaseChild = FirebaseDatabase.getInstance().getReference().child("patients").child("U32N7b9ZetXeQtBx9o9YIZBI7yB2");
-
-
-
-
-
-
+        databaseChild = FirebaseDatabase.getInstance().getReference().child("patients");
 
         queryChild = databaseChild.orderByChild("parentID").equalTo(uid);
 

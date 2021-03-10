@@ -172,7 +172,7 @@ public class ParentViewHealth extends AppCompatActivity {
 
 
         //Gets user name
-        databaseName = FirebaseDatabase.getInstance().getReference("patients").child("U32N7b9ZetXeQtBx9o9YIZBI7yB2").child(id).child("patientName");
+        databaseName = FirebaseDatabase.getInstance().getReference("patients").child(id).child("patientName");
         databaseName.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

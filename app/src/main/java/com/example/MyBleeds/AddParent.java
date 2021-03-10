@@ -59,7 +59,7 @@ public class AddParent extends AppCompatActivity {
 
     EditText editTextID;
     Button  buttonSave;
-    Button btnDeleteParent;
+    Button btnDeleteParent,btnAPback;
 
 
 
@@ -78,11 +78,12 @@ public class AddParent extends AppCompatActivity {
 
         final String uid = FirebaseAuth.getInstance().getUid();
 
-        databasepatient = FirebaseDatabase.getInstance().getReference("patients").child("U32N7b9ZetXeQtBx9o9YIZBI7yB2").child(uid);
+        databasepatient = FirebaseDatabase.getInstance().getReference("patients").child(uid);
 
         //getting views
         buttonSave = (Button) findViewById(R.id.btnSaveuid);
         btnDeleteParent = (Button) findViewById(R.id.btnDeleteParent);
+        btnAPback = (Button) findViewById(R.id.btnAPback);
 
         editTextID = (EditText) findViewById(R.id.editUID);
         itemSelectedListener = (BottomNavigationView) findViewById(R.id.bottom_navigation);
@@ -114,7 +115,7 @@ public class AddParent extends AppCompatActivity {
 
                         }
 
-                        Toast.makeText(context, "Unique Identifier not found ", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context, "Unique Identifier not found ", Toast.LENGTH_SHORT).show();
 
 
                     }
@@ -165,6 +166,8 @@ public class AddParent extends AppCompatActivity {
 
 
 
+        itemSelectedListener.setVisibility(View.GONE);
+
         //Bottom navigation switch case to decide location based upon selected item
         itemSelectedListener.setSelectedItemId(R.id.ic_account);
 
@@ -206,7 +209,13 @@ public class AddParent extends AppCompatActivity {
             }
         });
 
-
+        btnAPback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddParent.this.onBackPressed();
+                finish();
+            }
+        });
 
 
 

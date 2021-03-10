@@ -55,7 +55,7 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
 
 
     EditText editTextName;
-    Button buttonUpdate,buttonDOBPicker;
+    Button buttonUpdate,buttonDOBPicker,btnSettingsReturn;
     Spinner spinnerRegion, SpinnerpatientSeverity,spinnerCenter;
     TextView textViewDOB;
 
@@ -121,6 +121,7 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
         editTextName = (EditText) findViewById(R.id.editTextFirstName);
         spinnerRegion = (Spinner) findViewById(R.id.spinnerRegion);
         buttonUpdate = (Button) findViewById(R.id.btnSaveuid);
+            btnSettingsReturn = (Button) findViewById(R.id.btnSettingsReturn);
         SpinnerpatientSeverity = (Spinner) findViewById(R.id.SpinnerpatientSeverity);
         buttonDOBPicker = (Button) findViewById(R.id.buttonDOBPicker);
         textViewDOB = (TextView) findViewById(R.id.textViewDOB);
@@ -195,6 +196,15 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
 
                 }
             });
+
+            btnSettingsReturn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PatientSettingsActivity.this.onBackPressed();
+                    finish();
+                }
+            });
+
 
 
         storage = FirebaseStorage.getInstance();
@@ -281,6 +291,8 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
                 }
             });
 
+
+            itemSelectedListener.setVisibility(View.GONE);
 
             //Bottom navigation switch case to decide location based upon selected item
             itemSelectedListener.setSelectedItemId(R.id.ic_account);
@@ -436,15 +448,12 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
     //
     private boolean updatePatient(String name, String region, String DOB, String severity, String imageurl,String parentID,String doctorID){
 
-
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("patients").child(uid);
 
         Patient patient = new Patient( name , region, DOB, severity,imageurl,parentID,doctorID);
 
         //overide with new patient
-
         databaseReference.setValue(patient);
 
         return true;

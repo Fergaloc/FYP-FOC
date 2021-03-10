@@ -257,6 +257,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider17" />
 
+            <Button
+                android:id="@+id/btnSettingsReturn"
+                android:layout_width="56dp"
+                android:layout_height="29dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/ic_return"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
