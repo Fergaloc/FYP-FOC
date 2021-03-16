@@ -13,16 +13,23 @@
         android:layout_height="wrap_content"
         android:layout_weight="1">
 
+        <ImageView
+            android:layout_width="222dp"
+            android:layout_height="159dp"
+            android:layout_above="@+id/textView4"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="-61dp"
+            android:src="@mipmap/ic_launcher_foreground"></ImageView>
+
         <TextView
             android:id="@+id/textView4"
             android:layout_width="126dp"
             android:layout_height="73dp"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="myBleeds  Parent"
+            android:text="Parent"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#1d627a"
-            android:textStyle="bold" />
+            android:textColor="#030B0E" />
     </RelativeLayout>
 
 

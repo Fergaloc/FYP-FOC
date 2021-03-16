@@ -201,12 +201,11 @@ public class DoctorViewPatients extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
 
                 patientsList.clear();
+                filterkeys.clear();
 
                 final PatientList patientListAdapter = new PatientList(DoctorViewPatients.this, patients);
                 lstPatients.setAdapter(patientListAdapter);
                 patientListAdapter.notifyDataSetChanged();
-
-
 
 
             }

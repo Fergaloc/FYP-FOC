@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -68,6 +69,7 @@ public class ParentViewHealth extends AppCompatActivity {
 
     private Query query, queryDatesD;
 
+    Button btnChildHealthBack;
 
 
     DatabaseReference databaseBleeds,databaseRef,dataBleed,databaseName,databaseLS;
@@ -133,6 +135,7 @@ public class ParentViewHealth extends AppCompatActivity {
         txtTarget = (TextView) findViewById(R.id.txtTarget);
         listViewTarget = (ListView) findViewById(R.id.listViewTarget);
         txtUserName = (TextView) findViewById(R.id.txtUserName);
+        btnChildHealthBack = (Button) findViewById(R.id.btnChildHealthBack);
 
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MONTH, -6);
@@ -169,6 +172,13 @@ public class ParentViewHealth extends AppCompatActivity {
 
 
 
+        btnChildHealthBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParentViewHealth.this.onBackPressed();
+                finish();
+            }
+        });
 
 
         //Gets user name

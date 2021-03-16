@@ -10,9 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -61,6 +63,20 @@ public class PatientAccountMenu extends AppCompatActivity {
 
         context = getApplicationContext();
         String uid = FirebaseAuth.getInstance().getUid();
+
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // User is signed in
+
+        } else {
+            // No user is signed in
+            FirebaseAuth.getInstance().signOut();
+            finish();
+            startActivity(new Intent(PatientAccountMenu.this, welcomepage.class));
+
+        }
+
 
 
 

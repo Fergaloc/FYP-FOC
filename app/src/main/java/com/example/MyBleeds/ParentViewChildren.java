@@ -24,6 +24,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -86,6 +87,21 @@ public class ParentViewChildren extends AppCompatActivity {
 
         btnBack = (Button) findViewById(R.id.btnBack);
         listViewChild = (ListView) findViewById(R.id.listViewChildren);
+
+
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // User is signed in
+
+        } else {
+            // No user is signed in
+            FirebaseAuth.getInstance().signOut();
+            finish();
+            startActivity(new Intent(ParentViewChildren.this, welcomepage.class));
+
+        }
+
 
 
         databaseChild = FirebaseDatabase.getInstance().getReference().child("patients");

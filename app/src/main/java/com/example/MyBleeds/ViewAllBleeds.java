@@ -245,7 +245,7 @@ public class ViewAllBleeds extends AppCompatActivity implements filterDialog.Fil
         //if no location is passed through
         if (TextUtils.isEmpty(filterLocation)){
 
-            //Sample code to show Severe Bleeds from the Calf Location.
+
             Query Cause = databaseLS.orderByChild("bleedCause").equalTo(filterCause);
             Cause.addValueEventListener(new ValueEventListener() {
                 @Override

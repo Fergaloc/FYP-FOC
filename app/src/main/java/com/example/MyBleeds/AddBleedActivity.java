@@ -144,7 +144,7 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
             }
         });
 
-
+//Saves bleed
         buttonAddTrack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -278,7 +278,7 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
             txtAddTreat.setVisibility(View.VISIBLE);
             buttonAddTreatment.setVisibility(View.VISIBLE);
             listviewTreatment.setVisibility(View.VISIBLE);
-            btnSaveImage.setVisibility(View.VISIBLE);
+            //btnSaveImage.setVisibility(View.VISIBLE);
             btnChooseImage.setVisibility(View.VISIBLE);
             imgBleed.setVisibility(View.VISIBLE);
 

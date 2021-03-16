@@ -13,7 +13,7 @@
         android:layout_marginStart="13dp"
         android:layout_marginTop="15dp"
         android:background="@android:color/transparent"
-        android:drawableTop="@drawable/ic_return"
+        android:drawableTop="@drawable/ic_returnwhite"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,7 +38,7 @@
         android:elevation="100dp"
         android:text="Your Children."
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="#333333"
+        android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

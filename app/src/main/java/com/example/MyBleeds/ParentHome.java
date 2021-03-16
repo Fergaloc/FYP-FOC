@@ -56,6 +56,19 @@ public class ParentHome extends AppCompatActivity {
         buttonSettings = (Button) findViewById(R.id.buttonViewSettingsParent);
 
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // User is signed in
+
+        } else {
+            // No user is signed in
+            FirebaseAuth.getInstance().signOut();
+            finish();
+            startActivity(new Intent(ParentHome.this, welcomepage.class));
+            Toast.makeText(this, "Logged Out", Toast.LENGTH_SHORT).show();
+
+        }
+
 
         final String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
 

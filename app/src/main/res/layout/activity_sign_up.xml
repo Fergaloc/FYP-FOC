@@ -14,17 +14,15 @@
         android:layout_weight="1">
 
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:layout_width="222dp"
+            android:layout_height="159dp"
+            android:layout_above="@+id/textView4"
             android:layout_centerInParent="true"
-            android:gravity="center"
-            android:shadowColor="#1d627a"
-            android:text="myBleeds"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#1d627a"
-            android:textStyle="bold" />
+            android:layout_marginBottom="-61dp"
+            android:src="@mipmap/ic_launcher_foreground"></ImageView>
+
+
     </RelativeLayout>
 
 

@@ -108,24 +108,17 @@ public class AddParent extends AppCompatActivity {
 
                         if (dataSnapshot.hasChild(ParentID)) {
 
-                            databasepatient.child("parentID").setValue(ParentID);
+                            databasepatient.child("parentID").setValue(editTextID.getText().toString().trim());
 
                             Toast.makeText(context, "Parent Added ", Toast.LENGTH_SHORT).show();
 
-
                         }
-
                         //Toast.makeText(context, "Unique Identifier not found ", Toast.LENGTH_SHORT).show();
-
-
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-
                     }
                 });
-
             }
         });
 
@@ -133,7 +126,6 @@ public class AddParent extends AppCompatActivity {
         btnDeleteParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
                 final String ParentIDs = editTextID.getText().toString().trim();
                 databasepatient.addValueEventListener(new ValueEventListener() {
@@ -145,25 +137,16 @@ public class AddParent extends AppCompatActivity {
                             databasepatient.child("parentID").setValue("");
 
                             Toast.makeText(context, "Parent Removed ", Toast.LENGTH_SHORT).show();
-
                         }
-
-                        Toast.makeText(context, "No Parent assinged to user. ", Toast.LENGTH_SHORT).show();
-
-
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-
                     }
                 });
-
             }
 
 
         });
-
 
 
         itemSelectedListener.setVisibility(View.GONE);

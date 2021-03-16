@@ -70,7 +70,7 @@
         android:id="@+id/imgPatientHome"
         android:layout_width="117dp"
         android:layout_height="116dp"
-        android:layout_marginStart="112dp"
+        android:layout_marginStart="124dp"
         android:layout_marginTop="12dp"
         app:civ_border_color="#FFFFFF"
         app:civ_border_width="2dp"
@@ -115,7 +115,7 @@
         android:id="@+id/textView46"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="112dp"
+        android:layout_marginStart="124dp"
         android:layout_marginTop="16dp"
         android:text="Patient Details"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -126,11 +126,11 @@
 
     <Button
         android:id="@+id/btnDocBack"
-        android:layout_width="63dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="44dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="13dp"
         android:background="@android:color/transparent"
-        android:drawableTop="@drawable/ic_home"
+        android:drawableTop="@drawable/ic_returnwhite"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView46" />
 
