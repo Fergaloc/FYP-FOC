@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -66,15 +67,15 @@ public class myHealthActivity extends AppCompatActivity {
     ArrayList<Bleed> arrayList;
     Context context;
 
-    private Query query, queryDatesD;
+    private Query query, queryDatesD , queryDat;
 
 
 
-    DatabaseReference databaseBleeds,databaseRef,dataBleed,databaseName,databaseLS;
+    DatabaseReference databaseBleeds,databaseRef,databaseName,databaseLS,dataBleed;
     Query databaseDates;
     List<Bleed> bleeds;
 
-    BottomNavigationView itemSelectedListener;
+
     ListView listViewTarget;
 
     TextView txtBleedAmount,txtTarget;
@@ -117,7 +118,7 @@ public class myHealthActivity extends AppCompatActivity {
     int Wrist;
     int Other;
 
-
+    Button btnChildHealthBack;
 
 
 
@@ -129,11 +130,20 @@ public class myHealthActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
 
-        itemSelectedListener = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+
         txtBleedAmount = (TextView) findViewById(R.id.txtBleedAmount);
         txtTarget = (TextView) findViewById(R.id.txtTarget);
         listViewTarget = (ListView) findViewById(R.id.listViewTarget);
         txtUserName = (TextView) findViewById(R.id.txtUserName);
+        btnChildHealthBack = (Button) findViewById(R.id.btnChildHealthBack);
+
+        btnChildHealthBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myHealthActivity.this.onBackPressed();
+                finish();
+            }
+        });
 
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MONTH, -6);
@@ -157,15 +167,13 @@ public class myHealthActivity extends AppCompatActivity {
         String uid = mAuth.getUid();
         queryDatesD = FirebaseDatabase.getInstance().getReference().child("bleeds").child(uid).orderByChild("bleedDate").startAt(dateInSix).endAt(currentDate);
 
+        queryDat = FirebaseDatabase.getInstance().getReference().child("bleeds").child(uid).orderByChild("bleedDate");
         dataBleed = FirebaseDatabase.getInstance().getReference().child("bleeds").child(uid);
         databaseLS = FirebaseDatabase.getInstance().getReference().child("bleeds").child(uid);
 
        // Toast.makeText(context,currentDate ,Toast.LENGTH_LONG).show();
 
 //        databaseDates = dataBleed.orderByChild("bleedDates").limitToFirst(countBleeds);
-
-
-
 
 
         //Gets user name
@@ -195,46 +203,6 @@ public class myHealthActivity extends AppCompatActivity {
         String id = intent.getStringExtra(PatientSettingsActivity.PATIENT_ID);
         databaseBleeds = FirebaseDatabase.getInstance().getReference("bleeds").child(id);
         query = databaseBleeds.child(id);
-
-
-        //Bottom navigation switch case to decide location based upon selected item
-        itemSelectedListener.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.ic_home:
-                        String patient = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        Intent intent = new Intent(getApplicationContext(), Patient_HomeActivity.class);
-
-                        intent.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
-                        startActivity(intent);
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.ic_search:
-                        String patient2 = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        Intent intent2 = new Intent(getApplicationContext(), ViewAllBleeds.class);
-
-                        intent2.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
-                        startActivity(intent2);
-                        overridePendingTransition(0, 0);
-                        return true;
-
-
-                    case R.id.ic_account:
-
-                        String patientnEW = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        Intent intentSettings = new Intent(getApplicationContext(), PatientAccountMenu.class);
-
-                        intentSettings.putExtra(PATIENT_ID, mAuth.getCurrentUser().getUid());
-
-                        startActivity(intentSettings);
-                        overridePendingTransition(0,0);
-                        return true;
-                }
-
-                return false;
-            }
-        });
 
 
         //  A query that finds the amount of bleeds a user has had in the past 6 months
@@ -466,7 +434,6 @@ public class myHealthActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        //Creates Firebase recycler that adds bleeds to horizontal view.
 
         FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Bleed>().setQuery(dataBleed, Bleed.class).build();
 
@@ -478,24 +445,28 @@ public class myHealthActivity extends AppCompatActivity {
 
                 final String bleedID = getRef(position).getKey();
 
-                dataBleed.child(bleedID).orderByChild("bleedDates").addValueEventListener(new ValueEventListener() {
+                dataBleed.child(bleedID).orderByChild("bleedDate").limitToFirst(countBleeds).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                        final String bleedID = dataSnapshot.child("bleedIDID").getValue().toString();
-                        final String bleedName = dataSnapshot.child("bleedName").getValue().toString();
-                        String bleedDate = dataSnapshot.child("bleedDate").getValue().toString();
-                        String bleedSeverity = dataSnapshot.child("bleedSeverity").getValue().toString();
+                        if(dataSnapshot.exists()) {
 
-                        holder.txtSeverity.setText(bleedSeverity);
-                        holder.txtName.setText(bleedName);
-                        holder.txtDate.setText(bleedDate);
+                            final String bleedID = dataSnapshot.child("bleedIDID").getValue().toString();
+                            final String bleedName = dataSnapshot.child("bleedName").getValue().toString();
+                            String bleedDate = dataSnapshot.child("bleedDate").getValue().toString();
+                            String bleedSeverity = dataSnapshot.child("bleedSeverity").getValue().toString();
 
+                            holder.txtSeverity.setText(bleedSeverity);
+                            holder.txtName.setText(bleedName);
+                            holder.txtDate.setText(bleedDate);
 
+                            notifyDataSetChanged();
+                        }
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        notifyDataSetChanged();
 
                     }
                 });
@@ -517,6 +488,7 @@ public class myHealthActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter);
         adapter.startListening();
+
     }
 
 

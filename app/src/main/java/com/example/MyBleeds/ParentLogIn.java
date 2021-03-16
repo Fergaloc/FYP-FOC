@@ -75,7 +75,7 @@ public class ParentLogIn extends AppCompatActivity implements View.OnClickListen
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     finish();
-                    Intent intent = new Intent(ParentLogIn.this, ParentHome.class);
+                    Intent intent = new Intent(ParentLogIn.this, ParentViewChildren.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 } else {
@@ -92,7 +92,7 @@ public class ParentLogIn extends AppCompatActivity implements View.OnClickListen
         //Brings user to home page if already logged in , MUST CHANGE FOR TESTING - FOC(23NOV20)
         if (mAuth.getCurrentUser() != null) {
             finish();
-            startActivity(new Intent(this, ParentHome.class));
+            startActivity(new Intent(this, ParentViewChildren.class));
         }
     }
 

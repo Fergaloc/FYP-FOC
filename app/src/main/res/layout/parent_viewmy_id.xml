@@ -11,12 +11,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="91dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="72dp"
         android:layout_marginEnd="90dp"
         android:text="Parent Unique Identifier"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#1d627a"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,30 +26,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
-        android:layout_marginTop="196dp"
+        android:layout_marginTop="172dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView39"
-        android:layout_width="275dp"
-        android:layout_height="43dp"
+        android:layout_width="322dp"
+        android:layout_height="44dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="46dp"
-        android:text="Copy this Identifier to enable viewing of child details"
+        android:layout_marginTop="8dp"
+        android:text="Copy this Identifier to enable viewing of child details."
         android:textColor="#333333"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.56"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCopy" />
+        app:layout_constraintTop_toBottomOf="@+id/textView45" />
 
     <Button
         android:id="@+id/btnReturnID"
         android:layout_width="48dp"
         android:layout_height="28dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="16dp"
         android:background="@android:color/transparent"
         android:drawableTop="@drawable/ic_return"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,10 +57,58 @@
         android:id="@+id/btnCopy"
         android:layout_width="60dp"
         android:layout_height="28dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="124dp"
         android:layout_marginEnd="176dp"
         android:background="@android:color/transparent"
         android:drawableTop="@drawable/ic_copy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView37" />
+
+    <TextView
+        android:id="@+id/textView44"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:text='Input this ID in your choosen patients "Add Parent" Page.'
+        android:textColor="#333333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView39" />
+
+    <TextView
+        android:id="@+id/textView45"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="36dp"
+        android:text="FAQ"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#333333"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCopy" />
+
+    <View
+        android:id="@+id/divider18"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView47" />
+
+    <TextView
+        android:id="@+id/textView47"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:text="As a Parent, you will be able to view All bleeds and access myHealth functionality."
+        android:textColor="#333333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView44" />
 </androidx.constraintlayout.widget.ConstraintLayout>

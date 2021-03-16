@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -123,7 +124,7 @@ public class ViewPatientHealth extends AppCompatActivity {
 
 
 
-
+    Button btnChildHealthBack;
 
 
     @Override
@@ -136,6 +137,7 @@ public class ViewPatientHealth extends AppCompatActivity {
         txtBleedAmount = (TextView) findViewById(R.id.txtBleedAmount);
         txtTarget = (TextView) findViewById(R.id.txtTarget);
         listViewTarget = (ListView) findViewById(R.id.listViewTarget);
+        btnChildHealthBack = (Button) findViewById(R.id.btnChildHealthBack);
 
 
 
@@ -179,6 +181,17 @@ public class ViewPatientHealth extends AppCompatActivity {
 
         databaseBleeds = FirebaseDatabase.getInstance().getReference("bleeds").child(patientsID);
         query = databaseBleeds.child(patientsID);
+
+
+
+        btnChildHealthBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewPatientHealth.this.onBackPressed();
+                finish();
+            }
+        });
+
 
 
 

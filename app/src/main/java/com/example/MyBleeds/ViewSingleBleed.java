@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,11 +44,11 @@ public class ViewSingleBleed extends AppCompatActivity {
 
     TextView textViewDateBleed,textViewSeverityBleed, textViewLocationBleed, textViewCauseBleed, textViewSideBleed;
 
-    TextView textViewShowLocation, textViewShowCause, textViewShowSide, textViewShowDate, textViewShowSeverity,txtPic;
+    TextView textViewShowLocation, textViewShowCause, textViewShowSide, textViewShowDate, textViewShowSeverity,txtPic,txtRating;
 
     Button buttonReturn,buttonedit,buttonDelete;
 
-    DatabaseReference databaseTreatment,databaseImage;
+    DatabaseReference databaseTreatment,databaseImage, dbPain;
 
     ListView listViewTreatment;
 
@@ -79,6 +80,7 @@ public class ViewSingleBleed extends AppCompatActivity {
         textViewShowSeverity = (TextView) findViewById(R.id.textViewShowSeverity);
         textViewShowSide = (TextView) findViewById(R.id.textViewShowSide);
         listViewTreatment =(ListView) findViewById(R.id.ListViewTreatmentEdit);
+        txtRating = (TextView) findViewById(R.id.txtRating) ;
         buttonedit = (Button) findViewById(R.id.editBleedButton);
 
 
@@ -104,7 +106,33 @@ public class ViewSingleBleed extends AppCompatActivity {
         String Bleeddate = intent.getStringExtra(ViewPatientBleeds.BLEED_DATE);
         String PatientName = intent.getStringExtra(ViewPatientBleeds.PATIENT_NAME);
         String PatientID = intent.getStringExtra(ViewPatientBleeds.PATIENT_ID);
+        final Integer rating = null;
 
+
+
+        String id = FirebaseAuth.getInstance().getUid();
+
+        dbPain = FirebaseDatabase.getInstance().getReference().child("bleeds").child(PatientID).child(Bleedid).child("bleedRating");
+       dbPain.addValueEventListener(new ValueEventListener() {
+           @Override
+           public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+               if(snapshot.exists()){
+
+                   Integer ratings = snapshot.getValue(Integer.class);
+
+                   String newRat = ratings.toString();
+
+                   txtRating.setText(newRat);
+               }
+
+           }
+
+           @Override
+           public void onCancelled(@NonNull DatabaseError error) {
+
+           }
+       });
 
 
         databaseImage = FirebaseDatabase.getInstance().getReference().child("bleedImages").child(Bleedid).child(Bleedid).child("imageUrl");
@@ -151,6 +179,7 @@ public class ViewSingleBleed extends AppCompatActivity {
         textViewShowDate.setText(Bleeddate);
         textViewShowSeverity.setText(Bleedseverity);
         textViewShowSide.setText(Bleedside);
+       // txtRating.setText(rating);
 
         buttonReturn = (Button) findViewById(R.id.returnButton);
 

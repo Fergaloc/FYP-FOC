@@ -63,7 +63,7 @@
         android:layout_marginStart="9dp"
         android:layout_marginTop="15dp"
         android:background="@android:color/transparent"
-        android:drawableTop="@drawable/ic_return"
+        android:drawableTop="@drawable/ic_returnwhite"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

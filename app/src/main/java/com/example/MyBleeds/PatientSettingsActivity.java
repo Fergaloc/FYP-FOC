@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -62,7 +63,7 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
     ImageView imgInfo;
     DatabaseReference databasePatients;
 
-    DatabaseReference databasepatient;
+    DatabaseReference databasepatient,databaseReferenceCounty, databaseReferenceSeverity,databaseReferenceCCC,databaseReferenceParentID;
     DatabaseReference dataRefName,dataRefDate,dataRefCounty, datarefImg,datarefImgs;
 
 
@@ -106,6 +107,15 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
 
     String existingURL;
 
+//Data for user.
+
+
+    String county;
+    String Severity;
+    String CCC;
+    String existingparentID;
+
+
 
 
 
@@ -116,6 +126,9 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
         mAuth = FirebaseAuth.getInstance();
 
         databasepatient = FirebaseDatabase.getInstance().getReference("patients");
+
+
+
 
         //getting views
         editTextName = (EditText) findViewById(R.id.editTextFirstName);
@@ -134,6 +147,9 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
 
         context = getApplicationContext();
         final String uid = FirebaseAuth.getInstance().getUid();
+
+        String id = FirebaseAuth.getInstance().getUid();
+
 
         dataRefName = databasepatient.child(uid).child("patientName");
 
@@ -205,6 +221,168 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
                 }
             });
 
+//Adds the users data to the drop downs
+            //Uses created spinners and value event listeners
+            //https://stackoverflow.com/questions/2390102/how-to-set-selected-item-of-spinner-by-value-not-by-position
+
+            databaseReferenceCounty = FirebaseDatabase.getInstance().getReference().child("patients").child(id).child("patientRegion");
+            databaseReferenceCounty.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    if(dataSnapshot.exists()){
+
+                        county = dataSnapshot.getValue().toString();
+
+
+                        String existingcounty = county;
+                        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.genres, android.R.layout.simple_spinner_item);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinnerRegion.setAdapter(adapter);
+                        if (existingcounty != null) {
+                            int spinnerPosition = adapter.getPosition(existingcounty);
+                            spinnerRegion.setSelection(spinnerPosition);
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+            databaseReferenceSeverity = FirebaseDatabase.getInstance().getReference().child("patients").child(id).child("patientSeverity");
+            databaseReferenceSeverity.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    if(dataSnapshot.exists()){
+
+                        Severity = dataSnapshot.getValue().toString();
+
+                        String existingSeverity = Severity;
+                        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.patientSeverity, android.R.layout.simple_spinner_item);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        SpinnerpatientSeverity.setAdapter(adapter);
+                        if (existingSeverity != null) {
+                            int spinnerPosition = adapter.getPosition(existingSeverity);
+                            SpinnerpatientSeverity.setSelection(spinnerPosition);
+                        }
+
+
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
+
+            databaseReferenceCCC = FirebaseDatabase.getInstance().getReference().child("patients").child(id).child("doctorID");
+            databaseReferenceCCC.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+                    if (dataSnapshot.exists()) {
+
+
+                        if (dataSnapshot.getValue(String.class).equals("U32N7b9ZetXeQtBx9o9YIZBI7yB2")) {
+
+                            CCC = "Cork University Hospital (CUH)";
+                            String existingCCC = CCC;
+                            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.CCC, android.R.layout.simple_spinner_item);
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spinnerCenter.setAdapter(adapter);
+                            if (existingCCC != null) {
+                                int spinnerPosition = adapter.getPosition(existingCCC);
+                                spinnerCenter.setSelection(spinnerPosition);
+                            }
+
+                        }
+
+                        if (dataSnapshot.getValue(String.class).equals("WdLiqbz0xFVc3D9iSFcK0hHtka32")) {
+
+                            CCC = "Children’s Health Ireland (CHI) at Crumlin";
+                            String existingCCC = CCC;
+                            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.CCC, android.R.layout.simple_spinner_item);
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spinnerCenter.setAdapter(adapter);
+                            if (existingCCC != null) {
+                                int spinnerPosition = adapter.getPosition(existingCCC);
+                                spinnerCenter.setSelection(spinnerPosition);
+                            }
+
+                        }
+
+                        if (dataSnapshot.getValue(String.class).equals("MlkCgTNliecZ5jS7lxzHHmaWedo1")) {
+
+                            CCC = "St. James’s Hospital in Dublin";
+                            String existingCCC = CCC;
+                            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.CCC, android.R.layout.simple_spinner_item);
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spinnerCenter.setAdapter(adapter);
+                            if (existingCCC != null) {
+                                int spinnerPosition = adapter.getPosition(existingCCC);
+                                spinnerCenter.setSelection(spinnerPosition);
+                            }
+
+                        }
+
+                        if (dataSnapshot.getValue(String.class).equals("")) {
+
+                            CCC = "";
+                            String existingCCC = CCC;
+                            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.CCC, android.R.layout.simple_spinner_item);
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spinnerCenter.setAdapter(adapter);
+                            if (existingCCC != null) {
+                                int spinnerPosition = adapter.getPosition(existingCCC);
+                                spinnerCenter.setSelection(spinnerPosition);
+                            }
+
+                        }
+
+                    }
+
+                    }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+            //Gets parentID that user has
+            databaseReferenceParentID = FirebaseDatabase.getInstance().getReference().child("patients").child(id).child("parentID");
+            databaseReferenceParentID.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    if(dataSnapshot.exists()){
+
+                        existingparentID = dataSnapshot.getValue(String.class);
+
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
+
+
+
+
+
 
 
         storage = FirebaseStorage.getInstance();
@@ -237,7 +415,7 @@ public class PatientSettingsActivity extends AppCompatActivity implements DatePi
                     String region = spinnerRegion.getSelectedItem().toString();
                     String DOB = textViewDOB.getText().toString();
                     String severity = SpinnerpatientSeverity.getSelectedItem().toString();
-                    String parentID = "";
+                    String parentID = existingparentID;
                     String doctorID = "";
 
 

@@ -53,7 +53,7 @@ public class ParentViewChildren extends AppCompatActivity {
 
 
     RecyclerView childRecylcer;
-    Button btnBack;
+    Button buttonSettings;
     FirebaseAuth mAuth;
 
 
@@ -62,7 +62,6 @@ public class ParentViewChildren extends AppCompatActivity {
     DatabaseReference databaseChild;
     Query queryChild;
     private ArrayList<String> keys = new ArrayList<>();
-
 
 
     ListView listViewChild;
@@ -85,8 +84,8 @@ public class ParentViewChildren extends AppCompatActivity {
        final String uid = FirebaseAuth.getInstance().getUid();
 
 
-        btnBack = (Button) findViewById(R.id.btnBack);
         listViewChild = (ListView) findViewById(R.id.listViewChildren);
+        buttonSettings = (Button) findViewById(R.id.buttonViewSettingsParent);
 
 
 
@@ -101,6 +100,44 @@ public class ParentViewChildren extends AppCompatActivity {
             startActivity(new Intent(ParentViewChildren.this, welcomepage.class));
 
         }
+
+        final String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        //Code to ensure its a parent that logs in.
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("parent");
+        rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.hasChild(id)) {
+                    Toast.makeText(ParentViewChildren.this, "Logged in", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    FirebaseAuth.getInstance().signOut();
+                    finish();
+                    startActivity(new Intent(ParentViewChildren.this, LogInActivity.class));
+                    Toast.makeText(ParentViewChildren.this, "You have been Logged Out, please Login via the Patient Portal", Toast.LENGTH_SHORT).show();
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+
+            }
+
+        });
+
+
+        buttonSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Settings = new Intent(ParentViewChildren.this, ParentSettingsHome.class);
+                startActivity(Settings);
+            }
+        });
+
 
 
 
@@ -158,13 +195,7 @@ public class ParentViewChildren extends AppCompatActivity {
 
 
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ParentViewChildren.this.onBackPressed();
-                finish();
-            }
-        });
+
 
 
     }

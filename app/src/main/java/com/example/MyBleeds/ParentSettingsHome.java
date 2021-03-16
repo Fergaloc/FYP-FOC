@@ -26,7 +26,7 @@ public class ParentSettingsHome extends AppCompatActivity {
 
 
     EditText editTextName;
-    Button  buttonLogOut,buttonAccount,buttonParent;
+    Button  buttonLogOut,buttonAccount,buttonParent,btnPBack;
 
     FirebaseAuth mAuth;
     FirebaseStorage storage;
@@ -46,6 +46,7 @@ public class ParentSettingsHome extends AppCompatActivity {
         buttonLogOut = (Button) findViewById(R.id.buttonLogoutParent);
         buttonParent = (Button) findViewById(R.id.buttonParentID);
         buttonAccount = (Button) findViewById(R.id.buttonAccountParent);
+        btnPBack = (Button) findViewById(R.id.btnPBack);
 
 
         context = getApplicationContext();
@@ -75,13 +76,6 @@ public class ParentSettingsHome extends AppCompatActivity {
             }
         });
 
-        buttonAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              //  Intent accountIntent = new Intent(ParentSettingsHome.this , PatientSettingsActivity.class);
-              //  startActivity(accountIntent);
-            }
-        });
 
         buttonParent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +85,14 @@ public class ParentSettingsHome extends AppCompatActivity {
             }
         });
 
+
+        btnPBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParentSettingsHome.this.onBackPressed();
+                finish();
+            }
+        });
 
 
     }

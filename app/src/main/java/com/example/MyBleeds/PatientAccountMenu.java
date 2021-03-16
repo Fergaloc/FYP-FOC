@@ -61,6 +61,7 @@ public class PatientAccountMenu extends AppCompatActivity {
         buttonFAQ = (Button) findViewById(R.id.buttonFAQ) ;
 
 
+
         context = getApplicationContext();
         String uid = FirebaseAuth.getInstance().getUid();
 
@@ -76,6 +77,7 @@ public class PatientAccountMenu extends AppCompatActivity {
             startActivity(new Intent(PatientAccountMenu.this, welcomepage.class));
 
         }
+
 
 
 

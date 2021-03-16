@@ -48,11 +48,11 @@ public class ViewSingleBleedPatient extends AppCompatActivity implements DeleteD
 
     TextView textViewDateBleed,textViewSeverityBleed, textViewLocationBleed, textViewCauseBleed, textViewSideBleed;
 
-    TextView textViewShowLocation, textViewShowCause, textViewShowSide, textViewShowDate, textViewShowSeverity,textViewShowID,txtPic;
+    TextView textViewShowLocation, textViewShowCause, textViewShowSide, textViewShowDate, textViewShowSeverity,textViewShowID,txtPic,txtRating;
 
     Button buttonReturn,buttonEdit,buttonDelete;
 
-    DatabaseReference databaseTreatment,databaseImage;
+    DatabaseReference databaseTreatment,databaseImage,  dbPain;
 
     ListView listViewTreatment;
 
@@ -84,6 +84,7 @@ public class ViewSingleBleedPatient extends AppCompatActivity implements DeleteD
         textViewShowSide = (TextView) findViewById(R.id.textViewShowSide);
         listViewTreatment =(ListView) findViewById(R.id.ListViewTreatmentEdit);
         buttonDelete = (Button) findViewById(R.id.btnDelete);
+        txtRating = (TextView) findViewById(R.id.txtRating) ;
 
 
 
@@ -111,6 +112,30 @@ public class ViewSingleBleedPatient extends AppCompatActivity implements DeleteD
         final String Bleedcause = intent.getStringExtra(ViewBleeds.BLEED_CAUSE);
         final String Bleeddate = intent.getStringExtra(ViewBleeds.BLEED_DATE);
 
+
+        String id = FirebaseAuth.getInstance().getUid();
+
+        dbPain = FirebaseDatabase.getInstance().getReference().child("bleeds").child(id).child(Bleedid).child("bleedRating");
+        dbPain.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if(snapshot.exists()){
+
+                    Integer ratings = snapshot.getValue(Integer.class);
+
+                    String newRat = ratings.toString();
+
+                    txtRating.setText(newRat);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
 
