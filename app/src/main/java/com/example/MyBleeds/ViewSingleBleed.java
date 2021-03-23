@@ -44,7 +44,7 @@ public class ViewSingleBleed extends AppCompatActivity {
 
     TextView textViewDateBleed,textViewSeverityBleed, textViewLocationBleed, textViewCauseBleed, textViewSideBleed;
 
-    TextView textViewShowLocation, textViewShowCause, textViewShowSide, textViewShowDate, textViewShowSeverity,txtPic,txtRating;
+    TextView textViewShowLocation, textViewShowCause, textViewShowSide, textViewShowDate, textViewShowSeverity,txtPic,txtRating,textView48;
 
     Button buttonReturn,buttonedit,buttonDelete;
 
@@ -82,6 +82,8 @@ public class ViewSingleBleed extends AppCompatActivity {
         listViewTreatment =(ListView) findViewById(R.id.ListViewTreatmentEdit);
         txtRating = (TextView) findViewById(R.id.txtRating) ;
         buttonedit = (Button) findViewById(R.id.editBleedButton);
+        textView48 = (TextView) findViewById(R.id.textView48);
+
 
 
 
@@ -104,35 +106,10 @@ public class ViewSingleBleed extends AppCompatActivity {
         String Bleedside = intent.getStringExtra(ViewPatientBleeds.BLEED_SIDE);
         String Bleedcause = intent.getStringExtra(ViewPatientBleeds.BLEED_CAUSE);
         String Bleeddate = intent.getStringExtra(ViewPatientBleeds.BLEED_DATE);
+        String Bleedrating = intent.getStringExtra(ViewPatientBleeds.BLEED_RATING);
         String PatientName = intent.getStringExtra(ViewPatientBleeds.PATIENT_NAME);
         String PatientID = intent.getStringExtra(ViewPatientBleeds.PATIENT_ID);
         final Integer rating = null;
-
-
-
-        String id = FirebaseAuth.getInstance().getUid();
-
-        dbPain = FirebaseDatabase.getInstance().getReference().child("bleeds").child(PatientID).child(Bleedid).child("bleedRating");
-       dbPain.addValueEventListener(new ValueEventListener() {
-           @Override
-           public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-               if(snapshot.exists()){
-
-                   Integer ratings = snapshot.getValue(Integer.class);
-
-                   String newRat = ratings.toString();
-
-                   txtRating.setText(newRat);
-               }
-
-           }
-
-           @Override
-           public void onCancelled(@NonNull DatabaseError error) {
-
-           }
-       });
 
 
         databaseImage = FirebaseDatabase.getInstance().getReference().child("bleedImages").child(Bleedid).child(Bleedid).child("imageUrl");
@@ -169,8 +146,33 @@ public class ViewSingleBleed extends AppCompatActivity {
         });
 
 
+        dbPain = FirebaseDatabase.getInstance().getReference().child("bleeds").child(PatientID).child(Bleedid).child("bleedRating");
+        dbPain.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-       // name = PatientName;
+                if(snapshot.exists()){
+
+                    Integer ratings = snapshot.getValue(Integer.class);
+
+                    String newRat = ratings.toString();
+
+                    txtRating.setText(newRat);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
+
+        // name = PatientName;
        // ID = PatientID;
 
 
@@ -179,7 +181,6 @@ public class ViewSingleBleed extends AppCompatActivity {
         textViewShowDate.setText(Bleeddate);
         textViewShowSeverity.setText(Bleedseverity);
         textViewShowSide.setText(Bleedside);
-       // txtRating.setText(rating);
 
         buttonReturn = (Button) findViewById(R.id.returnButton);
 

@@ -35,11 +35,13 @@ public class TreatmentList extends ArrayAdapter<Treatment> {
 
         TextView textViewName = (TextView) listViewItem.findViewById(R.id.textViewName);
         TextView textViewRating = (TextView) listViewItem.findViewById(R.id.textViewRating);
+        TextView textViewSeverityList = (TextView) listViewItem.findViewById(R.id.textViewSeverityList);
 
         Treatment bleed = treatments.get(position);
 
         textViewName.setText(bleed.getTreatmentReason());
         textViewRating.setText(String.valueOf(bleed.getTreatmentDate()));
+        textViewSeverityList.setText(bleed.getTreatmentType());
 
         return listViewItem;
 

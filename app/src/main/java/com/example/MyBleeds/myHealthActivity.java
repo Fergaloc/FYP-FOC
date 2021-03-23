@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -400,6 +401,30 @@ public class myHealthActivity extends AppCompatActivity {
                                     final BleedList bleedListAdapter = new BleedList(myHealthActivity.this, bleeds);
                                     listViewTarget.setAdapter(bleedListAdapter);
 
+
+                                    listViewTarget.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                                            Bleed bleed = (Bleed) parent.getAdapter().getItem(position);
+
+                                            Intent viewIntent = new Intent(myHealthActivity.this, ViewSingleBleedPatient.class);
+                                            viewIntent.putExtra(BLEED_ID, bleed.getBleedIDID());
+                                            viewIntent.putExtra(BLEED_NAME, bleed.getBleedName());
+                                            viewIntent.putExtra(BLEED_SEVERITY, bleed.getBleedSeverity());
+                                            viewIntent.putExtra(BLEED_SIDE, bleed.getBleedSide());
+                                            viewIntent.putExtra(BLEED_DATE, bleed.getBleedDate());
+                                            viewIntent.putExtra(BLEED_CAUSE, bleed.getBleedCause());
+
+
+                                            startActivity(viewIntent);
+                                        }
+                                    });
+
+
+
+
+
                                 }
 
                                 @Override
@@ -445,7 +470,7 @@ public class myHealthActivity extends AppCompatActivity {
 
                 final String bleedID = getRef(position).getKey();
 
-                dataBleed.child(bleedID).orderByChild("bleedDate").limitToFirst(countBleeds).addValueEventListener(new ValueEventListener() {
+                dataBleed.child(bleedID).orderByChild("bleedDate").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -462,6 +487,7 @@ public class myHealthActivity extends AppCompatActivity {
 
                             notifyDataSetChanged();
                         }
+
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {

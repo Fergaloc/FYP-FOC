@@ -92,10 +92,6 @@ public class ParentViewChildHome extends AppCompatActivity {
         tvPatientName.setText(PatientName);
 
 
-
-
-
-
         databaseBleeds = FirebaseDatabase.getInstance().getReference("bleeds").child(patientsID);
 
 

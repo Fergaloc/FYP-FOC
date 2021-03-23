@@ -372,6 +372,7 @@ public class AddBleedActivity extends AppCompatActivity implements DatePickerDia
             mImageUri = data.getData();
             Glide.with(this).load(mImageUri).into(imgBleed);
             uploadFile();
+            Toast.makeText(this, "Photo Uploaded", Toast.LENGTH_SHORT).show();
         }
 
     }

@@ -453,6 +453,7 @@ String patientID;
                 viewIntent.putExtra(BLEED_SIDE, bleed.getBleedSide());
                 viewIntent.putExtra(BLEED_DATE, bleed.getBleedDate());
                 viewIntent.putExtra(BLEED_CAUSE, bleed.getBleedCause());
+                viewIntent.putExtra(PATIENT_ID, patientID);
 
 
                 startActivity(viewIntent);

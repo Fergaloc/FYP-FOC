@@ -52,6 +52,7 @@ public class ViewPatientBleeds extends AppCompatActivity implements DoctorFilter
     public static final String BLEED_SEVERITY = "bleedseverity";
     public static final String BLEED_CAUSE = "bleedcause";
     public static final String BLEED_DATE = "bleeddate";
+    public static final String BLEED_RATING = "bleedratings";
 
 
     FirebaseAuth mAuth;
@@ -78,6 +79,7 @@ public class ViewPatientBleeds extends AppCompatActivity implements DoctorFilter
     Spinner spbleedLocation;
 
     String patientID;
+    String ID;
     String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
 
@@ -119,7 +121,10 @@ public class ViewPatientBleeds extends AppCompatActivity implements DoctorFilter
         });
 
         Intent intent = getIntent();
-        String id = intent.getStringExtra(ViewPatientHome.PATIENT_ID);
+        String ids = intent.getStringExtra(ViewPatientHome.PATIENT_ID);
+
+         ID = ids;
+
         txtChildID.setVisibility(View.GONE);
 
         bleeds = new ArrayList<>();
@@ -128,11 +133,11 @@ public class ViewPatientBleeds extends AppCompatActivity implements DoctorFilter
         //code to decide which ID is active and which one to use.
 
         if(TextUtils.isEmpty(newsID)){
-            databaseBleeds = FirebaseDatabase.getInstance().getReference("bleeds").child(id);
-            databaseLS = FirebaseDatabase.getInstance().getReference().child("bleeds").child(id);
-            query = databaseBleeds.child(id);
-            txtChildID.setText(id);
-            patientID = id;
+            databaseBleeds = FirebaseDatabase.getInstance().getReference("bleeds").child(ids);
+            databaseLS = FirebaseDatabase.getInstance().getReference().child("bleeds").child(ids);
+            query = databaseBleeds.child(ids);
+            txtChildID.setText(ids);
+            patientID = ids;
         }else{
 
             databaseBleeds = FirebaseDatabase.getInstance().getReference("bleeds").child(newsID);
@@ -419,6 +424,9 @@ public class ViewPatientBleeds extends AppCompatActivity implements DoctorFilter
 
 
 
+
+
+
         btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -450,6 +458,7 @@ public class ViewPatientBleeds extends AppCompatActivity implements DoctorFilter
                 viewIntent.putExtra(BLEED_SIDE, bleed.getBleedSide());
                 viewIntent.putExtra(BLEED_DATE, bleed.getBleedDate());
                 viewIntent.putExtra(BLEED_CAUSE, bleed.getBleedCause());
+                viewIntent.putExtra(BLEED_RATING, bleed.getBleedRating()).toString();
                 viewIntent.putExtra(PATIENT_ID, patientID);
 
 
@@ -457,6 +466,7 @@ public class ViewPatientBleeds extends AppCompatActivity implements DoctorFilter
 
             }
         });
+
 
 
     }

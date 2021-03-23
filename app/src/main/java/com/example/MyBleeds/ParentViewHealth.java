@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -204,7 +205,7 @@ public class ParentViewHealth extends AppCompatActivity {
 
 
         //Gets the patient ID and finds their bleeds
-        String idS = intent.getStringExtra(PatientSettingsActivity.PATIENT_ID);
+        final String idS = intent.getStringExtra(PatientSettingsActivity.PATIENT_ID);
         databaseBleeds = FirebaseDatabase.getInstance().getReference("bleeds").child(id);
         query = databaseBleeds.child(id);
 
@@ -405,6 +406,25 @@ public class ParentViewHealth extends AppCompatActivity {
                                     }
                                     final BleedList bleedListAdapter = new BleedList(ParentViewHealth.this, bleeds);
                                     listViewTarget.setAdapter(bleedListAdapter);
+
+                                    listViewTarget.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                                            Bleed bleed = (Bleed) parent.getAdapter().getItem(position);
+
+                                            Intent viewIntent = new Intent(ParentViewHealth.this, ViewSingleBleed.class);
+                                            viewIntent.putExtra(BLEED_ID, bleed.getBleedIDID());
+                                            viewIntent.putExtra(BLEED_NAME, bleed.getBleedName());
+                                            viewIntent.putExtra(BLEED_SEVERITY, bleed.getBleedSeverity());
+                                            viewIntent.putExtra(BLEED_SIDE, bleed.getBleedSide());
+                                            viewIntent.putExtra(BLEED_DATE, bleed.getBleedDate());
+                                            viewIntent.putExtra(BLEED_CAUSE, bleed.getBleedCause());
+                                            viewIntent.putExtra(PATIENT_ID, idS);
+
+                                            startActivity(viewIntent);
+                                        }
+                                    });
 
                                 }
 
