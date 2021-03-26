@@ -48,7 +48,4 @@ public class TreatmentList extends ArrayAdapter<Treatment> {
 
     }
 
-
-
-
 }

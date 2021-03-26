@@ -170,7 +170,7 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginStart="150dp"
-        android:layout_marginTop="520dp"
+        android:layout_marginTop="492dp"
         android:layout_marginEnd="150dp"
         android:text="Treatments"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
